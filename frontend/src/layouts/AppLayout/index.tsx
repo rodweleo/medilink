@@ -1,12 +1,16 @@
-import { Route, Routes } from "react-router-dom"
-import { AppNavigation } from "./components/Navigation"
-import { Appointments } from "@/pages/appointments"
+import { AdminAccount } from "@/pages/accounts/admin"
+import { PatientAccount } from "@/pages/accounts/patient"
+import { DoctorAccount } from "@/pages/accounts/doctor"
 
 export const AppLayout = () => {
-    return <main className="flex w-full">
-        <AppNavigation/>
-        <Routes>
-            <Route path="/home" element={<Appointments/>}/>
-        </Routes>
-    </main>
+    const role = "admin"
+
+    if(role === "doctor"){
+        return <DoctorAccount/>
+    }else if(role === "patient"){
+        return <PatientAccount/>
+    }else if(role === "admin"){
+        return <AdminAccount/>
+    }
+    return "No account found"
 }

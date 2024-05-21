@@ -75,6 +75,54 @@
     }
   }
 
+  .patient-nav-bar ul li a{
+    display: flex;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 7.5px;
+  }
+
+  .patient-nav-bar ul li a:hover{
+    background-color: lightgray;
+  }
+
+  .patient-nav-bar ul li a.active{
+    background-color: lightgray;
+    font-weight: 500;
+  }
+
+  .doctor-nav-bar ul li a{
+    display: flex;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 7.5px;
+  }
+
+  .doctor-nav-bar ul li a:hover{
+    background-color: lightgray;
+  }
+
+  .doctor-nav-bar ul li a.active{
+    background-color: lightgray;
+    font-weight: 500;
+  }
+
+  .admin-nav-bar ul li a{
+    display: flex;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 7.5px;
+  }
+
+  .admin-nav-bar ul li a:hover{
+    background-color: lightgray;
+  }
+
+  .admin-nav-bar ul li a.active{
+    background-color: lightgray;
+    font-weight: 500;
+  }
+
   .app-navlink{
     width: 100%;
     background-color: red;
