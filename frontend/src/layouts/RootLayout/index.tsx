@@ -3,12 +3,12 @@ import { NavLink, Route, Routes } from "react-router-dom"
 import { Homepage } from "./pages/homepage"
 
 export const RootLayout = () => {
-    return <main className="p-5 h-screen">
+    return <main className="p-5 h-screen w-full overflow-hidden">
         <nav className="flex w-full justify-between sticky top-0">
             <NavLink to="/">
                 <h1 className="font-bold">MediLink</h1>
             </NavLink>
-            <ul className="flex gap-5">
+            <ul className="flex gap-10">
                 <li><NavLink to="/">Home</NavLink></li>
                 <li><NavLink to="about-us">About Us</NavLink></li>
                 <li><NavLink to="pricing">Pricing</NavLink></li>

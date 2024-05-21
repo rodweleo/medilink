@@ -10,7 +10,7 @@ export const Homepage = () => {
                 </div>
                 <Button className="w-fit">Book Appointment</Button>
             </div>
-            <img src="https://www.istudiotech.in/wp-content/uploads/2022/03/Healthcare-Powered-by-Automation.png" alt="Re-imagining health care through technology."/>
+            <img src="https://www.istudiotech.in/wp-content/uploads/2022/03/Healthcare-Powered-by-Automation.png" alt="Re-imagining health care through technology." className="hidden lg:flex"/>
         </section>
     </main>
 }
