@@ -4,7 +4,7 @@ import { RootLayout } from './layouts/RootLayout';
 
 function App() {
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   return (
     <>
       {isLoggedIn ? <AppLayout/> : <RootLayout/>}
