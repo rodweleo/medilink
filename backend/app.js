@@ -6,7 +6,7 @@ dotenv.config()
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://medilinc.vercel.app"]
+    origin: ["*"]
 }))
 
 app.get("/", (req, res) => {
