@@ -1,19 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config()
+import cors from "cors"
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase/firebase.config.js";
 import bodyParser from "body-parser";
 import africastalking from "africastalking";
+import { createClient } from '@supabase/supabase-js'
 
-
+const supabase_client = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
 const app = express();
-//app.use(express.json());
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-    extended: false
+app.use(express.json());
+app.use(cors({
+    origin: "*"
 }))
-
 
 
 
@@ -46,8 +46,17 @@ app.get("/", async (req, res) => {
     res.send('The MediLink Server is live now.')
 })
 
-app.get("/health-facilities", (req, res) => {
-    res.send('Health facilities api endpoint')
+
+app.get("/healthcare-facilities", async (req, res) => {
+    let { data, error, status } = await supabase_client.from('healthcare_facilities').select()
+    
+    if(error){
+        res.status(status).json(data)
+    }
+
+    res.status(status).json({
+        healthcare_facilities: data
+    })
 })
 
 

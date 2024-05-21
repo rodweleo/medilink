@@ -1,5 +1,6 @@
 import { SignIn } from "@/pages/auth/sign-in"
 import { NavLink, Route, Routes } from "react-router-dom"
+import { Homepage } from "./pages/homepage"
 
 export const RootLayout = () => {
     return <main className="p-5 h-screen">
@@ -8,7 +9,7 @@ export const RootLayout = () => {
                 <h1 className="font-bold">MediLink</h1>
             </NavLink>
             <ul className="flex gap-5">
-                <li><NavLink to="home">Home</NavLink></li>
+                <li><NavLink to="/">Home</NavLink></li>
                 <li><NavLink to="about-us">About Us</NavLink></li>
                 <li><NavLink to="pricing">Pricing</NavLink></li>
                 <li><NavLink to="contact-us">Contact Us</NavLink></li>
@@ -20,7 +21,7 @@ export const RootLayout = () => {
         </nav>
         <section className="h-screen">
             <Routes>
-                <Route path="home" element={<main>Home page</main>}/>
+                <Route path="/" element={<Homepage/>}/>
                 <Route path="about-us" element={<main>About us</main>}/>
                 <Route path="pricing" element={<main>Pricing</main>}/>
                 <Route path="contact-us" element={<main>Contact Us</main>}/>

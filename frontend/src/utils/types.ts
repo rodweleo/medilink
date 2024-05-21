@@ -1,8 +1,7 @@
 export type Patient = {
     id: string | number;
     name: string;
-    email: string;
-    phone_number: number;
+    contact: Contact;
     county: string;
     created_at: string
 }
@@ -10,22 +9,21 @@ export type Patient = {
 export type Doctor = {
     id: string | number;
     name: string;
-    email: string;
-    phone_number: number;
+    contact: Contact;
     county: string;
     hospital?: string | number
     created_at: string
 }
 
-export type Hospital = {
+export type HealthcareFacility = {
     id: string | number;
     name: string;
-    email: string;
-    phone_number: number;
-    county: string;
-    gps_coordinates: string 
+    contact: Contact,
+    location: Location;
+    motto?: string;
     services: string[];
-    created_at: string
+    created_at: string;
+
 }
 
 export type MedicalRecord = {
@@ -48,4 +46,19 @@ export type Ambulance = {
     number_plate : string | number;
     location : string;
     phone_number: number
+}
+
+export type Contact = {
+    email_address: string;
+    phone_number: number;
+}
+
+export type Location = {
+    county: string;
+    gps_coordinates: Coordinates;
+}
+
+export type Coordinates = {
+    latitude: string | number;
+    longitude: string | number
 }
