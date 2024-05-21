@@ -20,14 +20,14 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 import { SignInFormSchema } from "@/schemas/signin_form_schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {Link, useNavigate } from "react-router-dom"
+import {Link } from "react-router-dom"
 //import { useToast } from "@/components/ui/use-toast"
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState} from "react"
 
 export const SignInForm = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     //const { toast } = useToast()
     const form = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
@@ -41,6 +41,8 @@ export const SignInForm = () => {
             replace: true
         })*/
         setIsSubmitting(true)
+        console.log(values);
+
     } 
 
     return <Card className="w-[400px]">
