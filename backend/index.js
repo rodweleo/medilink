@@ -1,11 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config()
-import { collection, getDocs, addDoc, getDoc, query, where, doc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase/firebase.config.js";
 import bodyParser from "body-parser";
 import africastalking from "africastalking";
-import axios from "axios";
 
 
 const app = express();
@@ -51,32 +50,7 @@ app.get("/health-facilities", (req, res) => {
     res.send('Health facilities api endpoint')
 })
 
-//FUNCTIONS TO CREATE A NEW ORDER AND ASSIGNING THE CARRIER
-const createOrder = async () => {
-    const order = {
-        buyer: "+254795565344",
-        products: [
-            "Soap", 
-            "Toothpaste"
-        ],
-        shipping_address: {
-            county: "Nairobi",
-            location: "Kahawa Sukari"
-        }
-    }
 
-    const res = await addDoc(collection(db, "orders"), order);
-
-    
-
-    return res.id;
-}
-
-
-const createUser = async (user_details) => {
-    const res = await addDoc(collection(db, "users"), user_details);
-    return res.id;
-}
 const africasTalkingOptions = {
     apiKey: process.env.AFRICA_TALKING_API_KEY,
     username: process.env.AFRICA_TALKING_SMS_USERNAME,
@@ -93,45 +67,6 @@ const sendSMS = async (receiver, content) => {
     
     return response;
 }
-
-//function to register a 
-app.get("/create-order", async (req, res) => {
-    const response = await createOrder()
-    //on successful creation on the order, send an sms to the customer and the assigned driver with the delivery details.
-
-    res.send(response);
-})
-
-
-//FUNCTION TO RETRIEVE ALL THE ORDERS
-const fetchAllOrders = async () => {
-    const querySnapshot = await getDocs(collection(db, "orders"));
-    const orders = querySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})); 
-
-    return orders;
-}
-
-//FUNCTION TO RETRIEVE A DRIVER'S ORDERS
-const fetchDriverOrders = async (driverPhoneNumber) => {
-    const q = query(collection(db, "orders"), where("delivery_driver", "==", driverPhoneNumber));
-    const querySnapshot = await getDocs(q);
-
-    if(querySnapshot.empty){
-        return []
-    }
-
-    const orders = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-    }))
-
-    return orders
-}
-
-app.get("/orders", async (req, res) => {
-    const orders = await fetchAllOrders();
-    res.send(orders)
-})
 
 
 
