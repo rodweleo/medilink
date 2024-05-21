@@ -47,6 +47,10 @@ app.get("/", async (req, res) => {
     res.send('The MediLink Server is live now.')
 })
 
+app.get("/health-facilities", (req, res) => {
+    res.send('Health facilities api endpoint')
+})
+
 //FUNCTIONS TO CREATE A NEW ORDER AND ASSIGNING THE CARRIER
 const createOrder = async () => {
     const order = {
