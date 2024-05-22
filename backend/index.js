@@ -7,6 +7,7 @@ import { db } from "./firebase/firebase.config.js";
 import bodyParser from "body-parser";
 import africastalking from "africastalking";
 import { createClient } from '@supabase/supabase-js'
+import axios from "axios";
 
 const supabase_client = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
 const app = express();
@@ -59,6 +60,21 @@ app.get("/healthcare-facilities", async (req, res) => {
     })
 })
 
+
+app.get('/distance', async (req, res) => {
+    const {origins, destinations} = req.query;
+
+    try{
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destinations.latitude + "," + destinations.longitude}&origins=${origins.latitude + "," + origins.longitude}&units=imperial&key=${process.env.GOOGLE_API_KEY}`)
+        res.status(200).json({
+            distance: response.data.rows[0].elements[0].distance,
+            duration: response.data.rows[0].elements[0].duration,
+        })
+    }catch(e){
+        console.log(e)
+        res.status(500).json(e)
+    }
+})
 
 const africasTalkingOptions = {
     apiKey: process.env.AFRICA_TALKING_API_KEY,
