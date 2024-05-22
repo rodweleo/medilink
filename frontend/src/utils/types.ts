@@ -62,3 +62,10 @@ export type Coordinates = {
     latitude: string | number;
     longitude: string | number
 }
+
+export type Plan = {
+    title: string;
+    description: string;
+    features: string[];
+    pricing: string
+}

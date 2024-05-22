@@ -1,10 +1,11 @@
 import { SignIn } from "@/pages/auth/sign-in"
 import { NavLink, Route, Routes } from "react-router-dom"
 import { Homepage } from "./pages/homepage"
+import { Pricing } from "./pages/pricing"
 
 export const RootLayout = () => {
-    return <main className="p-5 h-screen w-full overflow-hidden">
-        <nav className="flex w-full justify-between sticky top-0">
+    return <main className="h-screen w-full overflow-x-hidden">
+        <nav className="root-nav-bar flex p-5 w-full items-center bg-white justify-between sticky top-0 h-20 z-50">
             <NavLink to="/">
                 <h1 className="font-bold">MediLink</h1>
             </NavLink>
@@ -19,11 +20,11 @@ export const RootLayout = () => {
                 <li><NavLink to="sign-up">Sign Up</NavLink></li>
             </ul>
         </nav>
-        <section className="h-screen">
+        <section className="h-screen p-5">
             <Routes>
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="about-us" element={<main>About us</main>}/>
-                <Route path="pricing" element={<main>Pricing</main>}/>
+                <Route path="pricing" element={<Pricing/>}/>
                 <Route path="contact-us" element={<main>Contact Us</main>}/>
                 <Route path="sign-in" element={<SignIn/>}/>
             </Routes>

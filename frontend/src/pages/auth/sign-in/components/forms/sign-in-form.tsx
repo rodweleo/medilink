@@ -62,7 +62,7 @@ export const SignInForm = () => {
                 <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                    <Input placeholder="johndoe@gmail.com" {...field} required />
+                    <Input type="email" placeholder="johndoe@gmail.com" {...field} required />
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -76,7 +76,7 @@ export const SignInForm = () => {
                 <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                    <Input placeholder="********" {...field} required />
+                    <Input type="password" placeholder="********" {...field} required />
                 </FormControl>
                 <FormMessage />
                 </FormItem>

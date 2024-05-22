@@ -75,6 +75,22 @@
     }
   }
 
+  .root-nav-bar ul li a{
+    padding: 10px 20px;
+    transition: 0.25s ease-in-out;
+  }
+
+  .root-nav-bar ul li a:hover{
+    --tw-text-opacity: 1;
+    border-bottom: 3px solid rgb(59 130 246 / var(--tw-text-opacity));
+  }
+
+  .root-nav-bar ul li a.active{
+    --tw-text-opacity: 1;
+    border-bottom: 3px solid rgb(59 130 246 / var(--tw-text-opacity));
+    font-weight: bold
+  }
+
   .patient-nav-bar ul li a{
     display: flex;
     width: 100%;
