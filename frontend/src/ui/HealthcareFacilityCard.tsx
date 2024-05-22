@@ -45,7 +45,7 @@ export const HealthcareFacilityCard = ({healthcareFacility}: {
     const calculateDistance = async () => {
         getCurrentLocation();
         try{
-            const response = await axios.get(`api-medilink.vercel.app/distance`, {
+            const response = await axios.get(`https://api-medilink.vercel.app/distance`, {
                 params: {
                     origins: {
                         latitude: currentCoordinates?.latitude,
