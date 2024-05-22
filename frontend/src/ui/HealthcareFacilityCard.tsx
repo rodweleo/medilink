@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { GiPathDistance } from "react-icons/gi";
 import { RiMapPinTimeLine } from "react-icons/ri";
+import { API_URL } from "@/utils/API_URL"
 
 
 export const HealthcareFacilityCard = ({healthcareFacility}: {
@@ -45,7 +46,7 @@ export const HealthcareFacilityCard = ({healthcareFacility}: {
     const calculateDistance = async () => {
         getCurrentLocation();
         try{
-            const response = await axios.get(`https://api-medilink.vercel.app/distance`, {
+            const response = await axios.get(`${API_URL}/distance`, {
                 params: {
                     origins: {
                         latitude: currentCoordinates?.latitude,
@@ -54,6 +55,7 @@ export const HealthcareFacilityCard = ({healthcareFacility}: {
                     destinations: healthcareFacility.location.gps_coordinates,
                 }
             })
+            
             setDistance(response.data);
         }catch(e){
             console.error(e)
