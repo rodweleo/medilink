@@ -134,11 +134,23 @@ const sendSMS = async (receiver, content) => {
 };
 
 app.get("/appointments", async (req, res) => {
-  if (req.params) {
+  if (Object.entries(req.params).length > 0) {
+    let { data, error, status } = await supabase_client
+      .from("appointments")
+      .select()
+      .eq("patient_id", req.params.patient_id);
+
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        appointments: data,
+      });
+    }
   } else {
     let { data, error, status } = await supabase_client
       .from("appointments")
-      .select("*");
+      .select();
 
     if (error) {
       res.status(500).json(data);
@@ -150,17 +162,61 @@ app.get("/appointments", async (req, res) => {
   }
 });
 
-app.get("/prescriptions", async (req, res) => {
-  let { data, error, status } = await supabase_client
-    .from("prescriptions")
-    .select();
+app.get("/doctors", async (req, res) => {
+  if (Object.entries(req.params).length > 0) {
+    let { data, error, status } = await supabase_client
+      .from("doctors")
+      .select()
+      .eq("id", req.params.doctorId);
 
-  if (error) {
-    res.status(status).json(data);
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        doctors: data,
+      });
+    }
   } else {
-    res.status(status).json({
-      prescriptions: data,
-    });
+    let { data, error, status } = await supabase_client
+      .from("doctors")
+      .select();
+
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        doctors: data,
+      });
+    }
+  }
+});
+
+app.get("/prescriptions", async (req, res) => {
+  if (Object.entries(req.params).length > 0) {
+    let { data, error, status } = await supabase_client
+      .from("prescriptions")
+      .select()
+      .eq("patient_id", req.params.patientId);
+
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        prescriptions: data,
+      });
+    }
+  } else {
+    let { data, error, status } = await supabase_client
+      .from("prescriptions")
+      .select();
+
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        prescriptions: data,
+      });
+    }
   }
 });
 

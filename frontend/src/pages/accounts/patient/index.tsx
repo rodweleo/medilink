@@ -6,6 +6,7 @@ import { Doctors } from "./pages/doctors";
 import { AIChat } from "./pages/ai-chat";
 import { Messages } from "./pages/messages";
 import { Prescriptions } from "./pages/prescriptions";
+import { Appointments } from "./pages/appointments";
 
 export const PatientAccount = () => {
   return (
@@ -38,7 +39,7 @@ export const PatientAccount = () => {
       <section className="bg-white w-full p-2 rounded-md">
         <Routes>
           <Route path="/" element={<MyHealth />} />
-          <Route path="appointments" element={<main>Appointments</main>} />
+          <Route path="appointments" element={<Appointments />} />
           <Route path="doctors" element={<Doctors />} />
           <Route
             path="healthcare-facilities"
