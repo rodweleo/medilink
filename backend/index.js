@@ -47,6 +47,60 @@ app.get("/", async (req, res) => {
   res.send("The MediLink Server is live now.");
 });
 
+app.get("/session", async (req, res) => {
+  const {data, status, error} = await supabase_client.auth.getSession();
+
+  res.json(data)
+})
+
+app.post("/login", async (req, res) => {
+  if(Object.entries(req.body).length < 2){
+    res.status(401).json({
+      error: 'Email address or password missing'
+    })
+  }
+
+    
+  let { data, error} = await supabase_client.auth.signInWithPassword({
+    email: req.body.email,
+    password: req.body.password
+  })
+
+    if(error){
+      res.status(500).json(error)
+    }else{
+      res.status(200).json(data)
+    }
+
+    
+
+})
+
+app.post("/logout", async (req, res) => {
+  const { error } =  await supabase_client.auth.signOut();
+  if(error){
+    res.status(500).json(error)
+  }
+
+  res.status(200).json({
+    message: "You've been signed out."
+  })
+})
+
+app.get("/doctors", async (req, res) => {
+  let { data, error, status } = await supabase_client
+    .from("doctors")
+    .select();
+
+  if (error) {
+    res.status(status).json(data);
+  }
+
+  res.status(status).json({
+    doctors: data,
+  });
+})
+
 app.get("/healthcare-facilities", async (req, res) => {
   let { data, error, status } = await supabase_client
     .from("healthcare_facilities")

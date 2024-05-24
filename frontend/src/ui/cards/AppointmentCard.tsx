@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useDoctor } from "@/pages/accounts/hooks/useDoctor";
+import { useDoctor } from "@/hooks/useDoctor";
 import moment from "moment";
 import { CiCalendar } from "react-icons/ci";
 import { CiClock1 } from "react-icons/ci";

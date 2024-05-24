@@ -1,13 +1,15 @@
 import './App.css'
+import { Toaster } from './components/ui/toaster';
+import { useSession } from './hooks/useSession';
 import { AppLayout } from './layouts/AppLayout';
 import { RootLayout } from './layouts/RootLayout';
 
 function App() {
-
-  const isLoggedIn = true;
+  const { session } = useSession();
   return (
     <>
-      {isLoggedIn ? <AppLayout/> : <RootLayout/>}
+      <Toaster />
+      {session ? <AppLayout/> : <RootLayout/>}
     </>
   )
 }

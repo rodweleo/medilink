@@ -1,4 +1,4 @@
-import { usePatient } from "@/pages/accounts/hooks/usePatient";
+import { usePatient } from "@/hooks/usePatient";
 import { AppointmentCard } from "@/ui/cards/AppointmentCard";
 
 export const Appointments = () => {

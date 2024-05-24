@@ -20,28 +20,46 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 import { SignInFormSchema } from "@/schemas/signin_form_schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {Link } from "react-router-dom"
-//import { useToast } from "@/components/ui/use-toast"
+import {Link, useNavigate } from "react-router-dom"
+import { useToast } from "@/components/ui/use-toast"
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState} from "react"
+import { useSession } from "@/hooks/useSession"
 
 export const SignInForm = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    //const navigate = useNavigate()
-    //const { toast } = useToast()
+    const navigate = useNavigate()
+    const { toast } = useToast()
+    const { signIn } = useSession();
     const form = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
         defaultValues: {
-            email: ""
+            email: "",
+            password: ""
         }
     })
 
-    const onSubmit = (values: z.infer<typeof SignInFormSchema>) =>{
-        /*navigate("/feed", {
-            replace: true
-        })*/
+    const onSubmit = async (values: z.infer<typeof SignInFormSchema>) =>{
+        
         setIsSubmitting(true)
-        console.log(values);
+        signIn(values.email, values.password).then((response) => {
+            if(response.user){
+                navigate("/", {
+                    replace: true
+                })
+                window.location.reload()
+                setIsSubmitting(false)
+            }else{
+                setIsSubmitting(false)
+            }
+        }).catch((error) =>{
+            console.log(error.message)
+            toast({
+                title: 'Error',
+                description: error.message
+            })
+            setIsSubmitting(false)
+        })
 
     } 
 

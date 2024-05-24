@@ -29,6 +29,7 @@
         "express": "^4.19.2",
         "firebase": "^10.11.0",
         "nodemon": "^3.1.0",
-        "ussd-builder": "^1.2.5"
+        "ussd-builder": "^1.2.5",
+        "winston": "^3.13.0"
     }
 }

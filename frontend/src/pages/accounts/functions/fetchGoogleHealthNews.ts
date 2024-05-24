@@ -1,9 +1,10 @@
 import axios from "axios";
 
+//https://newsnow.p.rapidapi.com/newsv2_top_news_cat
 export const fetchGoogleHealthNews = async () => {
   try {
     const response = await axios.post(
-      `https://newsnow.p.rapidapi.com/newsv2_top_news_cat`,
+      ``,
       {
         category: "HEALTH",
         location: "",
@@ -21,5 +22,7 @@ export const fetchGoogleHealthNews = async () => {
     );
 
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    return error
+  }
 };

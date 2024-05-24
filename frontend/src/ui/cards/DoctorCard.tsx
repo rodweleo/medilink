@@ -9,18 +9,20 @@ import {
   } from "@/components/ui/card"
 
 
-export const DoctorCard = () => {
-    return <Card className="w-fit">
+export const DoctorCard = ({doctor, index}: {
+    index: number
+}) => {
+    return <Card className="w-fit" id={doctor.id} key={index}>
         <CardHeader>
-           <CardTitle>John Doe</CardTitle>
-           <CardDescription>Dentist</CardDescription>
+           <CardTitle>{doctor.name}</CardTitle>
+           <CardDescription>{doctor.practice}</CardDescription>
         </CardHeader>
         <CardContent>
             <p>Hospital Road, Nairobi - Kenya.</p>
             <span className="text-blue-500 font-bold">Open</span>
         </CardContent>
         <CardFooter>
-            <Button>Make Appointment</Button>
+            <Button>Book Appointment</Button>
         </CardFooter>
 
     </Card>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { AppointmentCard } from "@/ui/cards/AppointmentCard";
-import { usePatient } from "@/pages/accounts/hooks/usePatient";
+import { usePatient } from "@/hooks/usePatient";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BsPrescription } from "react-icons/bs";
-import { useHealthNews } from "@/pages/accounts/hooks/useHealthNews";
+import { useHealthNews } from "@/hooks/useHealthNews";
 export const MyHealth = () => {
   const { appointments, prescriptions } = usePatient(
     "33bcd9c0-b465-497e-9ab7-81bcf04729b4"
@@ -21,7 +21,7 @@ export const MyHealth = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="flex flex-col gap-5">
+    <main className="flex flex-col gap-5 h-full">
       <Card className=" bg-gradient-to-br from-blue-500 to-blue-100">
         <CardHeader>
           <h1 className="text-sm">Welcome Back,</h1>
@@ -38,7 +38,7 @@ export const MyHealth = () => {
               View All
             </Button>
           </div>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-5">
             {appointments.map((appointment, index: number) => {
               return (
                 <AppointmentCard appointment={appointment} index={index} />
@@ -63,11 +63,11 @@ export const MyHealth = () => {
       <section className="flex flex-col gap-3">
         <h1 className="font-bold">Good to Know</h1>
         <div className="flex flex-col gap-5">
-          {news.slice(0, 2).map((news_piece) => {
+          {news ? news.slice(0, 2).map((news_piece) => {
             return (
               <Card className="w-[500px]">
                 <div className="flex">
-                  <img src={news_piece.top_image} className="w-48" />
+                  <img src={news_piece.top_image} className="w-48 p-5 rounded-[30px]" alt={news_piece.title} />
                   <CardHeader>
                     <CardTitle>{news_piece.title}</CardTitle>
                     <CardDescription className=" line-clamp-4">
@@ -77,7 +77,7 @@ export const MyHealth = () => {
                 </div>
               </Card>
             );
-          })}
+          }) : ""}
         </div>
       </section>
     </main>
