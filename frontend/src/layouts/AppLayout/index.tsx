@@ -4,7 +4,7 @@ import { DoctorAccount } from "@/pages/accounts/doctor"
 
 
 export const AppLayout = () => {
-    const role: string = "patient"
+    const role: string = "admin"
 
     if(role === "doctor"){
         return <DoctorAccount/>

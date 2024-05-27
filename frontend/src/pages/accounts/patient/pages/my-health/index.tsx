@@ -4,14 +4,13 @@ import { usePatient } from "@/hooks/usePatient";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { BsPrescription } from "react-icons/bs";
 import { useHealthNews } from "@/hooks/useHealthNews";
+
 export const MyHealth = () => {
   const { appointments, prescriptions } = usePatient(
     "33bcd9c0-b465-497e-9ab7-81bcf04729b4"
@@ -63,7 +62,11 @@ export const MyHealth = () => {
       <section className="flex flex-col gap-3">
         <h1 className="font-bold">Good to Know</h1>
         <div className="flex flex-col gap-5">
-          {news ? news.slice(0, 2).map((news_piece) => {
+          {news ? news.slice(0, 2).map((news_piece:{
+            top_image: string,
+            title: string,
+            short_description: string
+          }) => {
             return (
               <Card className="w-[500px]">
                 <div className="flex">

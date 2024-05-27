@@ -8,19 +8,85 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import africastalking from "africastalking";
 import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
+import  rateLimit from "express-rate-limit";
+import {logger } from "./middleware/logger.js"
+import moment from  "moment"
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
 );
+
+const apiRateLimiter = rateLimit({
+  windowMs: 15,
+  max: 100,
+  message: 'Too many request from this IP'
+})
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const app = express();
 app.use(express.json());
+const allowedDomains = ['http://localhost:5173', 'https://medilink.vercel.app']
+
 app.use(
   cors({
     origin: "*",
   })
 );
+
+
+const checkAccess = (req, res, next) => {
+  const action = req.query.action;
+
+  if(action === undefined){
+    next()
+  }else{
+    res.status(403).json({
+      status: false,
+      message: "Forbidden"
+    })
+  }
+}
+
+
+app.use(async (req, res, next) => {
+  const { data, error} = await supabase_client.auth.getSession()
+  const {session} = data;
+  const headers = req.headers;
+  const token = headers["Authorization"]
+
+  //console.log(token)
+    res.setHeader('Content-Security-Policy', "default-src 'self'");
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
+    
+    //save the log into the database
+    await supabase_client
+    .from('server_logs')
+    .insert([
+      { 
+        level: 'info', 
+        message: 'otherValue', 
+        req_method: req.method, 
+        req_path: req.originalUrl, 
+        req_host: req.get("host"), 
+        req_timestamp: moment(), 
+        access_token: session?.access_token,
+        user_id: session?.user.id 
+      },
+    ])
+    next()
+
+    /*res.status(401).send({
+      status: false,
+      message: 'Access Denied: No Token Provided!'
+    })*/
+})
+
+//app.use(apiRateLimiter)
+//app.use(checkAccess)
+
 
 const authenticateUserByPhoneNumber = async (phoneNumber) => {
   const q = query(
@@ -44,7 +110,7 @@ const authenticateUserByPhoneNumber = async (phoneNumber) => {
 };
 
 app.get("/", async (req, res) => {
-  res.send("The MediLink Server is live now.");
+  res.send(await supabase_client.auth.getSession());
 });
 
 app.get("/session", async (req, res) => {
@@ -54,6 +120,8 @@ app.get("/session", async (req, res) => {
 })
 
 app.post("/login", async (req, res) => {
+  //validate the login credentials before handling anything
+
   if(Object.entries(req.body).length < 2){
     res.status(401).json({
       error: 'Email address or password missing'
@@ -67,9 +135,17 @@ app.post("/login", async (req, res) => {
   })
 
     if(error){
-      res.status(500).json(error)
+      logger.error(`Error: ${error}`)
+      res.status(401).json({
+        status : false, 
+        ...error,
+        message: 'Invalid login credentials'
+      })
     }else{
-      res.status(200).json(data)
+      res.status(200).json({
+        status : true,
+        ...data
+      })
     }
 
     
@@ -93,9 +169,9 @@ app.get("/doctors", async (req, res) => {
     .select();
 
   if (error) {
+    logger.error(`Error: ${error}`)
     res.status(status).json(data);
   }
-
   res.status(status).json({
     doctors: data,
   });
@@ -269,6 +345,37 @@ app.get("/prescriptions", async (req, res) => {
     } else {
       res.status(200).json({
         prescriptions: data,
+      });
+    }
+  }
+});
+
+app.get("/patients", async (req, res) => {
+  if (Object.entries(req.params).length > 0) {
+    let { data, error, status } = await supabase_client
+      .from("patients")
+      .select()
+      .eq("patient_id", req.params.patientId);
+
+    if (error) {
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        patients: data,
+      });
+    }
+  } else {
+    let { data, error, status } = await supabase_client
+      .from("patients")
+      .select();
+
+    if (error) {
+      
+      res.status(500).json(data);
+    } else {
+      res.status(200).json({
+        status: true,
+        patients: data,
       });
     }
   }

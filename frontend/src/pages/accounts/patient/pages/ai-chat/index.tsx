@@ -18,15 +18,13 @@ import { useState } from "react";
 
 export const AIChat = () => {
   const { setValue } = useForm();
-  const [replies, setReplies] = useState([]);
+  const [replies, setReplies] = useState<string[]>([]);
   const form = useForm<z.infer<typeof AIChatFormSchema>>({
     resolver: zodResolver(AIChatFormSchema),
     defaultValues: {
       query: "",
     },
   });
-
-  const makePrompt = () => {};
 
   async function onSubmit(values: z.infer<typeof AIChatFormSchema>) {
     try {

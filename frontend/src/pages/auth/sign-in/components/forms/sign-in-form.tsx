@@ -43,7 +43,7 @@ export const SignInForm = () => {
         
         setIsSubmitting(true)
         signIn(values.email, values.password).then((response) => {
-            if(response.user){
+            if(response.status){
                 navigate("/", {
                     replace: true
                 })
@@ -51,14 +51,11 @@ export const SignInForm = () => {
                 setIsSubmitting(false)
             }else{
                 setIsSubmitting(false)
+                toast({
+                    title: `${response.response.statusText}`,
+                    description: response.response.data.message
+                })
             }
-        }).catch((error) =>{
-            console.log(error.message)
-            toast({
-                title: 'Error',
-                description: error.message
-            })
-            setIsSubmitting(false)
         })
 
     } 
@@ -108,7 +105,9 @@ export const SignInForm = () => {
             <p className="mt-2 text-xs text-center text-gray-700">
                 {" "}
                 Don't have an account?{" "}
-                <Link className=" text-blue-600 hover:underline" to="/sign-up">Sign up</Link>
+                <Button onClick={() => navigate("/sign-up", {
+                    replace: true
+                })} className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline">Sign In</Button>
             </p>
         </CardFooter>
     </form>

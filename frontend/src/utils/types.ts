@@ -1,14 +1,17 @@
 export type Patient = {
     id: string | number;
     name: string;
+    gender: "male" | "female" | "others";
     contact: Contact;
     county: string;
-    created_at: string
+    created_at: string;
+    date_of_birth: string;
 }
 
 export type Doctor = {
-    id: string | number;
+    id: string | undefined; 
     name: string;
+    practice: string;
     contact: Contact;
     county: string;
     hospital?: string | number
@@ -35,12 +38,20 @@ export type MedicalRecord = {
 }
 
 export type Appointment = {
-    id: string | number;
+    id: string | undefined;
+    doctor_id: string | number;
     patient_id: string | number;
+    hospital_id?: string | number
     notes: string[]
     date_of_appointment: string;
+    from_time: string;
+    to_time: string
 }
 
+export type Prescription = {
+    id?: string;
+    drug: string
+}
 export type Ambulance = {
     id: string | number;
     number_plate : string | number;
@@ -69,3 +80,4 @@ export type Plan = {
     features: string[];
     pricing: string
 }
+

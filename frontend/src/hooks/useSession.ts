@@ -4,12 +4,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 export const useSession = () => {
     const [session, setSession] = useState(null);
+    const [error, setError] = useState<string[]>([])
     const [isFetchingSession, setIsFetchingSession] = useState(true);
     useEffect(() => {
         fetchAuthSession().then((response) => {
             setIsFetchingSession(false)
             setSession(response.session)
         }).catch((error) => {
+            setError(error)
             setIsFetchingSession(false)
         })
     }, [])
@@ -41,6 +43,7 @@ export const useSession = () => {
     }
     return {
         session,
+        error,
         isFetchingSession,
         signIn,
         signOut

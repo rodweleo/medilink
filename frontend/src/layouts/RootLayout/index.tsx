@@ -1,7 +1,8 @@
-import { SignIn } from "@/pages/auth/sign-in"
+import { SignUp } from "@/pages/auth/sign-up"
 import { NavLink, Route, Routes } from "react-router-dom"
 import { Homepage } from "./pages/homepage"
 import { Pricing } from "./pages/pricing"
+import { SignIn } from "@/pages/auth/sign-in"
 
 export const RootLayout = () => {
     return <main className="h-screen w-full overflow-x-hidden">
@@ -9,7 +10,7 @@ export const RootLayout = () => {
             <NavLink to="/">
                 <h1 className="font-bold">MediLink</h1>
             </NavLink>
-            <ul className="flex gap-10">
+            <ul className="flex gap-10 max-lg:hidden">
                 <li><NavLink to="/">Home</NavLink></li>
                 <li><NavLink to="about-us">About Us</NavLink></li>
                 <li><NavLink to="pricing">Pricing</NavLink></li>
@@ -27,6 +28,7 @@ export const RootLayout = () => {
                 <Route path="pricing" element={<Pricing/>}/>
                 <Route path="contact-us" element={<main>Contact Us</main>}/>
                 <Route path="sign-in" element={<SignIn/>}/>
+                <Route path="sign-up" element={<SignUp/>}/>
             </Routes>
         </section>
     </main>

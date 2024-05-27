@@ -7,9 +7,11 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
+import { Doctor } from "@/utils/types"
 
 
 export const DoctorCard = ({doctor, index}: {
+    doctor: Doctor
     index: number
 }) => {
     return <Card className="w-fit" id={doctor.id} key={index}>

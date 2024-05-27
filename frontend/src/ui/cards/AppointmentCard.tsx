@@ -6,11 +6,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useDoctor } from "@/hooks/useDoctor";
+import { Appointment } from "@/utils/types";
 import moment from "moment";
 import { CiCalendar } from "react-icons/ci";
 import { CiClock1 } from "react-icons/ci";
 
-export const AppointmentCard = ({ appointment, index }: { indeX: number }) => {
+export const AppointmentCard = ({ appointment, index }: { 
+  appointment: Appointment, index: number 
+}) => {
   const { doctor } = useDoctor(appointment.doctor_id);
   return (
     <Card className="w-[350px]" key={index} id={appointment.id}>
