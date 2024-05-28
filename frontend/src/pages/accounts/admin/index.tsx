@@ -42,7 +42,7 @@ export const AdminAccount = () => {
 
             
         </nav>
-        <section className="bg-white w-full p-2 rounded-md">
+        <section className="bg-white overflow-y-auto w-full p-2 rounded-md">
             <Routes>
             <Route path="/" element={<main>Admin Homepage</main>}/>
                 <Route path="appointments" element={<main>Appointments</main>}/>

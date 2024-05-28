@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const SignUpSchema = z.object({
-    name: z.string().min(20, {
+    name: z.string().min(10, {
         message: "Your name is below required length."
     }), 
     email: z.string().min(8, {
@@ -10,7 +10,7 @@ export const SignUpSchema = z.object({
     password: z.string().min(8, {
         message: "Password is too short"
     }),
-    contact: z.number().min(10),
+    contact: z.string().min(10),
     dob: z.date({
         required_error: "A date of birth is required."
     }).min(new Date("1900-01-01"), {
@@ -18,8 +18,8 @@ export const SignUpSchema = z.object({
     }).max(new Date(), {
         message: "Too young!"
     }),
-    weight: z.number().min(4),
-    height: z.number().min(4),
+    weight: z.string().min(2),
+    height: z.string().min(3),
     bloodGroup: z.string({
         message: "The Blood Group section is required"
     }),

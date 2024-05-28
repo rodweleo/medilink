@@ -11,6 +11,7 @@ import axios from "axios";
 import  rateLimit from "express-rate-limit";
 import {logger } from "./middleware/logger.js"
 import moment from  "moment"
+import validator from 'validator';
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
@@ -62,7 +63,7 @@ app.use(async (req, res, next) => {
     logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
     
     //save the log into the database
-    await supabase_client
+    /*await supabase_client
     .from('server_logs')
     .insert([
       { 
@@ -75,7 +76,7 @@ app.use(async (req, res, next) => {
         access_token: session?.access_token,
         user_id: session?.user.id 
       },
-    ])
+    ])*/
     next()
 
     /*res.status(401).send({
@@ -121,35 +122,83 @@ app.get("/session", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   //validate the login credentials before handling anything
+  const { email, password} = req.body;
+  const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
+  ///^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])(?!.*([A-Za-z])\1)[A-Za-z\d@$!%*?&]{8,}$/
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
-  if(Object.entries(req.body).length < 2){
-    res.status(401).json({
-      error: 'Email address or password missing'
+  if(email === undefined && password === undefined){
+    logger.error(`Email address and password missing`)
+    res.status(400).json({
+      status: false,
+      error: {
+        message: 'Email address and password missing'
+      }
+    })
+  }else if(email === undefined){
+    logger.error(`Email address is missing`)
+    res.status(400).json({
+      status: false,
+      error: {
+        message: 'Email address is missing'
+      }
+    })
+  }else if( password === undefined){
+    logger.error(`Password is missing`)
+    res.status(400).json({
+      status: false,
+      error: {
+        message: 'Password is missing'
+      }
     })
   }
 
-    
-  let { data, error} = await supabase_client.auth.signInWithPassword({
-    email: req.body.email,
-    password: req.body.password
-  })
+  //CHECK IF THE EMAIL PROVIDED IS A VALID EMAIL
+  if(emailRegex.test(email) && validator.isEmail(email)){
 
-    if(error){
-      logger.error(`Error: ${error}`)
-      res.status(401).json({
-        status : false, 
-        ...error,
-        message: 'Invalid login credentials'
+    //test the password
+    if(passwordRegex.test(password)){
+      let { data, error} = await supabase_client.auth.signInWithPassword({
+        email: email,
+        password: password
       })
+    
+        if(error){
+          logger.error(error)
+          res.status(error.status).json({
+            status : false, 
+            error: {
+              ...error,
+              message: error.message
+            },
+          })
+        }else{
+          logger.info(`${data.user.email} has successfully signed in.`)
+          res.status(200).json({
+            status : true,
+            ...data
+          })
+        }
     }else{
-      res.status(200).json({
-        status : true,
-        ...data
+      logger.error(`${password} is not a valid password`)
+      res.status(400).json({
+        status: false,
+        error: {
+          message: 'Invalid password'
+        }
       })
     }
-
     
-
+  }else{
+      logger.error(`${email} is not a valid email address`)
+      res.status(400).json({
+        status: false,
+        error: {
+          message: 'Invalid email address'
+        }
+      })
+  }
+    
 })
 
 app.post("/logout", async (req, res) => {
@@ -246,6 +295,20 @@ app.post("/ai-chat", async (req, res) => {
   });
 });
 
+app.get("/serverLogs", async (req, res) => {
+  let { data, error, status } = await supabase_client
+    .from("server_logs")
+    .select();
+
+  if (error) {
+    logger.error(`Error: ${error}`)
+    res.status(status).json(data);
+  }
+  res.status(status).json({
+    server_logs: data,
+  });
+})
+
 const africasTalkingOptions = {
   apiKey: process.env.AFRICA_TALKING_API_KEY,
   username: process.env.AFRICA_TALKING_SMS_USERNAME,
@@ -264,11 +327,16 @@ const sendSMS = async (receiver, content) => {
 };
 
 app.get("/appointments", async (req, res) => {
-  if (Object.entries(req.params).length > 0) {
+
+  let filter = {};
+  Object.entries(req.query).forEach(([key, value]) => {
+    filter[key] = value;
+  });
+  if (Object.entries(req.query).length > 0) {
     let { data, error, status } = await supabase_client
       .from("appointments")
       .select()
-      .eq("patient_id", req.params.patient_id);
+      .match(filter)
 
     if (error) {
       res.status(500).json(data);
@@ -351,16 +419,24 @@ app.get("/prescriptions", async (req, res) => {
 });
 
 app.get("/patients", async (req, res) => {
-  if (Object.entries(req.params).length > 0) {
+  let filter = {};
+  Object.entries(req.query).forEach(([key, value]) => {
+    filter[key] = value;
+  });
+  if (Object.entries(req.query).length > 0) {
     let { data, error, status } = await supabase_client
       .from("patients")
       .select()
-      .eq("patient_id", req.params.patientId);
+      .match(filter)
 
     if (error) {
-      res.status(500).json(data);
+      res.status(500).json({
+        status: false,
+        ...error
+      });
     } else {
       res.status(200).json({
+        status: true,
         patients: data,
       });
     }

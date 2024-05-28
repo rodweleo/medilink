@@ -34,10 +34,6 @@ import {
     SelectGroup,
     SelectLabel
   } from "@/components/ui/select"
-import {
-    ToggleGroup,
-    ToggleGroupItem,
-  } from "@/components/ui/toggle-group"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
@@ -52,28 +48,34 @@ export const SignUpForm = () => {
     const form = useForm<z.infer<typeof SignUpSchema>>({
         resolver: zodResolver(SignUpSchema),
         defaultValues: {
+            name: "",
             email: "",
-            password: ""
+            contact: "",
+            dob: new Date(),
+            weight: "0",
+            height: "0",
+            hasAllergicReactions: "no",
+            hasCurrentIllness: "no"
         }
     })
 
-    const onSubmit = async (values: z.infer<typeof SignUpSchema>) =>{
+    const onSubmit = (values: z.infer<typeof SignUpSchema>) =>{
         console.log(values)
-        setIsSubmitting(true)
+        //setIsSubmitting(true)
         
         toast({
             description: `Authentication is in progress...`
         })
     } 
 
-    return <Card className="w-[400px]">
+    return <Card className="w-[600px] h-[500px] overflow-y-auto">
     <Form {...form}>
     <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardHeader className="space-y">
-        <CardTitle className="text-3xl">Create Account</CardTitle>
-        <CardDescription className="font-semibold">
-            Enter your details to create an account
-        </CardDescription>
+        <CardHeader className="space-y sticky top-0 z-20 bg-white">
+            <CardTitle className="text-3xl">Create Account</CardTitle>
+            <CardDescription className="font-semibold">
+                Enter your details to create an account
+            </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
             <FormField
@@ -193,9 +195,9 @@ export const SignUpForm = () => {
                 <FormItem>
                 <FormLabel>Blood Group</FormLabel>
                 <FormControl>
-                <Select {...field}>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select blood group" />
+                        <SelectValue placeholder="Select blood group" {...field} />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
@@ -226,14 +228,17 @@ export const SignUpForm = () => {
                 <FormItem>
                 <FormLabel>Allergic Reactions</FormLabel>
                 <FormControl>
-                <ToggleGroup type="single" size="sm" {...field}>
-                    <ToggleGroupItem value="bold" aria-label="Toggle bold" className="w-full">
-                        No
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="thin" aria-label="Toggle bold" className="w-full">
-                        Yes
-                    </ToggleGroupItem>
-                </ToggleGroup>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Do you have any allergic reactions ?" {...field} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value="no">No</SelectItem>
+                            <SelectItem value="yes">Yes</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -246,14 +251,17 @@ export const SignUpForm = () => {
                 <FormItem>
                 <FormLabel>Any Current Illness</FormLabel>
                 <FormControl>
-                <ToggleGroup type="single" size="sm" {...field}>
-                    <ToggleGroupItem value="bold" aria-label="Toggle bold" className="w-full">
-                        No
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="thin" aria-label="Toggle bold" className="w-full">
-                        Yes
-                    </ToggleGroupItem>
-                </ToggleGroup>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Do you have any current illness ?" {...field} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value="no">No</SelectItem>
+                            <SelectItem value="yes">Yes</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -265,7 +273,7 @@ export const SignUpForm = () => {
             <p className="mt-2 text-xs text-center text-gray-700">
                 {" "}
                 Already have an account?{" "}
-                <Button onClick={() => navigate("/sign-in", {
+                <Button type="button" onClick={() => navigate("/sign-in", {
                     replace: true
                 })} className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline">Sign In</Button>
             </p>

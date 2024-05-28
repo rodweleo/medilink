@@ -9,5 +9,7 @@ export const fetchDoctorInfo = async (doctorId: string | number) => {
       },
     });
     return response.data;
-  } catch (e) {}
+  } catch (e) {
+    return e
+  }
 };
