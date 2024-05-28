@@ -3,11 +3,14 @@ import { fetchPatientAppointments } from "../pages/accounts/functions/fetchPatie
 import { fetchPatientPrescriptions } from "../pages/accounts/functions/fetchPatientPrescriptions";
 import { Prescription } from "@/utils/types";
 import { fetchPatientDetails } from "@/functions/fetchPatientDetails";
+import { fetchPatientMedicalRecords } from "@/functions/fetchPatientMedicalRecords";
 
 export const usePatient = (patientId: string) => {
   const [appointments, setAppointments] = useState([]);
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
   const [patientDetails, setPatientDetails] = useState(null);
+  const [medicalRecords, setMedicalRecords] = useState([]);
+
   useEffect(() => {
     fetchPatientAppointments(patientId).then((response) => {
       setAppointments(response.appointments);
@@ -19,10 +22,16 @@ export const usePatient = (patientId: string) => {
     fetchPatientDetails(patientId).then((response) => {
       setPatientDetails(response.patients[0])
     })
+
+    fetchPatientMedicalRecords(patientId).then((response) => {
+      setMedicalRecords(response.medicalRecords)
+    })
   }, [patientId]);
+  
   return {
     appointments,
     prescriptions,
-    patientDetails
+    patientDetails,
+    medicalRecords
   };
 };

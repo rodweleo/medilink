@@ -457,6 +457,57 @@ app.get("/patients", async (req, res) => {
   }
 });
 
+app.get("/medicalRecords", async (req, res) => {
+  let filter = {};
+  Object.entries(req.query).forEach(([key, value]) => {
+    filter[key] = value;
+  });
+  if (Object.entries(req.query).length > 0) {
+    let { data, error, status } = await supabase_client
+      .from("medical_records")
+      .select()
+      .match(filter)
+
+    if (error) {
+      logger.error(error)
+      res.status(500).json({
+        status: false,
+        ...error
+      });
+    } else {
+      if(data.length === 0){
+        logger.error(`Medical records not found for ${filter}`)
+        res.status(404).json({
+          status: false,
+          medicalRecords: data,
+        });
+      }else{
+        logger.info(`${data.length} medical records requested by `)
+        res.status(200).json({
+          status: true,
+          medicalRecords: data,
+        });
+      }
+    }
+  } else {
+    let { data, error, status } = await supabase_client
+      .from("medical_records")
+      .select();
+
+    if (error) {
+      res.status(500).json({
+        status: false,
+        ...error
+      });
+    } else {
+      res.status(200).json({
+        status: true,
+        patients: data,
+      });
+    }
+  }
+});
+
 app.post("/ussd/callback", async (req, res) => {
   const { sessionId, serviceCode, phoneNumber, text } = req.body;
 

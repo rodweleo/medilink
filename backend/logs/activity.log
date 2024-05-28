@@ -958,3 +958,143 @@
 2024-05-28 16:05:31 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
 2024-05-28 16:05:32 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
 2024-05-28 16:05:34 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:58 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:30 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:66 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:40 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:55 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:18 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:20 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:22 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:13 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:66 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:72 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:74 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:74 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:82 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:96 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:96 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:31 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:32 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:42 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:62 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:64 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:17 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:18 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:18 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:49 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:41 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:86 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:47 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:52 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:72 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:92 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:34 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:38 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:75 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:85 [32minfo[39m: [32mGET /medicalRecords localhost:8081[39m
+2024-05-28 17:05:57 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:31 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60 localhost:8081[39m
+2024-05-28 17:05:31 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60 localhost:8081[39m
+2024-05-28 17:05:70 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60 localhost:8081[39m
+2024-05-28 17:05:15 [31merror[39m: [31mMedical records not found for [object Object][39m
+2024-05-28 17:05:14 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:14 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:79 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:27 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:38 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:95 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:96 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:98 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:10 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:49 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:21 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:29 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:37 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:12 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:59 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:60 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:77 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:89 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:46 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:96 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:12 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:16 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:34 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:41 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:47 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:49 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:50 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:08 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:58 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:45 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:48 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:48 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:49 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:33 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:93 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:02 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:06 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:06 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:06 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:64 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:79 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:22 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:66 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:44 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:53 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:11 [32minfo[39m: [32mPOST /login localhost:8081[39m
+2024-05-28 17:05:38 [32minfo[39m: [32mrodwell.leo@jtl.co.ke has successfully signed in.[39m
+2024-05-28 17:05:04 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:37 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:68 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:76 [32minfo[39m: [32mGET /doctors localhost:8081[39m
+2024-05-28 17:05:83 [32minfo[39m: [32mGET /session localhost:8081[39m
+2024-05-28 17:05:74 [32minfo[39m: [32mGET /doctors localhost:8081[39m
+2024-05-28 17:05:81 [32minfo[39m: [32mGET /appointments localhost:8081[39m
+2024-05-28 17:05:58 [32minfo[39m: [32mGET /appointments localhost:8081[39m
+2024-05-28 17:05:76 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:88 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:96 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:99 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:04 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:26 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:28 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:30 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:48 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:08 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:27 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:40 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:43 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:50 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:88 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:61 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:68 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:75 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:77 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:19 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:22 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:79 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:84 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:85 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:30 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:46 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:49 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:52 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:53 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:11 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:12 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:13 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:16 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:16 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:75 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:67 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:70 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:74 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:76 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:72 [32minfo[39m: [32m1 medical records requested by [39m
+2024-05-28 17:05:14 [32minfo[39m: [32mGET /patients?id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:71 [32minfo[39m: [32mGET /appointments?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:04 [32minfo[39m: [32mGET /medicalRecords?patient_id=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:11 [32minfo[39m: [32mGET /prescriptions?patientId=b3e67939-3ee9-4ce3-aeac-27239b10e60f localhost:8081[39m
+2024-05-28 17:05:12 [32minfo[39m: [32m1 medical records requested by [39m

@@ -3,10 +3,19 @@ import { useParams } from "react-router-dom"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
 import moment from "moment"
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
 
 export const PatientPage = () => {
     const { id } = useParams()
-    const { patientDetails } = usePatient(id)
+    const { patientDetails, medicalRecords } = usePatient(id)
     return <main>
         <h1 className="font-bold text-xl">Patient Overview</h1>
         <Card className="w-fit">
@@ -37,6 +46,39 @@ export const PatientPage = () => {
             <CardFooter>
             <Button>Send Message</Button>
             </CardFooter>
+        </Card>
+
+        <Card className="w-full">
+            <CardHeader>
+                <h2 className="font-semibold">Medical Records</h2>
+            </CardHeader>
+            <CardContent className="w-full">
+            <Table className="w-full">
+            <TableCaption>A list of your appointments.</TableCaption>
+            <TableHeader>
+                <TableRow>
+                <TableHead>Appointment ID</TableHead>
+                <TableHead>Patient</TableHead>
+                <TableHead>Additional Notes</TableHead>
+                <TableHead>Date of Appointment</TableHead>
+                <TableHead>Duration</TableHead>
+                <TableHead>Completed</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {medicalRecords.map((record) => {
+                    return <TableRow>
+                    <TableCell>{record.id}</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                </TableRow>
+                })}
+            </TableBody>
+        </Table>
+            </CardContent>
         </Card>
     </main>
 }
