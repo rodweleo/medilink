@@ -19,12 +19,12 @@ export const logger = winston.createLogger({
 ),
     transports: [
         new transports.Console(),
-        new transports.File({
+        /*new transports.File({
             filename: "logs/activity.log"
         }),
         new transports.File({
             level: "error",
             filename: "logs/error.log",
-          }),
+          }),*/
     ]
 })

@@ -27,7 +27,7 @@ const apiRateLimiter = rateLimit({
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const app = express();
 app.use(express.json());
-const allowedDomains = ['http://localhost:5173', 'https://medilink.vercel.app']
+const allowedDomains = ['http://localhost:5173', 'https://medilinc.vercel.app']
 
 app.use(
   cors({
