@@ -13,5 +13,5 @@ export const AppLayout = () => {
     }else if(role === "admin"){
         return <AdminAccount/>
     }
-    return "No account found"
+    return "No account logged in."
 }
