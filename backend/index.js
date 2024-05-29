@@ -61,10 +61,6 @@ app.use(async (req, res, next) => {
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, "
-                + "Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
     logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
     
     //save the log into the database
@@ -122,7 +118,17 @@ app.get("/", (req, res) => {
 app.get("/session", async (req, res) => {
   const {data, status, error} = await supabase_client.auth.getSession();
 
-  res.json(data)
+  if(error){
+    res.setHeader("Access-Control-Allow-Origin", "*").json({
+      status: false,
+      ...data
+    })
+  }
+  
+  res.setHeader("Access-Control-Allow-Origin", "*").json({
+    status: true,
+    ...data
+  })
 })
 
 app.post("/login", async (req, res) => {
