@@ -5,7 +5,7 @@ export const fetchPatientAppointments = async (patientId: string) => {
   try {
     const response = await axios.get(`${API_URL}/appointments`, {
       params: {
-        patientId: patientId,
+        patient_id: patientId,
       },
     });
     return response.data;

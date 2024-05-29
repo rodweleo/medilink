@@ -5,7 +5,7 @@ export const fetchPatientPrescriptions = async (patientId: string) => {
   try {
     const response = await axios.get(`${API_URL}/prescriptions`, {
       params: {
-        patientId: patientId,
+        patient_id: patientId,
       },
     });
 
