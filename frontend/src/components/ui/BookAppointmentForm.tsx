@@ -162,7 +162,7 @@ export const BookAppointmentForm = () => {
               <FormControl>
                 <Textarea
                   placeholder="Tell us a little bit about the reason for the appointment"
-                  className="resize-none"
+                  className=" resize-y"
                   {...field}
                 />
               </FormControl>
