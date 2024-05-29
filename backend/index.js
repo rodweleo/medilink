@@ -27,12 +27,11 @@ const apiRateLimiter = rateLimit({
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const app = express();
 app.use(express.json());
-const allowedDomains = ['http://localhost:5173', 'https://medilinc.vercel.app']
 
+const allowedOrigins = ['http://localhost:5173', 'https://medilinc.vercel.app']
 app.use(
   cors({
-    origin: allowedDomains,
-    "Access-Control-Allow-Origin": "*"
+    origin: "*",
   })
 );
 
@@ -61,10 +60,7 @@ app.use(async (req, res, next) => {
     res.setHeader('Content-Security-Policy', "default-src 'self'");
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    
+
     logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
     
     //save the log into the database
