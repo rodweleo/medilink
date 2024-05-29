@@ -15,8 +15,8 @@ export const fetchGoogleHealthNews = async () => {
         headers: {
           "X-RapidAPI-Host": "newsnow.p.rapidapi.com",
           "Content-Type": "application/json",
-          "x-rapidapi-key":
-            "28406bcc59msh84fa6373af7d92ep1c75c5jsn9855207fea39",
+          "x-rapidapi-key": "28406bcc59msh84fa6373af7d92ep1c75c5jsn9855207fea39",
+          "Access-Control-Allow-Origin": "*"
         },
       }
     );

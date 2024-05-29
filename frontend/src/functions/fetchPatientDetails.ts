@@ -7,6 +7,9 @@ export const fetchPatientDetails = async (patientId: string) => {
       params: {
         id: patientId,
       },
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
     });
 
     return response.data;

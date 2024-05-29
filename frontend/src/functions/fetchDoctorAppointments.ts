@@ -6,6 +6,9 @@ export const fetchDoctorAppointments = async (doctor_id: string | number) => {
         const response = await axios.get(`${API_URL}/appointments`, {
             params: {
                 doctor_id: doctor_id
+            },
+            headers: {
+                "Access-Control-Allow-Origin": "*"
             }
         })
 

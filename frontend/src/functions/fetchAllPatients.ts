@@ -5,7 +5,8 @@ export const fetchAllPatients = async (userId?: string) => {
     try{
         const response = await axios.get(`${API_URL}/patients`, {
             headers:{
-                Authorization : `Bearer ${userId}`
+                Authorization : `Bearer ${userId}`,
+                "Access-Control-Allow-Origin": "*"
             }
         });
         return response.data
