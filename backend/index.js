@@ -29,9 +29,19 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = ['http://localhost:5173', 'https://medilinc.vercel.app']
+
 app.use(
   cors({
-    origin: "*",
+    origin: function(origin, callback){
+      if(!origin) return callback(null, true);
+      if(allowedOrigins.indexOf(origin) === -1){
+        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    optionsSuccessStatus: 200,
+    credentials: true
   })
 );
 
@@ -57,11 +67,14 @@ app.use(async (req, res, next) => {
   const token = headers["Authorization"]
 
   //console.log(token)
-    res.setHeader('Content-Security-Policy', "default-src 'self'");
-    res.setHeader('X-Frame-Options', 'DENY');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'DELETE,GET,PATCH,POST,PUT',
+    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options':'nosniff'
+  });
+  logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
     
     //save the log into the database
     /*await supabase_client
@@ -124,7 +137,7 @@ app.get("/session", async (req, res) => {
       ...data
     })
   }
-  
+
   res.setHeader("Access-Control-Allow-Origin", "*").json({
     status: true,
     ...data
