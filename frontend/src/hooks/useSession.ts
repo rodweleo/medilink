@@ -1,9 +1,10 @@
+import { Session } from '@supabase/supabase-js'
 import { fetchAuthSession } from "@/functions/fetchAuthSession";
 import { API_URL } from "@/utils/API_URL";
 import axios from "axios";
 import { useState, useEffect } from "react";
 export const useSession = () => {
-    const [session, setSession] = useState(null);
+    const [session, setSession] = useState<Session | null>(null);
     const [error, setError] = useState<string[]>([])
     const [isFetchingSession, setIsFetchingSession] = useState(true);
     useEffect(() => {

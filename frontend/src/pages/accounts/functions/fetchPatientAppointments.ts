@@ -9,5 +9,7 @@ export const fetchPatientAppointments = async (patientId: string) => {
       },
     });
     return response.data;
-  } catch (e) {}
+  } catch (e) {
+    return e
+  }
 };

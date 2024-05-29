@@ -61,7 +61,7 @@ export const SignUpForm = () => {
 
     const onSubmit = (values: z.infer<typeof SignUpSchema>) =>{
         console.log(values)
-        //setIsSubmitting(true)
+        setIsSubmitting(true)
         
         toast({
             description: `Authentication is in progress...`

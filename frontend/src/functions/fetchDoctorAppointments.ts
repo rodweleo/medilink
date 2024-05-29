@@ -1,7 +1,7 @@
 import { API_URL } from "@/utils/API_URL"
 import axios from "axios"
 
-export const fetchDoctorAppointments = async (doctor_id: string) => {
+export const fetchDoctorAppointments = async (doctor_id: string | number) => {
     try{
         const response = await axios.get(`${API_URL}/appointments`, {
             params: {

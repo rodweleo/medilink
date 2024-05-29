@@ -1,8 +1,9 @@
 export type Patient = {
     id: string | number;
     name: string;
-    gender: "male" | "female" | "others";
-    contact: Contact;
+    gender: "Male" | "Female" | "others";
+    phone_number: string | number;
+    email: string ;
     county: string;
     created_at: string;
     date_of_birth: string;
@@ -34,16 +35,19 @@ export type MedicalRecord = {
     patient_id: string | number;
     doctor_id?: string | number;
     content: string[]
-    created_at: string
+    created_at: string;
+    isLocked: boolean
 }
 
 export type Appointment = {
-    id: string | undefined;
-    doctor_id: string | number;
-    patient_id: string | number;
+    id: string;
+    doctor_id?: string;
+    patient_id?: string;
     hospital_id?: string | number
-    notes: string[]
+    notes: string
     date_of_appointment: string;
+    duration: number;
+    isCompleted: boolean;
     from_time: string;
     to_time: string
 }
@@ -81,3 +85,14 @@ export type Plan = {
     pricing: string
 }
 
+
+export type ServerLog = {
+    id: string | number;
+    level: string;
+    message: string;
+    req_method: "GET" | "POST" | "PUT" | "DELETE";
+    req_path: string;
+    req_host: string;
+    req_timestamp: string;
+    user_id: string;
+}

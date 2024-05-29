@@ -16,7 +16,7 @@ export const AppointmentCard = ({ appointment, index }: {
 }) => {
   const { doctor } = useDoctor(appointment.doctor_id);
   return (
-    <Card className="w-[350px]" key={index} id={appointment.id}>
+    <Card className="w-[350px]" key={index}>
       <CardHeader>
         <CardTitle>{doctor?.name}</CardTitle>
         <CardDescription>{doctor?.practice}</CardDescription>

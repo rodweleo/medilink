@@ -14,7 +14,7 @@ export const DoctorAccount = () => {
 
             
         </nav>
-        <section className="bg-white w-full p-2 rounded-md">
+        <section className="bg-white w-full p-2 rounded-md overflow-y-auto">
             <Routes>
             <Route path="/" element={<main>Doctor Homepage</main>}/>
                 <Route path="appointments" element={<Appointments/>}/>

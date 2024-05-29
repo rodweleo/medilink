@@ -1,8 +1,11 @@
-import { Button } from "react-day-picker"
+import { Button } from "@/components/ui/button"
 import { TableRow, TableCell } from "./table"
 import { BiDotsVertical } from "react-icons/bi"
+import { Appointment } from "@/utils/types"
 
-export const AppointmentListItem = ({appointment}) => {
+export const AppointmentListItem = ({appointment}:{
+    appointment: Appointment
+}) => {
     return <TableRow>
     <TableCell className="font-medium">{appointment.id}</TableCell>
     <TableCell>{appointment.patient_id}</TableCell>
