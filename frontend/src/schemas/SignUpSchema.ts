@@ -7,9 +7,6 @@ export const SignUpSchema = z.object({
     email: z.string().min(8, {
         message: "Email address is too short"
     }).email("This is not a valid email address!"),
-    password: z.string().min(8, {
-        message: "Password is too short"
-    }),
     contact: z.string().min(10),
     dob: z.date({
         required_error: "A date of birth is required."
