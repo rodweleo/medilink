@@ -81,7 +81,7 @@ export const RootLayout = () => {
         setChatsWithMeli(JSON.parse(localStorage.getItem("chatsWithMeli")!));
       }
     } catch (e) {
-      console.log(e);
+      setFetchingResponse(true);
     }
   };
   return (
