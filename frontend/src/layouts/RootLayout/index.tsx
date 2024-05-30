@@ -132,7 +132,7 @@ export const RootLayout = () => {
             <span className="bg-white h-3 w-3 rounded-full animate-ping"></span>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] w-2/4">
           <DialogHeader>
             <DialogTitle>Ask Meli</DialogTitle>
             <DialogDescription>
@@ -144,19 +144,20 @@ export const RootLayout = () => {
 
           <Card>
             <CardContent className="flex flex-col gap-5 h-[400px] overflow-y-auto">
-              {chatsWithMeli.map((chat) => {
-                return (
-                  <>
-                    <div className="w-full justify-end flex items-center gap-2 p-1 rounded-l-md rounded-tr-md">
-                      {chat.prompt}
-                    </div>
+              {chatsWithMeli &&
+                chatsWithMeli.map((chat) => {
+                  return (
+                    <>
+                      <div className="w-full justify-end flex items-center gap-2 p-1 rounded-l-md rounded-tr-md">
+                        {chat.prompt}
+                      </div>
 
-                    <div className="w-fit flex items-center gap-2 bg-slate-100 p-1 rounded-r-md rounded-tl-md">
-                      {chat.response}
-                    </div>
-                  </>
-                );
-              })}
+                      <div className="w-fit flex items-center gap-2 bg-slate-100 p-1 rounded-r-md rounded-tl-md">
+                        {chat.response}
+                      </div>
+                    </>
+                  );
+                })}
             </CardContent>
           </Card>
           <form
