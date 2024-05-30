@@ -13,7 +13,7 @@ export type Doctor = {
     id: string | undefined; 
     name: string;
     practice: string;
-    contact: Contact;
+    contact: string;
     county: string;
     hospital?: string | number
     created_at: string

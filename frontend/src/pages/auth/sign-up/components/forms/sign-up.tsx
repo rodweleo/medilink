@@ -79,7 +79,7 @@ export const SignUpForm = () => {
     };
 
     return (
-        <Card className="w-[600px] h-[500px] overflow-y-auto">
+        <Card className="w-[600px]">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <CardHeader className="space-y sticky top-0 z-20 bg-white">

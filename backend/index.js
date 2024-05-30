@@ -286,37 +286,30 @@ app.get("/distance", async (req, res) => {
 });
 
 app.post("/ai-chat", async (req, res) => {
-  const { query } = req.body;
+  const { prompt } = req.body;
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
-
-  /*const chat = model.startChat({
-    history: [
-      {
-        role: "user",
-        parts: [
-          {
-            text: "Act as an AI-powered medical consultant called Meli offering medical consultancy. ",
-          },
-        ],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Great to meet you. What would you like to know?" }],
-      },
-    ],
-    generationConfig: {
-      maxOutputTokens: 100,
-    },
-  });*/
-
-  //const result = await chat.sendMessage(query);
-  const result = await model.generateContent(query);
-  const response = result.response;
-  const text = response.text();
-  res.status(200).json({
-    reply: text,
-  });
+  try{
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-1.5-flash",
+      systemInstruction:
+      "You are a medical consultant in place for doctors who specializes in giving medical advice, diagnosis and prescriptions. Your name is Meli. When I describe a medical issue, please return the medical response needed to help the situation. Do not give boilerplate information. Also acknowledge the importance of health care in Kenya. Only answer medical or health related questions. Be polite and answer greetings warmly. ",
+     });
+  
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
+    res.status(200).json({
+      status: true,
+      response: text,
+    });
+  }catch(e){
+    res.status(500).json({
+      status: false,
+      error: {
+        message: e
+      }
+    })
+  }
 });
 
 app.get("/serverLogs", async (req, res) => {
