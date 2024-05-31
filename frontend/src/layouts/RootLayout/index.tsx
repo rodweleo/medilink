@@ -87,7 +87,7 @@ export const RootLayout = () => {
     }
   };
   return (
-    <main className="h-full fixed w-full overflow-x-hidden">
+    <main className="h-full m-0 p-0 fixed w-full overflow-x-hidden">
       <nav className="root-nav-bar flex p-5 w-full items-center bg-white justify-between sticky top-0 h-20 z-50">
         <NavLink to="/">
           <h1 className="font-bold">MediLink</h1>
@@ -115,7 +115,7 @@ export const RootLayout = () => {
           </li>
         </ul>
       </nav>
-      <section className="h-full p-5">
+      <section className="h-full">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="about-us" element={<AboutUsPage />} />
