@@ -11,12 +11,14 @@ import moment from "moment";
 import { CiCalendar } from "react-icons/ci";
 import { CiClock1 } from "react-icons/ci";
 
-export const AppointmentCard = ({ appointment, index }: { 
-  appointment: Appointment, index: number 
+export const AppointmentCard = ({
+  appointment,
+}: {
+  appointment: Appointment;
 }) => {
   const { doctor } = useDoctor(appointment.doctor_id);
   return (
-    <Card className="w-[350px]" key={index}>
+    <Card className="w-[350px]" key={appointment.id}>
       <CardHeader>
         <CardTitle>{doctor?.name}</CardTitle>
         <CardDescription>{doctor?.practice}</CardDescription>
