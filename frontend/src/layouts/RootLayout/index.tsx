@@ -24,6 +24,8 @@ import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "@/utils/API_URL";
 import ClipLoader from "react-spinners/ClipLoader";
+import { AboutUsPage } from "./pages/about";
+import { ContactUsPage } from "./pages/contact";
 
 const formSchema = z.object({
   prompt: z.string().min(2),
@@ -35,7 +37,7 @@ type ChatProps = {
 };
 export const RootLayout = () => {
   const [chatsWithMeli, setChatsWithMeli] = useState<ChatProps[]>(
-    JSON.parse(localStorage.getItem("chatsWithMeli")!)
+    JSON.parse(localStorage.getItem("chatsWithMeli")!),
   );
   const [isFetchingResponse, setFetchingResponse] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -65,7 +67,7 @@ export const RootLayout = () => {
               prompt: prompt,
               response: text,
             },
-          ])
+          ]),
         );
         setChatsWithMeli(JSON.parse(localStorage.getItem("chatsWithMeli")!));
       } else {
@@ -76,7 +78,7 @@ export const RootLayout = () => {
               prompt: prompt,
               response: text,
             },
-          ])
+          ]),
         );
         setChatsWithMeli(JSON.parse(localStorage.getItem("chatsWithMeli")!));
       }
@@ -116,9 +118,9 @@ export const RootLayout = () => {
       <section className="h-full p-5">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="about-us" element={<main>About us</main>} />
+          <Route path="about-us" element={<AboutUsPage />} />
           <Route path="pricing" element={<Pricing />} />
-          <Route path="contact-us" element={<main>Contact Us</main>} />
+          <Route path="contact-us" element={<ContactUsPage />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="book-appointment" element={<BookAppointment />} />
