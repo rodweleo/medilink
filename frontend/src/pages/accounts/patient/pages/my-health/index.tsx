@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/card";
 import { BsPrescription } from "react-icons/bs";
 import { useHealthNews } from "@/hooks/useHealthNews";
+import { useSession } from "@/hooks/useSession";
 
 export const MyHealth = () => {
-  const { appointments, prescriptions } = usePatient(
-    "33bcd9c0-b465-497e-9ab7-81bcf04729b4"
-  );
+  const { session } = useSession();
+  const { appointments, prescriptions } = usePatient(session?.user.id!);
   const { news } = useHealthNews();
 
   const navigate = useNavigate();
@@ -38,10 +38,8 @@ export const MyHealth = () => {
             </Button>
           </div>
           <div className="flex flex-wrap gap-5">
-            {appointments.map((appointment, index: number) => {
-              return (
-                <AppointmentCard appointment={appointment} index={index} />
-              );
+            {appointments.map((appointment) => {
+              return <AppointmentCard appointment={appointment} />;
             })}
           </div>
         </section>
@@ -62,25 +60,35 @@ export const MyHealth = () => {
       <section className="flex flex-col gap-3">
         <h1 className="font-bold">Good to Know</h1>
         <div className="flex flex-col gap-5">
-          {news ? news.slice(0, 2).map((news_piece:{
-            top_image: string,
-            title: string,
-            short_description: string
-          }) => {
-            return (
-              <Card className="w-[500px]">
-                <div className="flex">
-                  <img src={news_piece.top_image} className="w-48 p-5 rounded-[30px]" alt={news_piece.title} />
-                  <CardHeader>
-                    <CardTitle>{news_piece.title}</CardTitle>
-                    <CardDescription className=" line-clamp-4">
-                      {news_piece.short_description}
-                    </CardDescription>
-                  </CardHeader>
-                </div>
-              </Card>
-            );
-          }) : ""}
+          {news
+            ? news
+                .slice(0, 2)
+                .map(
+                  (news_piece: {
+                    top_image: string;
+                    title: string;
+                    short_description: string;
+                  }) => {
+                    return (
+                      <Card className="w-[500px]">
+                        <div className="flex">
+                          <img
+                            src={news_piece.top_image}
+                            className="w-48 p-5 rounded-[30px]"
+                            alt={news_piece.title}
+                          />
+                          <CardHeader>
+                            <CardTitle>{news_piece.title}</CardTitle>
+                            <CardDescription className=" line-clamp-4">
+                              {news_piece.short_description}
+                            </CardDescription>
+                          </CardHeader>
+                        </div>
+                      </Card>
+                    );
+                  }
+                )
+            : ""}
         </div>
       </section>
     </main>

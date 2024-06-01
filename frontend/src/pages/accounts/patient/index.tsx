@@ -13,8 +13,8 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { PiHeartbeat } from "react-icons/pi";
 import { BiMessageRoundedDots } from "react-icons/bi";
 import { FaRegCalendarCheck } from "react-icons/fa";
-import { MdOutlineMedication } from "react-icons/md";
-import { Button } from "@/components/ui/button"
+import { MdOutlineAssessment, MdOutlineMedication } from "react-icons/md";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,11 +22,18 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { useSession } from "@/hooks/useSession";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { PatientHealthQuestionnaire9 } from "./pages/patient-health-questionnaire-9";
 
 export const PatientAccount = () => {
   const { session, signOut } = useSession();
@@ -37,66 +44,91 @@ export const PatientAccount = () => {
       <nav className="patient-nav-bar flex flex-col justify-between p-2 bg-white rounded-md w-[300px] h-screen">
         <ul className="flex flex-col gap-2">
           <li>
-            <NavLink to="/"><PiHeartbeat /> My Health</NavLink>
+            <NavLink to="/">
+              <PiHeartbeat /> My Health
+            </NavLink>
           </li>
           <li>
-            <NavLink to="appointments"><FaRegCalendarCheck /> Appointments</NavLink>
+            <NavLink to="appointments">
+              <FaRegCalendarCheck /> Appointments
+            </NavLink>
           </li>
           <li>
-            <NavLink to="doctors"><FaUserDoctor /> Doctors</NavLink>
+            <NavLink to="doctors">
+              <FaUserDoctor /> Doctors
+            </NavLink>
           </li>
           <li>
-            <NavLink to="healthcare-facilities"> <CiHospital1 /> Healthcare Facilities</NavLink>
+            <NavLink to="healthcare-facilities">
+              {" "}
+              <CiHospital1 /> Healthcare Facilities
+            </NavLink>
           </li>
           <li>
-            <NavLink to="prescriptions"><MdOutlineMedication /> Prescriptions</NavLink>
+            <NavLink to="prescriptions">
+              <MdOutlineMedication /> Prescriptions
+            </NavLink>
           </li>
           <li>
-            <NavLink to="messages"><BiMessageRoundedDots /> Messages</NavLink>
+            <NavLink to="messages">
+              <BiMessageRoundedDots /> Messages
+            </NavLink>
           </li>
           <li>
-            <NavLink to="meli"><BsRobot /> AI Consultant</NavLink>
+            <NavLink to="meli">
+              <BsRobot /> AI Consultant
+            </NavLink>
+          </li>
+          <li>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="w-[200px] flex justify-between">
+                    <div className="flex items-center gap-3">
+                      <MdOutlineAssessment /> Assessments
+                    </div>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <NavLink to="patient-health-questionnaire-9">
+                      Patient Health Questionnaire-9
+                    </NavLink>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </li>
         </ul>
 
         <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="border-0"> {session?.user.email}</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>Support</DropdownMenuItem>
-        
-       
-        <DropdownMenuItem onClick={() => signOut().then((response) => {
-          window.location.reload()
-          navigate("/sign-in", {
-            replace: true
-          })
-          toast({
-            description: response.message
-          })
-        })}>
-          Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className="border-0"> {session?.user.email}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem disabled>Support</DropdownMenuItem>
+
+            <DropdownMenuItem
+              onClick={() =>
+                signOut().then((response) => {
+                  navigate("/", {
+                    replace: true,
+                  });
+                  toast({
+                    description: response.message,
+                  });
+                })
+              }>
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </nav>
       <section className="bg-white w-full h-full overflow-y-auto p-2 rounded-md">
         <Routes>
@@ -114,6 +146,10 @@ export const PatientAccount = () => {
           <Route path="prescriptions" element={<Prescriptions />} />
           <Route path="messages" element={<Messages />} />
           <Route path="meli" element={<AIChat />} />
+          <Route
+            path="patient-health-questionnaire-9"
+            element={<PatientHealthQuestionnaire9 />}
+          />
         </Routes>
       </section>
     </main>
