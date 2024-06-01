@@ -302,10 +302,6 @@ app.post("/otpVerification", async (req, res) => {
   }
 });
 
-app.post("/auth/sendOTP", (req, res) => {
-  res.send("Sending OTP");
-});
-
 app.post("/logout", async (req, res) => {
   const { error } = await supabase_client.auth.signOut();
   if (error) {
