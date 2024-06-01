@@ -200,16 +200,19 @@ app.post("/login", async (req, res) => {
 
       if (error) {
         logger.error(error);
-        res.status(error.status).json({
-          status: false,
-          error: {
-            ...error,
-            message: error.message,
-          },
-        });
+        if (error.message.includes("Email not confirmed")) {
+          res.status(error.status).json({
+            status: false,
+            message: `Email: ${email} not confirmed. Check your email inbox for more information.`,
+          });
+        } else {
+          res
+            .status(error.status)
+            .json({ ...error, message: "Invalid login credentials." });
+        }
       } else {
         logger.info(`${data.user.email} has been authenticated successfully.`);
-        logger.info(`Sending OTP code to ${data.user.email}`);
+        /*logger.info(`Sending OTP code to ${data.user.email}`);
         const OTP = generateOTP(8);
         const { error } = await supabase_client
           .from("one_time_passwords")
@@ -226,7 +229,7 @@ app.post("/login", async (req, res) => {
           ]);
 
         if (error) {
-          logger.error;
+          logger.error(error);
         } else {
           try {
             emailjs.init({
@@ -253,7 +256,12 @@ app.post("/login", async (req, res) => {
             logger.error(error);
             res.status(500).json(error);
           }
-        }
+        }*/
+
+        res.status(200).json({
+          status: true,
+          ...data,
+        });
       }
     } else {
       logger.error(`${password} is not a valid password`);
@@ -449,6 +457,59 @@ app.get("/appointments", async (req, res) => {
       });
     }
   }
+});
+
+app.post("/users/createUser", async (req, res) => {
+  logger.info(`Requesting to create user ${req.body}`);
+  if (Object.entries(req.body).length !== 6) {
+    res.status(401).json({
+      status: false,
+      message: "Invalid user details.",
+    });
+  }
+
+  supabase_client.auth
+    .signUp({
+      email: req.body.email,
+      password: "StreetCoder@254",
+    })
+    .then(async (value) => {
+      //create a new user profile entry in teh profiles table
+      const { data, error } = await supabase_client.from("profiles").insert([
+        {
+          user_id: value.data.user.id,
+          email: value.data.user.email,
+          role: req.body.role,
+          date_of_birth: req.body.dob,
+          hasAgreedToTerms: true,
+          contact: Number(req.body.contact),
+          name: req.body.name,
+        },
+      ]);
+      if (error) {
+        console.log(error);
+        res.status(error.status).json({
+          message: error.error,
+          ...error,
+        });
+      }
+
+      logger.info(`Successfully created user ${req.body}`);
+      res.status(201).json({
+        status: true,
+        message: `Account created under the email ${req.body.email}`,
+      });
+    })
+    .catch((error) => {
+      logger.error(error);
+      if (error.code.includes("user_already_exists")) {
+        res.status(error.status).json({
+          status: false,
+          message: "An account with that email already exists.",
+          error: error,
+        });
+      }
+    });
 });
 
 app.get("/doctors", async (req, res) => {

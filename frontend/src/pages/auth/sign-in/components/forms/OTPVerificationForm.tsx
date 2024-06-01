@@ -75,7 +75,7 @@ export const OTPVerificationForm = () => {
             message: "Your OTP has expired",
           });
         } else {
-          navigate("/", {
+          navigate("/account", {
             replace: true,
           });
         }

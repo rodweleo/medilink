@@ -27,40 +27,40 @@ export const RootLayout = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="about-us">About Us</NavLink>
+            <NavLink to="/about-us">About Us</NavLink>
           </li>
           <li>
-            <NavLink to="assessments">Assessments</NavLink>
+            <NavLink to="/assessments">Assessments</NavLink>
           </li>
           <li>
-            <NavLink to="pricing">Pricing</NavLink>
+            <NavLink to="/pricing">Pricing</NavLink>
           </li>
           <li>
-            <NavLink to="contact-us">Contact Us</NavLink>
+            <NavLink to="/contact-us">Contact Us</NavLink>
           </li>
         </ul>
         <ul className="flex gap-5">
           <li>
-            <NavLink to="sign-in">Sign In</NavLink>
+            <NavLink to="/sign-in">Sign In</NavLink>
           </li>
           <li>
-            <NavLink to="sign-up">Sign Up</NavLink>
+            <NavLink to="/sign-up">Sign Up</NavLink>
           </li>
         </ul>
       </nav>
       <section className="h-full p-5">
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="about-us" element={<main>About us</main>} />
-          <Route path="assessments">
+          <Route path="/about-us" element={<main>About us</main>} />
+          <Route path="/assessments">
             <Route index element={<Assessments />} />
             <Route path=":id" element={<MentalHealthAssessmentForm />} />
           </Route>
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="contact-us" element={<main>Contact Us</main>} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="book-appointment" element={<BookAppointment />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact-us" element={<main>Contact Us</main>} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/book-appointment" element={<BookAppointment />} />
           <Route
             path="/2factor-authentication"
             element={<OTPVerificationForm />}

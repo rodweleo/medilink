@@ -32,20 +32,16 @@ export const useSession = () => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    try {
-      const response = await axios.post(`${API_URL}/login`, {
-        email: email,
-        password: password,
-      });
-      sessionStorage.setItem(
-        "MEDLINK_SESSION",
-        JSON.stringify(response.data.session)
-      );
-      setSession(response.data.session);
-      return response.data;
-    } catch (error) {
-      return error;
-    }
+    const response = await axios.post(`${API_URL}/login`, {
+      email: email,
+      password: password,
+    });
+    sessionStorage.setItem(
+      "MEDLINK_SESSION",
+      JSON.stringify(response.data.session)
+    );
+
+    return response.data;
   };
 
   const signOut = async () => {
@@ -57,6 +53,24 @@ export const useSession = () => {
     } catch (error) {
       return error;
     }
+  };
+
+  type SignUpProps = {
+    name: string;
+    email: string;
+    hasAgreedToTerms: boolean;
+    role: string;
+    dob: Date;
+    contact: string;
+  };
+
+  const signUp = async (userDetails: SignUpProps) => {
+    const response = await axios.post(
+      `${API_URL}/users/createUser`,
+      userDetails
+    );
+
+    return response.data;
   };
 
   /*const fetchUserById = async (userId: string) => {
@@ -79,5 +93,6 @@ export const useSession = () => {
     isFetchingSession,
     signIn,
     signOut,
+    signUp,
   };
 };

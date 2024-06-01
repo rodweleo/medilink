@@ -41,23 +41,22 @@ export const SignInForm = () => {
 
   const onSubmit = async (values: z.infer<typeof SignInFormSchema>) => {
     setIsSubmitting(true);
-    signIn(values.email, values.password).then((response) => {
-      if (response.status) {
-        navigate("/2factor-authentication", {
-          state: {
-            email: values.email,
-            user_id: response.user.id,
-          },
-        });
+    try {
+      const res = await signIn(values.email, values.password);
+      if (res.status) {
+        console.log(res);
         setIsSubmitting(false);
       } else {
         setIsSubmitting(false);
-        toast({
-          title: `${response.response.statusText}`,
-          description: response.response.data.message,
-        });
       }
-    });
+    } catch (e: any) {
+      setIsSubmitting(false);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: e.response.data.message,
+      });
+    }
   };
 
   return (
@@ -129,7 +128,7 @@ export const SignInForm = () => {
                   })
                 }
                 className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline">
-                Sign In
+                Sign Up
               </Button>
             </p>
           </CardFooter>
