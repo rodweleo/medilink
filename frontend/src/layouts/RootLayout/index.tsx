@@ -1,5 +1,5 @@
 import { SignUp } from "@/pages/auth/sign-up";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { Homepage } from "./pages/homepage";
 import { BookAppointment } from "./pages/book-appointment";
 import { Pricing } from "./pages/pricing";
@@ -10,14 +10,18 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Assessments } from "./pages/assessments";
 import { ChatWithMeliForm } from "./components/forms/ChatWithMeliForm";
 import { MentalHealthAssessmentForm } from "./components/forms/MentalHealthAssessmentForm";
+import { OTPVerificationForm } from "@/pages/auth/sign-in/components/forms/OTPVerificationForm";
 
 export const RootLayout = () => {
+  const navigate = useNavigate();
   return (
     <main className="h-full fixed w-full overflow-x-hidden">
       <nav className="root-nav-bar flex p-5 w-full items-center bg-white justify-between sticky top-0 h-20 z-50">
-        <NavLink to="/">
+        <Button
+          className="bg-white text-black hover:bg-white"
+          onClick={() => navigate("/")}>
           <h1 className="font-bold">MediLink</h1>
-        </NavLink>
+        </Button>
         <ul className="flex gap-5 max-lg:hidden">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -57,6 +61,10 @@ export const RootLayout = () => {
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="book-appointment" element={<BookAppointment />} />
+          <Route
+            path="/2factor-authentication"
+            element={<OTPVerificationForm />}
+          />
         </Routes>
       </section>
 

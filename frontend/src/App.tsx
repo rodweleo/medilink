@@ -1,17 +1,16 @@
 import "./App.css";
-import { Toaster } from "./components/ui/toaster";
-import { useSession } from "./hooks/useSession";
 import { AppLayout } from "./layouts/AppLayout";
 import { RootLayout } from "./layouts/RootLayout";
+import { useSession } from "./hooks/useSession";
 
 function App() {
   const { session } = useSession();
-  return (
-    <>
-      <Toaster />
-      {session ? <AppLayout /> : <RootLayout />}
-    </>
-  );
+
+  if (session) {
+    return <AppLayout />;
+  }
+
+  return <RootLayout />;
 }
 
 export default App;

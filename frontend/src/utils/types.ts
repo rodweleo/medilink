@@ -7,6 +7,7 @@ export type Patient = {
   county: string;
   created_at: string;
   date_of_birth: string;
+  medical_records?: MedicalRecord[];
 };
 
 export type Doctor = {

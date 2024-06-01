@@ -8,10 +8,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import africastalking from "africastalking";
 import { createClient } from "@supabase/supabase-js";
 import axios from "axios";
-import  rateLimit from "express-rate-limit";
-import {logger } from "./middleware/logger.js"
-import moment from  "moment"
-import validator from 'validator';
+import rateLimit from "express-rate-limit";
+import { logger } from "./middleware/logger.js";
+import validator from "validator";
+import emailjs from "@emailjs/nodejs";
+import moment from "moment";
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
@@ -21,63 +22,62 @@ const supabase_client = createClient(
 const apiRateLimiter = rateLimit({
   windowMs: 15,
   max: 100,
-  message: 'Too many request from this IP'
-})
+  message: "Too many request from this IP",
+});
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:5173', 'https://medilinc.vercel.app']
+const allowedOrigins = ["http://localhost:5173", "https://medilinc.vercel.app"];
 
 app.use(
   cors({
-    origin: function(origin, callback){
-      if(!origin) return callback(null, true);
-      if(allowedOrigins.indexOf(origin) === -1){
-        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
         return callback(new Error(msg), false);
       }
       return callback(null, true);
     },
     optionsSuccessStatus: 200,
-    credentials: true
+    credentials: true,
   })
 );
-
 
 const checkAccess = (req, res, next) => {
   const action = req.query.action;
 
-  if(action === undefined){
-    next()
-  }else{
+  if (action === undefined) {
+    next();
+  } else {
     res.status(403).json({
       status: false,
-      message: "Forbidden"
-    })
+      message: "Forbidden",
+    });
   }
-}
-
+};
 
 app.use(async (req, res, next) => {
-  const { data, error} = await supabase_client.auth.getSession()
-  const {session} = data;
+  const { data, error } = await supabase_client.auth.getSession();
+  const { session } = data;
   const headers = req.headers;
-  const token = headers["Authorization"]
+  const token = headers["Authorization"];
 
   //console.log(token)
   res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'DELETE,GET,PATCH,POST,PUT',
-    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-    'X-Frame-Options': 'DENY',
-    'X-Content-Type-Options':'nosniff'
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
   });
-  logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`)
-    
-    //save the log into the database
-    /*await supabase_client
+  logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`);
+
+  //save the log into the database
+  /*await supabase_client
     .from('server_logs')
     .insert([
       { 
@@ -91,17 +91,16 @@ app.use(async (req, res, next) => {
         user_id: session?.user.id 
       },
     ])*/
-    next()
+  next();
 
-    /*res.status(401).send({
+  /*res.status(401).send({
       status: false,
       message: 'Access Denied: No Token Provided!'
     })*/
-})
+});
 
 //app.use(apiRateLimiter)
 //app.use(checkAccess)
-
 
 const authenticateUserByPhoneNumber = async (phoneNumber) => {
   const q = query(
@@ -129,126 +128,206 @@ app.get("/", (req, res) => {
 });
 
 app.get("/session", async (req, res) => {
-  const {data, status, error} = await supabase_client.auth.getSession();
+  const { data, status, error } = await supabase_client.auth.getSession();
 
-  if(error){
+  if (error) {
     res.setHeader("Access-Control-Allow-Origin", "*").json({
       status: false,
-      ...data
-    })
+      ...data,
+    });
   }
 
   res.setHeader("Access-Control-Allow-Origin", "*").json({
     status: true,
-    ...data
-  })
-})
+    ...data,
+  });
+});
 
+const generateOTP = (length) => {
+  let otp = "";
+  const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  for (let i = 0; i < length; i++) {
+    const index = Math.floor(Math.random() * characters.length);
+    otp += characters[index];
+  }
+
+  return otp;
+};
 app.post("/login", async (req, res) => {
   //validate the login credentials before handling anything
-  const { email, password} = req.body;
-  const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
+  const { email, password } = req.body;
+  const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
   ///^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])(?!.*([A-Za-z])\1)[A-Za-z\d@$!%*?&]{8,}$/
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  if(email === undefined && password === undefined){
-    logger.error(`Email address and password missing`)
+  if (email === undefined && password === undefined) {
+    logger.error(`Email address and password missing`);
     res.status(400).json({
       status: false,
       error: {
-        message: 'Email address and password missing'
-      }
-    })
-  }else if(email === undefined){
-    logger.error(`Email address is missing`)
+        message: "Email address and password missing",
+      },
+    });
+  } else if (email === undefined) {
+    logger.error(`Email address is missing`);
     res.status(400).json({
       status: false,
       error: {
-        message: 'Email address is missing'
-      }
-    })
-  }else if( password === undefined){
-    logger.error(`Password is missing`)
+        message: "Email address is missing",
+      },
+    });
+  } else if (password === undefined) {
+    logger.error(`Password is missing`);
     res.status(400).json({
       status: false,
       error: {
-        message: 'Password is missing'
-      }
-    })
+        message: "Password is missing",
+      },
+    });
   }
 
   //CHECK IF THE EMAIL PROVIDED IS A VALID EMAIL
-  if(emailRegex.test(email) && validator.isEmail(email)){
-
+  if (emailRegex.test(email) && validator.isEmail(email)) {
     //test the password
-    if(passwordRegex.test(password)){
-      let { data, error} = await supabase_client.auth.signInWithPassword({
+    if (passwordRegex.test(password)) {
+      logger.info(`Authenticating ${email}`);
+      let { data, error } = await supabase_client.auth.signInWithPassword({
         email: email,
-        password: password
-      })
-    
-        if(error){
-          logger.error(error)
-          res.status(error.status).json({
-            status : false, 
-            error: {
-              ...error,
-              message: error.message
+        password: password,
+      });
+
+      if (error) {
+        logger.error(error);
+        res.status(error.status).json({
+          status: false,
+          error: {
+            ...error,
+            message: error.message,
+          },
+        });
+      } else {
+        logger.info(`${data.user.email} has been authenticated successfully.`);
+        logger.info(`Sending OTP code to ${data.user.email}`);
+        const OTP = generateOTP(8);
+        const { error } = await supabase_client
+          .from("one_time_passwords")
+          .insert([
+            {
+              user_id: data.user.id,
+              otp: OTP,
+              created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+              expires_at: moment()
+                .add(5, "minutes")
+                .format("YYYY-MM-DD HH:mm:ss"),
+              email: data.user.email,
             },
-          })
-        }else{
-          logger.info(`${data.user.email} has successfully signed in.`)
-          res.status(200).json({
-            status : true,
-            ...data
-          })
+          ]);
+
+        if (error) {
+          logger.error;
+        } else {
+          try {
+            emailjs.init({
+              publicKey: process.env.EMAILJS_PUBLIC_KEY,
+            });
+            const mailResponse = await emailjs.send(
+              process.env.MFA_EMAILJS_SERVICE_ID,
+              process.env.MFA_EMAILJS_TEMPLATE_ID,
+              {
+                to_mail: data.user.email,
+                message: OTP,
+              }
+            );
+            if (mailResponse.status === 200) {
+              logger.info(
+                `Successfully sent a one time password to ${data.user.email}`
+              );
+              res.status(200).json({
+                status: true,
+                ...data,
+              });
+            }
+          } catch (error) {
+            logger.error(error);
+            res.status(500).json(error);
+          }
         }
-    }else{
-      logger.error(`${password} is not a valid password`)
+      }
+    } else {
+      logger.error(`${password} is not a valid password`);
       res.status(400).json({
         status: false,
         error: {
-          message: 'Invalid password'
-        }
-      })
+          message: "Invalid password",
+        },
+      });
     }
-    
-  }else{
-      logger.error(`${email} is not a valid email address`)
-      res.status(400).json({
-        status: false,
-        error: {
-          message: 'Invalid email address'
-        }
-      })
+  } else {
+    logger.error(`${email} is not a valid email address`);
+    res.status(400).json({
+      status: false,
+      error: {
+        message: "Invalid email address",
+      },
+    });
   }
-    
-})
+});
+
+app.post("/otpVerification", async (req, res) => {
+  let filter = {};
+  Object.entries(req.body).forEach(([key, value]) => {
+    filter[key] = value;
+  });
+
+  const { data, error } = await supabase_client
+    .from("one_time_passwords")
+    .select()
+    .match(filter);
+
+  if (error) {
+    logger.error(error);
+  } else {
+    if (data.length > 0) {
+      res.status(200).json({
+        status: true,
+        data: data,
+      });
+    } else {
+      res.status(404).json({
+        status: false,
+      });
+    }
+  }
+});
+
+app.post("/auth/sendOTP", (req, res) => {
+  res.send("Sending OTP");
+});
 
 app.post("/logout", async (req, res) => {
-  const { error } =  await supabase_client.auth.signOut();
-  if(error){
-    res.status(500).json(error)
+  const { error } = await supabase_client.auth.signOut();
+  if (error) {
+    res.status(500).json(error);
   }
 
   res.status(200).json({
-    message: "You've been signed out."
-  })
-})
+    message: "You've been signed out.",
+  });
+});
 
 app.get("/doctors", async (req, res) => {
-  let { data, error, status } = await supabase_client
-    .from("doctors")
-    .select();
+  let { data, error, status } = await supabase_client.from("doctors").select();
 
   if (error) {
-    logger.error(`Error: ${error}`)
+    logger.error(`Error: ${error}`);
     res.status(status).json(data);
   }
   res.status(status).json({
     doctors: data,
   });
-})
+});
 
 app.get("/healthcare-facilities", async (req, res) => {
   let { data, error, status } = await supabase_client
@@ -288,13 +367,13 @@ app.get("/distance", async (req, res) => {
 app.post("/ai-chat", async (req, res) => {
   const { prompt } = req.body;
 
-  try{
-    const model = genAI.getGenerativeModel({ 
+  try {
+    const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction:
-      "You are a medical consultant in place for doctors who specializes in giving medical advice, diagnosis and prescriptions. Your name is Meli. When I describe a medical issue, please return the medical response needed to help the situation. Do not give boilerplate information. Also acknowledge the importance of health care in Kenya. Only answer medical or health related questions. Be polite and answer greetings warmly. ",
-     });
-  
+        "You are a medical consultant in place for doctors who specializes in giving medical advice, diagnosis and prescriptions. Your name is Meli. When I describe a medical issue, please return the medical response needed to help the situation. Do not give boilerplate information. Also acknowledge the importance of health care in Kenya. Only answer medical or health related questions. Be polite and answer greetings warmly. ",
+    });
+
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
@@ -302,13 +381,13 @@ app.post("/ai-chat", async (req, res) => {
       status: true,
       response: text,
     });
-  }catch(e){
+  } catch (e) {
     res.status(500).json({
       status: false,
       error: {
-        message: e
-      }
-    })
+        message: e,
+      },
+    });
   }
 });
 
@@ -318,13 +397,13 @@ app.get("/serverLogs", async (req, res) => {
     .select();
 
   if (error) {
-    logger.error(`Error: ${error}`)
+    logger.error(`Error: ${error}`);
     res.status(status).json(data);
   }
   res.status(status).json({
     server_logs: data,
   });
-})
+});
 
 const africasTalkingOptions = {
   apiKey: process.env.AFRICA_TALKING_API_KEY,
@@ -344,7 +423,6 @@ const sendSMS = async (receiver, content) => {
 };
 
 app.get("/appointments", async (req, res) => {
-
   let filter = {};
   Object.entries(req.query).forEach(([key, value]) => {
     filter[key] = value;
@@ -353,7 +431,7 @@ app.get("/appointments", async (req, res) => {
     let { data, error, status } = await supabase_client
       .from("appointments")
       .select()
-      .match(filter)
+      .match(filter);
 
     if (error) {
       res.status(500).json(data);
@@ -444,12 +522,12 @@ app.get("/patients", async (req, res) => {
     let { data, error, status } = await supabase_client
       .from("patients")
       .select()
-      .match(filter)
+      .match(filter);
 
     if (error) {
       res.status(500).json({
         status: false,
-        ...error
+        ...error,
       });
     } else {
       res.status(200).json({
@@ -463,7 +541,6 @@ app.get("/patients", async (req, res) => {
       .select();
 
     if (error) {
-      
       res.status(500).json(data);
     } else {
       res.status(200).json({
@@ -483,23 +560,23 @@ app.get("/medicalRecords", async (req, res) => {
     let { data, error, status } = await supabase_client
       .from("medical_records")
       .select()
-      .match(filter)
+      .match(filter);
 
     if (error) {
-      logger.error(error)
+      logger.error(error);
       res.status(500).json({
         status: false,
-        ...error
+        ...error,
       });
     } else {
-      if(data.length === 0){
-        logger.error(`Medical records not found for ${filter}`)
+      if (data.length === 0) {
+        logger.error(`Medical records not found for ${filter}`);
         res.status(404).json({
           status: false,
           medicalRecords: data,
         });
-      }else{
-        logger.info(`${data.length} medical records requested by `)
+      } else {
+        logger.info(`${data.length} medical records requested by `);
         res.status(200).json({
           status: true,
           medicalRecords: data,
@@ -514,7 +591,7 @@ app.get("/medicalRecords", async (req, res) => {
     if (error) {
       res.status(500).json({
         status: false,
-        ...error
+        ...error,
       });
     } else {
       res.status(200).json({
@@ -525,6 +602,22 @@ app.get("/medicalRecords", async (req, res) => {
   }
 });
 
+app.get("/profiles", async (req, res) => {
+  const { data, error } = await supabase_client.from("auth.users").select(
+    `id, email, created_at, patients (
+        name,
+        date_of_birth,
+        city
+      )`
+  );
+
+  if (error) {
+    logger.error(error);
+    res.send(error);
+  } else {
+    return res.send(data);
+  }
+});
 app.post("/ussd/callback", async (req, res) => {
   const { sessionId, serviceCode, phoneNumber, text } = req.body;
 
