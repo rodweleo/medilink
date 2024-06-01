@@ -25,7 +25,7 @@ export const AboutUsPage = () => {
         <div className="grid gap-4 justify-center items-center w-full grid-cols-2 py-20">
           <div className="flex flex-col items-center gap-4">
             <p className="text-5xl font-bold mx-auto">Our Vision</p>
-            <p className="mt-2 text-center font-semibold text-slate-600 mx-auto w-[70%]">
+            <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[70%]">
               We envision a world where healthcare is accessible to all,
               irrespective of geographical and infrastructural barriers. By
               integrating advanced technological solutions, we aim to create a
@@ -40,7 +40,7 @@ export const AboutUsPage = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
             <p className="text-5xl font-bold mx-auto">Our Mission</p>
-            <p className="mt-2 text-center font-semibold text-slate-600 mx-auto w-[80%]">
+            <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[80%]">
               Our mission is to revolutionize healthcare delivery by providing a
               comprehensive platform that enhances access, efficiency, and
               patient experience. We strive to: Improve access to healthcare
@@ -87,7 +87,7 @@ export const AboutUsPage = () => {
         </div>
         <div className="flex flex-col gap-4 py-20 items-center bg-gray-50">
           <p className="text-5xl font-bold">Our Commitment</p>
-          <p className="mt-2 text-center font-semibold text-slate-600 mx-auto w-[80%]">
+          <p className="mt-2 text-center font-semibold text-slate-600 mx-auto max-w-[700px]">
             We are committed to enhancing healthcare outcomes and patient
             satisfaction by addressing the challenges faced by the healthcare
             sector. Through MediLink, we aim to empower individuals and
@@ -101,7 +101,13 @@ export const AboutUsPage = () => {
   );
 };
 
-function OfferCard({ title, description }) {
+function OfferCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   return (
     <Card className="w-[350px]" key={title}>
       <CardHeader>
