@@ -27,10 +27,10 @@ export const AboutUsPage = () => {
             <p className="text-5xl font-bold mx-auto">Our Vision</p>
             <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[70%]">
               We envision a world where healthcare is accessible to all,
-              irrespective of geographical and infrastructural barriers. By
-              integrating advanced technological solutions, we aim to create a
-              seamless and efficient healthcare system that caters to the needs
-              of underserved populations.
+              irrespective of geographical and infrastructural barriers. <br />{" "}
+              By integrating advanced technological solutions, we aim to create
+              a seamless and efficient healthcare system that caters to the
+              needs of underserved populations.
             </p>
           </div>
           <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
@@ -43,20 +43,34 @@ export const AboutUsPage = () => {
             <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[80%]">
               Our mission is to revolutionize healthcare delivery by providing a
               comprehensive platform that enhances access, efficiency, and
-              patient experience. We strive to: Improve access to healthcare
-              services through telemedicine. Ensure seamless access to patient
-              records with Electronic Health Records (EHR). Facilitate easy
-              identification of healthcare facilities with our Healthcare
-              Facility Mapping. Streamline appointment scheduling to manage
-              patient queues effectively. Provide mobile access and offline
-              functionality to cater to users in rural areas with limited or no
-              internet connectivity.
+              patient experience. <br /> We strive to:{" "}
+              <ul className="list-disc ml-5">
+                <li>
+                  Improve access to healthcare services through telemedicine.
+                </li>
+                <li>
+                  Ensure seamless access to patient records with Electronic
+                  Health Records (EHR).
+                </li>
+                <li>
+                  Facilitate easy identification of healthcare facilities with
+                  our Healthcare Facility Mapping.
+                </li>
+                <li>
+                  Streamline appointment scheduling to manage patient queues
+                  effectively.
+                </li>
+                <li>
+                  Provide mobile access and offline functionality to cater to
+                  users in rural areas with limited or no internet connectivity.
+                </li>
+              </ul>{" "}
             </p>
           </div>
         </div>
         <div className="flex flex-col gap-4 py-20 items-center">
           <p className="text-5xl font-bold">What We Offer </p>
-          <div className="grid grid-cols-3 gap-12">
+          <div className="flex flex-wrap justify-center gap-10">
             <OfferCard
               title="Telemedicine Services"
               description="Enabling remote consultations between patients and healthcare providers, reducing the need for physical visits and making healthcare more accessible."
@@ -109,10 +123,14 @@ function OfferCard({
   description: string;
 }) {
   return (
-    <Card className="w-[350px]" key={title}>
+    <Card
+      className="w-[350px] cursor-pointer shadow-md hover:scale-[1.02] hover:bg-black transition-all duration-300 hover:text-white"
+      key={title}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="hover:text-white">
+          {description}
+        </CardDescription>
       </CardHeader>
     </Card>
   );

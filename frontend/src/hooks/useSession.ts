@@ -7,7 +7,9 @@ export const useSession = () => {
   const [session, setSession] = useState<Session>(
     JSON.parse(sessionStorage.getItem("MEDILINK_SESSION")!)
   );
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(sessionStorage.getItem("CURRENT_USER_PROFILE")!)
+  );
   const [error, setError] = useState<string[]>([]);
   const [isFetchingSession, setIsFetchingSession] = useState(true);
   useEffect(() => {

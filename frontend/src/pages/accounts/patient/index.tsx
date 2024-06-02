@@ -36,7 +36,7 @@ import {
 import { PatientHealthQuestionnaire9 } from "./pages/patient-health-questionnaire-9";
 
 export const PatientAccount = () => {
-  const { session, signOut } = useSession();
+  const { signOut, user } = useSession();
   const { toast } = useToast();
   const navigate = useNavigate();
   return (
@@ -44,7 +44,7 @@ export const PatientAccount = () => {
       <nav className="patient-nav-bar flex flex-col justify-between p-2 bg-white rounded-md w-[300px] h-screen">
         <ul className="flex flex-col gap-2">
           <li>
-            <NavLink to="/">
+            <NavLink to="dashboard">
               <PiHeartbeat /> My Health
             </NavLink>
           </li>
@@ -101,7 +101,7 @@ export const PatientAccount = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="border-0"> {session?.user.email}</Button>
+            <Button className="border-0"> {user.name}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -132,7 +132,7 @@ export const PatientAccount = () => {
       </nav>
       <section className="bg-white w-full h-full overflow-y-auto p-2 rounded-md">
         <Routes>
-          <Route path="/" element={<MyHealth />} />
+          <Route path="dashboard" element={<MyHealth />} />
           <Route path="appointments" element={<Appointments />} />
           <Route path="doctors" element={<Doctors />} />
           <Route

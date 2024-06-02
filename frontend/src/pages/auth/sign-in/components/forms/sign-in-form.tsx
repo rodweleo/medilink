@@ -43,9 +43,25 @@ export const SignInForm = () => {
     setIsSubmitting(true);
     try {
       const res = await signIn(values.email, values.password);
+      sessionStorage.setItem(
+        "CURRENT_USER_PROFILE",
+        JSON.stringify(res.profile)
+      );
       if (res.status) {
-        console.log(res);
         setIsSubmitting(false);
+        if (res.profile.role === "patient") {
+          navigate("/patient", {
+            replace: true,
+          });
+        } else if (res.profile.role === "doctor") {
+          navigate("/doctor", {
+            replace: true,
+          });
+        } else if (res.profile.role === "admin") {
+          navigate("/admin", {
+            replace: true,
+          });
+        }
       } else {
         setIsSubmitting(false);
       }

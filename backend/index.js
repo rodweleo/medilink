@@ -143,17 +143,6 @@ app.get("/session", async (req, res) => {
   });
 });
 
-const generateOTP = (length) => {
-  let otp = "";
-  const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  for (let i = 0; i < length; i++) {
-    const index = Math.floor(Math.random() * characters.length);
-    otp += characters[index];
-  }
-
-  return otp;
-};
 app.post("/login", async (req, res) => {
   //validate the login credentials before handling anything
   const { email, password } = req.body;
@@ -258,10 +247,21 @@ app.post("/login", async (req, res) => {
           }
         }*/
 
-        res.status(200).json({
-          status: true,
-          ...data,
-        });
+        //get the user's profile
+        const response = await supabase_client
+          .from("profiles")
+          .select()
+          .eq("user_id", data.user.id);
+
+        if (response.error) {
+          res.status(500).json(error);
+        } else {
+          res.status(200).json({
+            status: true,
+            ...data,
+            profile: response.data[0],
+          });
+        }
       }
     } else {
       logger.error(`${password} is not a valid password`);
@@ -437,7 +437,9 @@ app.get("/appointments", async (req, res) => {
       .select()
       .match(filter);
 
+    //console.log(data);
     if (error) {
+      logger.error(error);
       res.status(500).json(data);
     } else {
       res.status(200).json({
@@ -542,13 +544,18 @@ app.get("/doctors", async (req, res) => {
 });
 
 app.get("/prescriptions", async (req, res) => {
-  if (Object.entries(req.params).length > 0) {
+  let filter = {};
+  Object.entries(req.query).forEach(([key, value]) => {
+    filter[key] = value;
+  });
+  if (Object.entries(req.query).length > 0) {
     let { data, error, status } = await supabase_client
       .from("prescriptions")
       .select()
-      .eq("patient_id", req.params.patientId);
+      .match(filter);
 
     if (error) {
+      logger.error(error);
       res.status(500).json(data);
     } else {
       res.status(200).json({
@@ -561,6 +568,7 @@ app.get("/prescriptions", async (req, res) => {
       .select();
 
     if (error) {
+      logger.error(error);
       res.status(500).json(data);
     } else {
       res.status(200).json({
