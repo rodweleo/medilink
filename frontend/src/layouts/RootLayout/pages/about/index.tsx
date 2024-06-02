@@ -99,7 +99,7 @@ export const AboutUsPage = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4 py-20 items-center bg-gray-50">
+        <div className="flex flex-col gap-4 py-20 items-center bg-gray-50 w-full">
           <p className="text-5xl font-bold">Our Commitment</p>
           <p className="mt-2 text-center font-semibold text-slate-600 mx-auto max-w-[700px]">
             We are committed to enhancing healthcare outcomes and patient
