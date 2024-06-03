@@ -80,13 +80,13 @@ const groupedAssessments: AssessmentsGroupedByCategory = ASSESSMENTS.reduce(
 
     return group;
   },
-  {}
+  {},
 );
 
 export const Assessments = () => {
   const navigate = useNavigate();
   return (
-    <main>
+    <main className="px-8">
       <>
         <h1 className="font-bold text-3xl">Assessments</h1>
         <section className="flex flex-col gap-10 mt-5">
@@ -100,7 +100,8 @@ export const Assessments = () => {
                       <li>
                         <Card
                           className="w-[400px]"
-                          id={assessment.id.toString()}>
+                          id={assessment.id.toString()}
+                        >
                           <CardHeader>
                             <CardTitle>{assessment.title}</CardTitle>
                             <CardDescription>
@@ -113,12 +114,13 @@ export const Assessments = () => {
                                 navigate(
                                   assessment.title
                                     .toLowerCase()
-                                    .replace(" ", "-")
+                                    .replace(" ", "-"),
                                 )
                               }
                               disabled={
                                 assessment.title !== "Depression Assessment"
-                              }>
+                              }
+                            >
                               Take assessment
                             </Button>
                           </CardFooter>

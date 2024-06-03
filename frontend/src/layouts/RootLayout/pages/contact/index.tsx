@@ -14,6 +14,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import { Github, Mail, Phone, Timer } from "lucide-react";
+import ContactInfoContainer from "./components/contact-info-container";
 
 const ContactFormSchema = z.object({
   fullName: z.string().nonempty("Full Name is required"),
@@ -130,23 +131,18 @@ export const ContactUsPage = () => {
       </Form>
       <div className="w-full bg-black text-white flex flex-col gap-8 p-12">
         <p className="text-3xl font-black">Information</p>
-        <div className="flex items-center gap-2 mt-4">
+        <ContactInfoContainer caption="crypticdefenders@gmail.com">
           <Mail size={24} />
-          <p>crypticdefenders@gmail.com</p>
-        </div>
-        <div className="flex items-center gap-2 mt-4">
+        </ContactInfoContainer>
+        <ContactInfoContainer caption="+254 723 456 789">
           <Phone size={24} />
-          <p>+254 723 456 789</p>
-        </div>
-
-        <div className="flex items-center gap-2 mt-4">
+        </ContactInfoContainer>
+        <ContactInfoContainer caption="cryptic-defenders">
           <Github size={24} />
-          <p>cryptic-defenders</p>
-        </div>
-        <div className="flex items-center gap-2 mt-4">
+        </ContactInfoContainer>
+        <ContactInfoContainer caption="Monday - Sunday : 8:00 AM - 5:00 PM">
           <Timer size={24} />
-          <p>Monday - Sunday : 8:00 AM - 5:00 PM</p>
-        </div>
+        </ContactInfoContainer>
       </div>
     </main>
   );

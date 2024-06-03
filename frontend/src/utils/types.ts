@@ -106,3 +106,8 @@ export type Assessment = {
 export type AssessmentsGroupedByCategory = {
   [category: string]: Assessment[];
 };
+
+export type ServiceOffered = {
+  title: string;
+  description: string;
+};
