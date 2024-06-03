@@ -11,8 +11,6 @@ import axios from "axios";
 import rateLimit from "express-rate-limit";
 import { logger } from "./middleware/logger.js";
 import validator from "validator";
-import emailjs from "@emailjs/nodejs";
-import moment from "moment";
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
@@ -31,6 +29,7 @@ app.use(express.json());
 
 const allowedOrigins = ["http://localhost:5173", "https://medilinc.vercel.app"];
 
+app.use(apiRateLimiter);
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -264,7 +263,7 @@ app.post("/login", async (req, res) => {
         }
       }
     } else {
-      logger.error(`${password} is not a valid password`);
+      logger.error("Invalid password");
       res.status(400).json({
         status: false,
         error: {
@@ -815,13 +814,6 @@ app.post("/ussd/callback", async (req, res) => {
   // Send the response back to the API
   res.set("Content-Type: text/plain");
   res.send(response);
-});
-
-app.post("/sms/callback", async (req, res) => {
-  const data = req.body;
-  res.send(
-    "More details have been sent to your phone number: " + JSON.stringify(data)
-  );
 });
 
 app.listen(process.env.PORT, () => {
