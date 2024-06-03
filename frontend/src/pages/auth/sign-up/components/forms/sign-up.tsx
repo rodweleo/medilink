@@ -194,8 +194,9 @@ export const SignUpForm = () => {
                                 variant={"outline"}
                                 className={cn(
                                   "w-full pl-3 text-left font-normal",
-                                  !field.value && "text-muted-foreground"
-                                )}>
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
                                 {field.value ? (
                                   format(field.value, "PPP")
                                 ) : (
@@ -207,6 +208,9 @@ export const SignUpForm = () => {
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
+                              captionLayout="dropdown-buttons"
+                              fromYear={1900}
+                              toYear={2024}
                               mode="single"
                               selected={field.value}
                               onSelect={field.onChange}
@@ -236,7 +240,8 @@ export const SignUpForm = () => {
                       onClick={() =>
                         currentStep > 1 && setCurrentStep((prev) => prev - 1)
                       }
-                      className="p-0 m-0 bg-white hover:bg-white text-black hover:scale-[1.25] transition-all duration-300">
+                      className="p-0 m-0 bg-white hover:bg-white text-black hover:scale-[1.25] transition-all duration-300"
+                    >
                       <ArrowLeftIcon />
                     </Button>
                     MediLink - ConnectHealth Terms and Conditions
@@ -324,7 +329,8 @@ export const SignUpForm = () => {
                   <Button
                     className="w-full items-center gap-1 flex mt-5"
                     type="submit"
-                    disabled={isSubmitting}>
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting && <ClipLoader color="white" size={20} />}
                     Create Account
                   </Button>
@@ -338,7 +344,8 @@ export const SignUpForm = () => {
                   type="button"
                   onClick={() =>
                     currentStep < 2 && setCurrentStep((prev) => prev + 1)
-                  }>
+                  }
+                >
                   Next
                 </Button>
               )}
@@ -347,7 +354,8 @@ export const SignUpForm = () => {
                 <Button
                   type="button"
                   onClick={() => navigate("/sign-in", { replace: true })}
-                  className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline">
+                  className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline"
+                >
                   {" "}
                   Sign In
                 </Button>
@@ -371,11 +379,13 @@ export const SignUpForm = () => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel
-              onClick={() => navigate("/sign-in", { replace: true })}>
+              onClick={() => navigate("/sign-in", { replace: true })}
+            >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => navigate("/sign-in", { replace: true })}>
+              onClick={() => navigate("/sign-in", { replace: true })}
+            >
               OK
             </AlertDialogAction>
           </AlertDialogFooter>
