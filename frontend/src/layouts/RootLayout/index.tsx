@@ -46,7 +46,7 @@ export const RootLayout = () => {
           </li>
         </ul>
       </nav>
-      <section className="h-full p-5">
+      <section className="h-full">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="about-us" element={<AboutUsPage />} />

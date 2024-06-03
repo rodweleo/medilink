@@ -4,12 +4,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
+import { ServiceOffered } from "@/utils/types";
+const SERVICE_OFFERS: ServiceOffered[] = [
+  {
+    title: "Telemedicine Services",
+    description:
+      "Enabling remote consultations between patients and healthcare providers, reducing the need for physical visits and making healthcare more accessible.",
+  },
+  {
+    title: "Electronic Health Records (EHR)",
+    description:
+      "Allowing healthcare providers to access patient records seamlessly, ensuring continuity of care regardless of location.",
+  },
+  {
+    title: "Healthcare Facility Mapping",
+    description:
+      "Geographically mapping healthcare facilities, enabling users to search for nearby facilities based on medical needs, services offered, and available equipment.",
+  },
+  {
+    title: "Appointment Scheduling",
+    description:
+      "Managing patient queues efficiently, reducing wait times, and improving the overall patient experience.",
+  },
+  {
+    title: "Mobile Access and Offline Functionality",
+    description:
+      "Ensuring users in rural areas can access essential healthcare services even with limited or no internet connectivity.",
+  },
+];
 export const AboutUsPage = () => {
   return (
     <main className="min-h-screen">
       <section className="h-screen flex items-center flex-col">
-        <div className="flex flex-col gap-4 justify-center items-center  bg-gray-50 w-full py-20">
+        <div className="flex flex-col gap-4 justify-center items-center  bg-gray-100 w-full py-20">
           <p className="text-5xl font-bold">About Us</p>
           <p className="mt-2  text-xl font-semibold text-slate-600">
             Welcome to MediLink - ConnectHealth
@@ -33,12 +60,24 @@ export const AboutUsPage = () => {
               needs of underserved populations.
             </p>
           </div>
-          <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
+          <div className="h-full w-[600px] mx-auto">
+            <img
+              src="https://www.istudiotech.in/wp-content/uploads/2023/02/2-27.png"
+              alt="Re-imagining health care through technology."
+              className="hidden lg:flex"
+            />
+          </div>
         </div>
-        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 bg-gray-50 py-20">
-          <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
+        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 bg-gray-100 py-20">
+          <div className="h-full w-[600px] mx-auto">
+            <img
+              src="https://www.istudiotech.in/wp-content/uploads/2023/02/3-25.png"
+              alt="Our Mision"
+              className="hidden lg:flex"
+            />
+          </div>
+
           <div className="flex flex-col items-center gap-4">
-            <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
             <p className="text-5xl font-bold mx-auto">Our Mission</p>
             <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[80%]">
               Our mission is to revolutionize healthcare delivery by providing a
@@ -71,35 +110,12 @@ export const AboutUsPage = () => {
         <div className="flex flex-col gap-4 py-20 items-center">
           <p className="text-5xl font-bold">What We Offer </p>
           <div className="flex flex-wrap justify-center gap-10">
-            <OfferCard
-              title="Telemedicine Services"
-              description="Enabling remote consultations between patients and healthcare providers, reducing the need for physical visits and making healthcare more accessible."
-            />
-            <OfferCard
-              title="Electronic Health Records (EHR)"
-              description="Allowing healthcare providers to
-            access patient records seamlessly, ensuring continuity of care
-            regardless of location."
-            />
-            <OfferCard
-              title="Healthcare Facility Mapping"
-              description="Geographically mapping healthcare
-            facilities, enabling users to search for nearby facilities based on
-            medical needs, services offered, and available equipment."
-            />
-            <OfferCard
-              title="Appointment Scheduling"
-              description="Managing patient queues efficiently,
-            reducing wait times, and improving the overall patient experience."
-            />
-            <OfferCard
-              title="Mobile Access and Offline Functionality"
-              description="Ensuring users in rural areas can access essential healthcare services even with limited or
-            no internet connectivity."
-            />
+            {SERVICE_OFFERS.map(({ title, description }) => (
+              <OfferCard key={title} title={title} description={description} />
+            ))}
           </div>
         </div>
-        <div className="flex flex-col gap-4 py-20 items-center bg-gray-50">
+        <div className="flex flex-col gap-4 py-20 items-center bg-gray-100 w-full">
           <p className="text-5xl font-bold">Our Commitment</p>
           <p className="mt-2 text-center font-semibold text-slate-600 mx-auto max-w-[700px]">
             We are committed to enhancing healthcare outcomes and patient
@@ -125,7 +141,8 @@ function OfferCard({
   return (
     <Card
       className="w-[350px] cursor-pointer shadow-md hover:scale-[1.02] hover:bg-black transition-all duration-300 hover:text-white"
-      key={title}>
+      key={title}
+    >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription className="hover:text-white">
