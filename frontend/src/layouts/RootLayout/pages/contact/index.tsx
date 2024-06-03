@@ -54,7 +54,7 @@ export const ContactUsPage = () => {
   };
 
   return (
-    <main className="min-h-screen grid grid-cols-2 items-center gap-16 mx-36">
+    <main className="min-h-screen sm:flex sm:flex-col xl:grid xl:grid-cols-2 items-center gap-16 mx-36">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardTitle className="text-5xl">Contact Us</CardTitle>
@@ -129,8 +129,10 @@ export const ContactUsPage = () => {
           </Button>
         </form>
       </Form>
-      <div className="w-full bg-black text-white flex flex-col gap-8 p-12">
-        <p className="text-3xl font-black">Information</p>
+      <div className="w-full bg-black text-white flex mt-8 md:mt-0 md:block flex-col gap-8 p-12">
+        <p className="text-xl self-center md:self-start md:text-3xl font-black">
+          Information
+        </p>
         <ContactInfoContainer caption="crypticdefenders@gmail.com">
           <Mail size={24} />
         </ContactInfoContainer>

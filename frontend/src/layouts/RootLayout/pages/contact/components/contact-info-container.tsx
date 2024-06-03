@@ -9,9 +9,9 @@ export default function ContactInfoContainer({
   children,
 }: ContactInfoContainerProps) {
   return (
-    <div className="flex items-center gap-2 mt-4">
-      {children}
-      <p className="text-xl">{caption}</p>
+    <div className="flex items-center  justify-center md:justify-start gap-2 mt-4">
+      <div className="hidden md:block">{children}</div>
+      <p className="text-sm md:text-xl">{caption}</p>
     </div>
   );
 }

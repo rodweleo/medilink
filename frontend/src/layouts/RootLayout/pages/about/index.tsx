@@ -36,12 +36,12 @@ export const AboutUsPage = () => {
   return (
     <main className="min-h-screen">
       <section className="h-screen flex items-center flex-col">
-        <div className="flex flex-col gap-4 justify-center items-center  bg-gray-100 w-full py-20">
-          <p className="text-5xl font-bold">About Us</p>
-          <p className="mt-2  text-xl font-semibold text-slate-600">
+        <div className="flex flex-col gap-4 justify-center items-center bg-gray-100 w-full py-20">
+          <p className="text-5xl font-bold text-center">About Us</p>
+          <p className="mt-2  text-xl font-semibold text-slate-600 text-center">
             Welcome to MediLink - ConnectHealth
           </p>
-          <p className="mt-2 font-semibold text-slate-600 w-[700px] text-center">
+          <p className="mt-2 font-semibold text-slate-600 text-center max-w-[600px]">
             At MediLink, we are dedicated to transforming healthcare delivery by
             leveraging technology to bridge the gap in healthcare access,
             especially in regions with limited resources and infrastructure. Our
@@ -49,7 +49,7 @@ export const AboutUsPage = () => {
             has access to quality healthcare services.
           </p>
         </div>
-        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 py-20">
+        <div className="sm:flex lg:grid gap-4 justify-center items-center w-full lg:grid-cols-2 py-20">
           <div className="flex flex-col items-center gap-4">
             <p className="text-5xl font-bold mx-auto">Our Vision</p>
             <p className="mt-2 text-left font-semibold text-slate-600 mx-auto w-[70%]">
@@ -60,7 +60,7 @@ export const AboutUsPage = () => {
               needs of underserved populations.
             </p>
           </div>
-          <div className="h-full w-[600px] mx-auto">
+          <div className="h-full w-[600px] mx-auto hidden lg:block">
             <img
               src="https://www.istudiotech.in/wp-content/uploads/2023/02/2-27.png"
               alt="Re-imagining health care through technology."
@@ -68,8 +68,8 @@ export const AboutUsPage = () => {
             />
           </div>
         </div>
-        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 bg-gray-100 py-20">
-          <div className="h-full w-[600px] mx-auto">
+        <div className="sm:flex lg:grid gap-4 justify-center items-center w-full lg:grid-cols-2 bg-gray-100 py-20">
+          <div className="h-full w-[600px] mx-auto hidden lg:block">
             <img
               src="https://www.istudiotech.in/wp-content/uploads/2023/02/3-25.png"
               alt="Our Mision"
