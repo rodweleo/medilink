@@ -682,7 +682,8 @@ app.get("/profiles", async (req, res) => {
     return res.send(data);
   }
 });
-app.post("/ussd/callback", async (req, res) => {
+
+/*app.post("/ussd/callback", async (req, res) => {
   const { sessionId, serviceCode, phoneNumber, text } = req.body;
 
   const formatted_phone_number = Number(phoneNumber.replace("+", "").trim());
@@ -813,8 +814,8 @@ app.post("/ussd/callback", async (req, res) => {
 
   // Send the response back to the API
   res.set("Content-Type: text/plain");
-  res.send(response);
-});
+  res.send(escape(response));
+});*/
 
 app.listen(process.env.PORT, () => {
   console.log(`[server]: Server is listening on port ${process.env.PORT}`);
