@@ -1,11 +1,6 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  DayPicker,
-  useDayPicker,
-  useDayRender,
-  useNavigation,
-} from "react-day-picker";
+import { DayPicker, useDayPicker, useNavigation } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -103,28 +98,28 @@ function Calendar({
                 value: (earliestYear + i).toString(),
                 label: (earliestYear + i).toString(),
               }));
-
-              return (
-                <Select
-                  onValueChange={(newValue) => {
-                    const newDate = new Date(currentMonth);
-                    newDate.setFullYear(parseInt(newValue));
-                    goToMonth(newDate);
-                  }}
-                  value={props.value?.toString()}
-                >
-                  <SelectTrigger>{currentMonth.getFullYear()}</SelectTrigger>
-                  <SelectContent>
-                    {selectItems.map((selectitem) => (
-                      <SelectItem value={selectitem.value}>
-                        {selectitem.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              );
             }
-          }
+
+            return (
+              <Select
+                onValueChange={(newValue) => {
+                  const newDate = new Date(currentMonth);
+                  newDate.setFullYear(parseInt(newValue));
+                  goToMonth(newDate);
+                }}
+                value={props.value?.toString()}
+              >
+                <SelectTrigger>{currentMonth.getFullYear()}</SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((selectitem) => (
+                    <SelectItem value={selectitem.value}>
+                      {selectitem.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            );
+          } else return null;
         },
       }}
       {...props}
