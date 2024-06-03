@@ -2,8 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "./firebase/firebase.config.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import africastalking from "africastalking";
 import { createClient } from "@supabase/supabase-js";
@@ -18,8 +16,11 @@ const supabase_client = createClient(
 );
 
 const apiRateLimiter = rateLimit({
-  windowMs: 15,
-  max: 100,
+  windowMs: 2 * 60 * 1000,
+  limit: 1000,
+  statusCode: 429,
+  skipFailedRequests: false,
+  skipSuccessfulRequests: false,
   message: "Too many request from this IP",
 });
 
@@ -73,8 +74,8 @@ app.use(async (req, res, next) => {
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
   });
-  logger.info(`${req.method} ${req.originalUrl} ${req.get("host")}`);
-
+  logger.info(`${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`);
+  logger.info(req)
   //save the log into the database
   /*await supabase_client
     .from('server_logs')
@@ -100,27 +101,6 @@ app.use(async (req, res, next) => {
 
 //app.use(apiRateLimiter)
 //app.use(checkAccess)
-
-const authenticateUserByPhoneNumber = async (phoneNumber) => {
-  const q = query(
-    collection(db, "users"),
-    where("phone_number", "==", phoneNumber)
-  );
-  const querySnapshot = await getDocs(q);
-
-  if (querySnapshot.empty) {
-    return null;
-  }
-
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  const user = data[0];
-
-  return user;
-};
 
 app.get("/", (req, res) => {
   res.send(`Server is live`);
@@ -514,11 +494,11 @@ app.post("/users/createUser", async (req, res) => {
 });
 
 app.get("/doctors", async (req, res) => {
-  if (Object.entries(req.params).length > 0) {
-    let { data, error, status } = await supabase_client
+  if (Object.entries(req.query).length > 0) {
+    let { data, error } = await supabase_client
       .from("doctors")
       .select()
-      .eq("id", req.params.doctorId);
+      .eq("id", req.query.doctorId);
 
     if (error) {
       res.status(500).json(data);
@@ -535,7 +515,7 @@ app.get("/doctors", async (req, res) => {
     if (error) {
       res.status(500).json(data);
     } else {
-      res.status(200).json({
+      return res.status(200).json({
         doctors: data,
       });
     }
@@ -816,6 +796,18 @@ app.get("/profiles", async (req, res) => {
   res.set("Content-Type: text/plain");
   res.send(escape(response));
 });*/
+app.get("*", (req, res) => {
+  res.status(403).json({
+    status: false,
+    message: "Not allowed"
+  })
+})
+app.post("*", (req, res) => {
+  res.status(403).json({
+    status: false,
+    message: "Not allowed"
+  })
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`[server]: Server is listening on port ${process.env.PORT}`);

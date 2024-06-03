@@ -36,21 +36,20 @@ import { format } from "date-fns";
 import { BookAppointmentSchema } from "@/schemas/BookAppointmentSchema";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useDoctors } from "@/hooks/useDoctors";
 
 type BookAppointmentFormData = z.infer<typeof BookAppointmentSchema>;
 
-
 export const BookAppointmentForm = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    const { doctors }  = useDoctors()
+  const { doctors } = useDoctors();
   //const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -122,20 +121,30 @@ export const BookAppointmentForm = () => {
                 <FormItem>
                   <FormLabel>Doctor</FormLabel>
                   <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select a doctor" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                               {
-                                doctors.map((doctor) => {
-                                    return  <SelectItem value={doctor.id!}>{doctor.name} - {doctor.practice}</SelectItem>
-                                })
-                               }
-                                
-                            </SelectGroup>
-                        </SelectContent>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a doctor" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {doctors.length > 0 ? (
+                            doctors.map((doctor) => {
+                              return (
+                                <SelectItem value={doctor.id!}>
+                                  {doctor.name} - {doctor.practice}
+                                </SelectItem>
+                              );
+                            })
+                          ) : (
+                            <span className="italic text-sm font-semibold">
+                              No doctors found
+                            </span>
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
                     </Select>
                   </FormControl>
                   <FormMessage />
