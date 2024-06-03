@@ -9,7 +9,7 @@ export const AboutUsPage = () => {
   return (
     <main className="min-h-screen">
       <section className="h-screen flex items-center flex-col">
-        <div className="flex flex-col gap-4 justify-center items-center  bg-gray-50 w-full py-20">
+        <div className="flex flex-col gap-4 justify-center items-center  bg-gray-100 w-full py-20">
           <p className="text-5xl font-bold">About Us</p>
           <p className="mt-2  text-xl font-semibold text-slate-600">
             Welcome to MediLink - ConnectHealth
@@ -35,7 +35,7 @@ export const AboutUsPage = () => {
           </div>
           <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
         </div>
-        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 bg-gray-50 py-20">
+        <div className="grid gap-4 justify-center items-center w-full grid-cols-2 bg-gray-100 py-20">
           <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
           <div className="flex flex-col items-center gap-4">
             <div className="h-full bg-gray-300 w-[600px] mx-auto"></div>
@@ -99,7 +99,7 @@ export const AboutUsPage = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4 py-20 items-center bg-gray-50 w-full">
+        <div className="flex flex-col gap-4 py-20 items-center bg-gray-100 w-full">
           <p className="text-5xl font-bold">Our Commitment</p>
           <p className="mt-2 text-center font-semibold text-slate-600 mx-auto max-w-[700px]">
             We are committed to enhancing healthcare outcomes and patient
@@ -125,7 +125,8 @@ function OfferCard({
   return (
     <Card
       className="w-[350px] cursor-pointer shadow-md hover:scale-[1.02] hover:bg-black transition-all duration-300 hover:text-white"
-      key={title}>
+      key={title}
+    >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription className="hover:text-white">
