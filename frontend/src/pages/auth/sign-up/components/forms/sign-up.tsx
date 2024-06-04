@@ -77,7 +77,6 @@ export const SignUpForm = () => {
 
   const onSubmit = async (values: SignUpFormData) => {
     setIsSubmitting(true);
-    return;
     try {
       const response = await signUp({ ...values, role: "patient" });
       toast({

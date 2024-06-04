@@ -12,7 +12,7 @@ import validator from "validator";
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
+  process.env.SUPABASE_KEY,
 );
 
 const apiRateLimiter = rateLimit({
@@ -44,7 +44,7 @@ app.use(
     },
     optionsSuccessStatus: 200,
     credentials: true,
-  })
+  }),
 );
 
 const checkAccess = (req, res, next) => {
@@ -74,21 +74,23 @@ app.use(async (req, res, next) => {
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
   });
-  logger.info(`${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`);
-  logger.info(req)
+  logger.info(
+    `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+  );
+  logger.info(req);
   //save the log into the database
   /*await supabase_client
     .from('server_logs')
     .insert([
-      { 
-        level: 'info', 
-        message: 'otherValue', 
-        req_method: req.method, 
-        req_path: req.originalUrl, 
-        req_host: req.get("host"), 
-        req_timestamp: moment(), 
+      {
+        level: 'info',
+        message: 'otherValue',
+        req_method: req.method,
+        req_path: req.originalUrl,
+        req_host: req.get("host"),
+        req_timestamp: moment(),
         access_token: session?.access_token,
-        user_id: session?.user.id 
+        user_id: session?.user.id
       },
     ])*/
   next();
@@ -335,7 +337,7 @@ app.get("/distance", async (req, res) => {
         destinations.latitude + "," + destinations.longitude
       }&origins=${
         origins.latitude + "," + origins.longitude
-      }&units=imperial&key=${process.env.GOOGLE_API_KEY}`
+      }&units=imperial&key=${process.env.GOOGLE_API_KEY}`,
     );
     res.status(200).json({
       distance: response.data.rows[0].elements[0].distance,
@@ -442,7 +444,7 @@ app.get("/appointments", async (req, res) => {
 
 app.post("/users/createUser", async (req, res) => {
   logger.info(`Requesting to create user ${req.body}`);
-  if (Object.entries(req.body).length !== 6) {
+  if (Object.entries(req.body).length !== 8) {
     res.status(401).json({
       status: false,
       message: "Invalid user details.",
@@ -452,7 +454,7 @@ app.post("/users/createUser", async (req, res) => {
   supabase_client.auth
     .signUp({
       email: req.body.email,
-      password: "StreetCoder@254",
+      password: req.body.password,
     })
     .then(async (value) => {
       //create a new user profile entry in teh profiles table
@@ -652,7 +654,7 @@ app.get("/profiles", async (req, res) => {
         name,
         date_of_birth,
         city
-      )`
+      )`,
   );
 
   if (error) {
@@ -717,7 +719,7 @@ app.get("/profiles", async (req, res) => {
             2. Check Order Details
         `;
     } else if (text == "1") {
-      response = `CON You have ${number_of_orders} orders. 
+      response = `CON You have ${number_of_orders} orders.
             1. Active Orders
             2. Completed Orders
         `;
@@ -737,7 +739,7 @@ app.get("/profiles", async (req, res) => {
       const order_details = await fetchOrderDetails(order_id);
 
       if (order_details === null) {
-        response = `END 
+        response = `END
                 Order ${order_id} details not found.
             `;
       } else {
@@ -746,13 +748,13 @@ app.get("/profiles", async (req, res) => {
           phoneNumber,
           `Order Details: \n
                 id: ${order_id}
-                Ordered By: ${order_details.orderer} 
-                Ordered on: 
+                Ordered By: ${order_details.orderer}
+                Ordered on:
                     \t ${order_details.created_on}
-                Expected Delivery Time: 
+                Expected Delivery Time:
                     \t ${order_details.expected_delivery_time}
                 Receipient: ${order_details.receiver}
-                Products: 
+                Products:
                     ${order_details.products.map(
                       (product, index) => `${index + 1}. ${product} \n`
                     )}
@@ -766,13 +768,13 @@ app.get("/profiles", async (req, res) => {
 
         response = `END Order Details: \n
                         id: ${order_id}
-                        Ordered By: ${order_details.orderer} 
-                        Ordered on: 
+                        Ordered By: ${order_details.orderer}
+                        Ordered on:
                             \t ${order_details.created_on}
-                        Expected Delivery Time: 
+                        Expected Delivery Time:
                             \t ${order_details.expected_delivery_time}
                         Receipient: ${order_details.receiver}
-                        Products: 
+                        Products:
                             ${order_details.products.map(
                               (product, index) => `${index + 1}. ${product} \n`
                             )}
@@ -786,7 +788,7 @@ app.get("/profiles", async (req, res) => {
                             ? "Delivered"
                             : "Not Delivered"
                         }
-                        
+
                     `;
       }
     }
@@ -799,15 +801,15 @@ app.get("/profiles", async (req, res) => {
 app.get("*", (req, res) => {
   res.status(403).json({
     status: false,
-    message: "Not allowed"
-  })
-})
+    message: "Not allowed",
+  });
+});
 app.post("*", (req, res) => {
   res.status(403).json({
     status: false,
-    message: "Not allowed"
-  })
-})
+    message: "Not allowed",
+  });
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`[server]: Server is listening on port ${process.env.PORT}`);
