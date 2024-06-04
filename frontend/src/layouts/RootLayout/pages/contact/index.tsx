@@ -1,4 +1,11 @@
-import { CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -15,12 +22,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import { Github, Mail, Phone, Timer } from "lucide-react";
 import ContactInfoContainer from "./components/contact-info-container";
+import { Textarea } from "@/components/ui/textarea";
 
 const ContactFormSchema = z.object({
-  fullName: z.string().nonempty("Full Name is required"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().nonempty("Subject is required"),
-  message: z.string().nonempty("Message is required"),
+  fullName: z.string({
+    message: "Full Name is required",
+  }),
+  email: z.string().email({
+    message: "Invalid email address",
+  }),
+  subject: z.string({
+    message: "Subject is required",
+  }),
+  message: z.string({
+    message: "Message is required",
+  }),
 });
 
 export const ContactUsPage = () => {
@@ -54,98 +70,124 @@ export const ContactUsPage = () => {
   };
 
   return (
-    <main className="min-h-screen px-12 xl:px-36 sm:flex sm:flex-col xl:grid xl:grid-cols-2 items-center gap-16">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardTitle className="text-5xl">Contact Us</CardTitle>
-          <p className="mt-2 text-xl font-semibold text-slate-600">
-            Feel free to reach out to us. We will get back to you as soon as we
-            can.
+    <main className="min-h-screen flex flex-col justify-center">
+      <section className="flex flex-wrap justify-center w-full p-5 gap-5">
+        <Card className="w-fit">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <CardHeader>
+                <CardTitle>Contact Us</CardTitle>
+                <CardDescription>
+                  Feel free to reach out to us. We will get back to you as soon
+                  as we can.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Full Name"
+                          {...field}
+                          required
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="Email"
+                          {...field}
+                          required
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Subject</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Subject"
+                          {...field}
+                          required
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Message</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} placeholder="Message" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+
+              <CardFooter>
+                <Button type="submit" className="w-full mt-4">
+                  Send Message
+                </Button>
+              </CardFooter>
+            </form>
+          </Form>
+        </Card>
+
+        <div className="w-fit h-full rounded-xl bg-black text-white flex flex-col p-5">
+          <p className="text-xl md:self-start md:text-3xl font-black">
+            Information
           </p>
-          <FormField
-            control={form.control}
-            name="fullName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Full Name"
-                    {...field}
-                    required
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="Email" {...field} required />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="subject"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Subject</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Subject"
-                    {...field}
-                    required
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Message</FormLabel>
-                <FormControl>
-                  <Input placeholder="Message" {...field} required />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full mt-4">
-            Send Message
-          </Button>
-        </form>
-      </Form>
-      <div className="w-full bg-black text-white flex mt-8 md:mt-0 md:block flex-col gap-8 p-12">
-        <p className="text-xl self-center md:self-start md:text-3xl font-black">
-          Information
-        </p>
-        <ContactInfoContainer caption="crypticdefenders@gmail.com">
-          <Mail size={24} />
-        </ContactInfoContainer>
-        <ContactInfoContainer caption="+254 723 456 789">
-          <Phone size={24} />
-        </ContactInfoContainer>
-        <ContactInfoContainer caption="cryptic-defenders">
-          <Github size={24} />
-        </ContactInfoContainer>
-        <ContactInfoContainer caption="Monday - Sunday : 8:00 AM - 5:00 PM">
-          <Timer size={24} />
-        </ContactInfoContainer>
-      </div>
+          <ul>
+            <li>
+              <ContactInfoContainer caption="crypticdefenders@gmail.com">
+                <Mail size={24} />
+              </ContactInfoContainer>
+            </li>
+            <li>
+              <ContactInfoContainer caption="+254 723 456 789">
+                <Phone size={24} />
+              </ContactInfoContainer>
+            </li>
+            <li>
+              <ContactInfoContainer caption="cryptic-defenders">
+                <Github size={24} />
+              </ContactInfoContainer>
+            </li>
+            <li>
+              <ContactInfoContainer caption="Monday - Sunday : 8:00 AM - 5:00 PM">
+                <Timer size={24} />
+              </ContactInfoContainer>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
   );
 };
