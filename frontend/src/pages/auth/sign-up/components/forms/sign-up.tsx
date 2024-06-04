@@ -53,7 +53,7 @@ import {
 // Type definition for form data
 type SignUpFormData = z.infer<typeof SignUpSchema>;
 
-const MAX_STEPS = 2;
+const MAX_STEPS = 3;
 export const SignUpForm = () => {
   const { signUp } = useSession();
   const showDialogBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -68,6 +68,8 @@ export const SignUpForm = () => {
       name: "",
       email: "",
       contact: "",
+      password: "",
+      confirmPassword: "",
       dob: new Date(),
       hasAgreedToTerms: false,
     },
@@ -75,6 +77,7 @@ export const SignUpForm = () => {
 
   const onSubmit = async (values: SignUpFormData) => {
     setIsSubmitting(true);
+    return;
     try {
       const response = await signUp({ ...values, role: "patient" });
       toast({
@@ -110,7 +113,7 @@ export const SignUpForm = () => {
         <div className="p-5">
           <Progress
             value={(currentStep / MAX_STEPS) * 100}
-            className={`${100 / (2 - currentStep)}%`}
+            className={`${100 / (3 - currentStep)}%`}
           />
         </div>
         <Form {...form}>
@@ -231,8 +234,59 @@ export const SignUpForm = () => {
                   />
                 </>
               )}
-
               {currentStep === 2 && (
+                <>
+                  <h2 className="font-semibold text-lg">
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        currentStep > 1 && setCurrentStep((prev) => prev - 1)
+                      }
+                      className="p-0 m-0 bg-white hover:bg-white text-black hover:scale-[1.25] transition-all duration-300 mr-2"
+                    >
+                      <ArrowLeftIcon />
+                    </Button>
+                    Complete Your Personal Information
+                  </h2>
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Password"
+                            {...field}
+                            required
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="Confirm Password"
+                            {...field}
+                            required
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+              {currentStep === 3 && (
                 <article>
                   <h2 className="font-semibold text-lg flex items-center gap-2">
                     <Button
@@ -338,12 +392,12 @@ export const SignUpForm = () => {
               )}
             </CardContent>
             <CardFooter className="flex flex-col">
-              {currentStep !== 2 && (
+              {currentStep !== 3 && (
                 <Button
                   className="w-full items-center gap-1 flex mt-5"
                   type="button"
                   onClick={() =>
-                    currentStep < 2 && setCurrentStep((prev) => prev + 1)
+                    currentStep < 3 && setCurrentStep((prev) => prev + 1)
                   }
                 >
                   Next
