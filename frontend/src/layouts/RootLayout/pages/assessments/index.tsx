@@ -92,12 +92,15 @@ export const Assessments = () => {
         <section className="flex flex-col gap-10 mt-5">
           {Object.entries(groupedAssessments).map((assessmentGroup) => {
             return (
-              <section className="flex flex-col gap-3 w-full">
+              <section
+                className="flex flex-col gap-3 w-full"
+                key={assessmentGroup[0]}
+              >
                 <h1 className="font-semibold text-xl">{assessmentGroup[0]}</h1>
                 <ul className="flex flex-wrap gap-5">
                   {assessmentGroup[1].map((assessment: Assessment) => {
                     return (
-                      <li>
+                      <li key={assessment.id}>
                         <Card
                           className="w-[400px]"
                           id={assessment.id.toString()}

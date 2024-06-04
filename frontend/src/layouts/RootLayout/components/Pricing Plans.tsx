@@ -46,7 +46,7 @@ export const PricingPlans = () => {
         <h1 className="font-bold text-xl text-blue-500 text-center">Choose the plan that fits you best:</h1>
         <section className="flex flex-wrap w-full justify-center gap-10">
             {plans.map((plan) => {
-                return <PlanCard plan={plan}/>
+                return <PlanCard key={plan.title} plan={plan}/>
             })}
     </section>
     </section>

@@ -54,7 +54,7 @@ export const ContactUsPage = () => {
   };
 
   return (
-  <main className="min-h-screen p-5 sm:flex sm:flex-col xl:grid xl:grid-cols-2 items-center gap-16">
+    <main className="min-h-screen px-12 xl:px-36 sm:flex sm:flex-col xl:grid xl:grid-cols-2 items-center gap-16">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardTitle className="text-5xl">Contact Us</CardTitle>
