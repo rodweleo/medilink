@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom"
 export const Homepage = () => {
     const navigate = useNavigate();
 
-    return <main className="min-h-screen">
+    return <main className="min-h-screen p-5">
         <section className="h-screen flex items-center justify-around">
             <div className="flex flex-col gap-10">
-                <div className="max-w-[500px]">
-                    <h1 className="text-6xl font-bold w-[500px]">ReImagining <span className="text-blue-500">Quality</span> Health Care Delivery</h1>
+                <div className="flex flex-col gap-10 max-w-full lg:max-w-[500px]">
+                    <h1 className="text-6xl font-bold w-[500px] ">ReImagining <span className="text-blue-500">Quality</span> Health Care Delivery</h1>
                     <p className="mt-2 font-semibold text-slate-600">Transforming the patient experience by embracing innovative solutions, ensuring accessibility to care for all, and upholding an unwavering commitment to safety and excellence in healthcare delivery.</p>
                 </div>
                 <Button onClick={() => navigate("/book-appointment", {
