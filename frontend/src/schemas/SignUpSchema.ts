@@ -73,6 +73,9 @@ const validatePassword = (
   if (!/[0-9]/.test(pwd)) {
     return "Password must contain at least one digit.";
   }
+  if (!/[!@#$%^&*]/.test(pwd)) {
+    return "Password must contain at least one special character.";
+  }
   const fullNames = fullname.split(" ");
   const emailWords = email.split("@")[0].split("."); // Split email before "@" and "."
 
