@@ -41,7 +41,7 @@ export const PatientAccount = () => {
   const navigate = useNavigate();
   return (
     <main className="h-full fixed w-full flex bg-slate-100 p-1 gap-1">
-      <nav className="patient-nav-bar flex flex-col justify-between p-2 bg-white rounded-md w-[300px] h-screen">
+      <nav className=" flex flex-col justify-between p-2 bg-white rounded-md w-fit h-screen overflow-y-auto">
         <ul className="flex flex-col gap-2">
           <li>
             <NavLink to="dashboard">

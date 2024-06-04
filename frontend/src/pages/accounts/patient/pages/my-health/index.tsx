@@ -43,14 +43,14 @@ export const MyHealth = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="flex flex-col gap-5 h-full">
-      <Card className=" bg-gradient-to-br from-blue-500 to-blue-100">
+    <main className="flex flex-col gap-5 h-full w-full">
+      <Card className="bg-gradient-to-br from-blue-500 to-blue-100">
         <CardHeader>
           <h1 className="text-sm">Welcome Back,</h1>
           <CardTitle>{user.name}</CardTitle>
         </CardHeader>
       </Card>
-      <section className="flex w-full justify-between gap-10">
+      <section className="flex flex-wrap w-full justify-between gap-10">
         <Card className="w-fit">
           <CardContent className="flex flex-col items-center gap-5 w-full">
             <Card className="w-fit mt-5">
@@ -59,11 +59,11 @@ export const MyHealth = () => {
                   options={options}
                   series={series}
                   type="bar"
-                  width="500"
+                  width="450"
                 />
               </CardContent>
             </Card>
-            <section className="flex justify-center w-full gap-5 h-fit">
+            <section className="flex flex-wrap justify-center w-full gap-5 h-fit">
               <Card>
                 <CardContent className="flex items-center gap-5">
                   <LuCalendarClock size={50} color="gray" />
