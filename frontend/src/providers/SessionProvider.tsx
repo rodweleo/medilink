@@ -18,10 +18,10 @@ export const SessionProvider = ({
 };
 
 export const useAuth = () => {
-  if (SessionContext) {
-    const session: Session | null = useContext(SessionContext);
-    return session;
+  const ctx = useContext(SessionContext);
+  if (!ctx) {
+    throw new Error("Context is not available");
   }
 
-  return new Error("Context is not available");
+  return ctx;
 };
