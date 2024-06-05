@@ -18,7 +18,7 @@ export const AppointmentCard = ({
 }) => {
   const { doctor } = useDoctor(appointment.doctor_id);
   return (
-    <Card className="w-[350px]" key={appointment.id}>
+    <Card className="w-fit" key={appointment.id}>
       <CardHeader>
         <CardTitle>{doctor?.name}</CardTitle>
         <CardDescription>{doctor?.practice}</CardDescription>
@@ -30,7 +30,7 @@ export const AppointmentCard = ({
         </div>
         <div className="flex items-center gap-1">
           <CiClock1 />
-          <p className="">
+          <p className="flex flex-wrap">
             {moment(appointment.from_time).format("HH:mm ")}- &nbsp;
             {moment(appointment.to_time).format("HH:mm")}
           </p>

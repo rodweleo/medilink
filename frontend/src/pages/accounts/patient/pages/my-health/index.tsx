@@ -59,7 +59,7 @@ export const MyHealth = () => {
                   options={options}
                   series={series}
                   type="bar"
-                  width="450"
+                  width="100%"
                 />
               </CardContent>
             </Card>
@@ -166,7 +166,7 @@ export const MyHealth = () => {
         <Card className="w-fit">
           <CardHeader>
             <CardTitle>
-              <div className="flex items-center justify-between gap-10">
+              <div className="flex flex-wrap items-center justify-between gap-10">
                 <h1 className="font-bold">Upcoming Appointments</h1>
                 <Button
                   onClick={() => navigate("/patient/appointments")}

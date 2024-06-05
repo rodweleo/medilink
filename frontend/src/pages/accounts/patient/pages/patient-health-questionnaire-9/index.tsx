@@ -111,7 +111,7 @@ export const PatientHealthQuestionnaire9 = () => {
         </>
       </article>
       <section className="flex flex-col gap-5 w-fit">
-        <Card className="w-[700px]">
+        <Card className=" max-w-[600px]">
           <CardHeader>
             <CardTitle>Patient Health Questionnaire</CardTitle>
             <CardDescription>

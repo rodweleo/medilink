@@ -132,7 +132,7 @@ export const RootLayout = () => {
         {width > 1120 ? <WebRootNav /> : <MobileRootNav />}
       </nav>
 
-      <section className="h-full">
+      <section className="h-full p-2.5">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="about-us" element={<AboutUsPage />} />
@@ -157,7 +157,7 @@ export const RootLayout = () => {
             <span className="bg-white h-3 w-3 rounded-full animate-ping"></span>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px] w-2/4">
+        <DialogContent className="max-w-[500px] rounded-xl">
           <ChatWithMeliForm />
         </DialogContent>
       </Dialog>
