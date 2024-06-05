@@ -25,7 +25,6 @@ import { useToast } from "@/components/ui/use-toast";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { useSession } from "@/hooks/useSession";
-import { Separator } from "@/components/ui/separator";
 
 export const SignInForm = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
