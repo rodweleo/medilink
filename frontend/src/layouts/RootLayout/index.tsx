@@ -26,6 +26,8 @@ import {
 import { useWindowDimensions } from "@/hooks/useWindowDimension";
 import { Separator } from "@/components/ui/separator";
 import Unauthorized from "@/pages/errors/unauthorized/page";
+import { ResetPassword } from "./pages/reset-password/page";
+import { SupportGroups } from "./pages/support-groups/page";
 
 const MobileRootNav = () => {
   return (
@@ -57,6 +59,11 @@ const MobileRootNav = () => {
             <li>
               <SheetClose asChild>
                 <NavLink to="/assessments">Assessments</NavLink>
+              </SheetClose>
+            </li>
+            <li>
+              <SheetClose asChild>
+                <NavLink to="/support-groups">Support Groups</NavLink>
               </SheetClose>
             </li>
             <li>
@@ -133,19 +140,21 @@ export const RootLayout = () => {
         {width > 1120 ? <WebRootNav /> : <MobileRootNav />}
       </nav>
 
-      <section className="h-full p-2.5">
+      <section className="h-full p-5">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="about-us" element={<AboutUsPage />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="contact-us" element={<ContactUsPage />} />
           <Route path="assessments" element={<Assessments />} />
+          <Route path="support-groups" element={<SupportGroups />} />
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route
             path="assessments/depression-assessment"
             element={<MentalHealthAssessmentForm />}
           />
           <Route path="sign-in" element={<SignIn />} />
+          <Route path="reset-password" element={<ResetPassword />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="book-appointment" element={<BookAppointment />} />
           <Route path="*" element={<NotFound />} />

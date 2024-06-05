@@ -25,6 +25,7 @@ import { useToast } from "@/components/ui/use-toast";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { useSession } from "@/hooks/useSession";
+import { Separator } from "@/components/ui/separator";
 
 export const SignInForm = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -123,18 +124,41 @@ export const SignInForm = () => {
               )}
             />
             <button
+              type="button"
+              title="Reset Password"
               className="bg-white text-black text-sm hover:underline text-left w-fit p-0 hover:bg-white"
-              onClick={() => navigate("/reset-password")}>
+              onClick={() => navigate("/reset-password")}
+            >
               Forgot Password?
             </button>
           </CardContent>
-          <CardFooter className="flex flex-col">
+          <CardFooter className="flex flex-col gap-5 w-full">
             <Button
               disabled={isSubmitting}
-              className="w-full flex items-center gap-1">
+              className="w-full flex items-center gap-1"
+            >
               {isSubmitting && <ClipLoader color="white" size={20} />} Sign In
             </Button>
-            <p className="mt-2 text-xs text-center text-gray-700">
+
+            <div className="w-full flex items-center gap-5">
+              <div className="w-full h-[1px] bg-slate-200" />
+              <span className="font-semibold text-slate-500">or</span>
+              <div className="w-full h-[1px] bg-slate-200" />
+            </div>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full flex items-center gap-1"
+            >
+              <img
+                src="/assets/images/icons8-google-480.png"
+                className="w-4"
+                alt="Sign in with Google"
+              />
+              Sign in with Google
+            </Button>
+            <p className="text-xs text-center text-gray-700">
               {" "}
               Don't have an account?{" "}
               <Button
@@ -143,8 +167,9 @@ export const SignInForm = () => {
                     replace: true,
                   })
                 }
-                className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline">
-                Sign Up
+                className="p-0 m-0 bg-white hover:bg-white text-blue-600 hover:underline"
+              >
+                Sign up for free
               </Button>
             </p>
           </CardFooter>

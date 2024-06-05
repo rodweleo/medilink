@@ -80,63 +80,56 @@ const groupedAssessments: AssessmentsGroupedByCategory = ASSESSMENTS.reduce(
 
     return group;
   },
-  {},
+  {}
 );
 
 export const Assessments = () => {
   const navigate = useNavigate();
   return (
-    <main className="px-8">
-      <>
-        <h1 className="font-bold text-3xl">Assessments</h1>
-        <section className="flex flex-col gap-10 mt-5">
-          {Object.entries(groupedAssessments).map((assessmentGroup) => {
-            return (
-              <section
-                className="flex flex-col gap-3 w-full"
-                key={assessmentGroup[0]}
-              >
-                <h1 className="font-semibold text-xl">{assessmentGroup[0]}</h1>
-                <ul className="flex flex-wrap gap-5">
-                  {assessmentGroup[1].map((assessment: Assessment) => {
-                    return (
-                      <li key={assessment.id}>
-                        <Card
-                          className="w-[400px]"
-                          id={assessment.id.toString()}
-                        >
-                          <CardHeader>
-                            <CardTitle>{assessment.title}</CardTitle>
-                            <CardDescription>
-                              {assessment.description}
-                            </CardDescription>
-                          </CardHeader>
-                          <CardFooter>
-                            <Button
-                              onClick={() =>
-                                navigate(
-                                  assessment.title
-                                    .toLowerCase()
-                                    .replace(" ", "-"),
-                                )
-                              }
-                              disabled={
-                                assessment.title !== "Depression Assessment"
-                              }
-                            >
-                              Take assessment
-                            </Button>
-                          </CardFooter>
-                        </Card>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
-        </section>
-      </>
+    <main>
+      <h1 className="font-bold text-3xl">Assessments</h1>
+      <section className="flex flex-col gap-10 mt-5">
+        {Object.entries(groupedAssessments).map((assessmentGroup) => {
+          return (
+            <section
+              className="flex flex-col gap-3 w-full"
+              key={assessmentGroup[0]}
+            >
+              <h1 className="font-semibold text-xl">{assessmentGroup[0]}</h1>
+              <ul className="flex flex-wrap gap-5">
+                {assessmentGroup[1].map((assessment: Assessment) => {
+                  return (
+                    <li key={assessment.id}>
+                      <Card className="w-[400px]" id={assessment.id.toString()}>
+                        <CardHeader>
+                          <CardTitle>{assessment.title}</CardTitle>
+                          <CardDescription>
+                            {assessment.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardFooter>
+                          <Button
+                            onClick={() =>
+                              navigate(
+                                assessment.title.toLowerCase().replace(" ", "-")
+                              )
+                            }
+                            disabled={
+                              assessment.title !== "Depression Assessment"
+                            }
+                          >
+                            Take assessment
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
+      </section>
     </main>
   );
 };
