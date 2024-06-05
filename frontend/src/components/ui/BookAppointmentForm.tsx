@@ -47,6 +47,7 @@ import { useDoctors } from "@/hooks/useDoctors";
 
 type BookAppointmentFormData = z.infer<typeof BookAppointmentSchema>;
 
+const TYPES_OF_APPOINTMENTS: string[] = ["Consultation", "Follow-Up"];
 export const BookAppointmentForm = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { doctors } = useDoctors();
@@ -62,6 +63,7 @@ export const BookAppointmentForm = () => {
       time_of_appointment: "",
       duration: "0",
       reason_for_visit: "",
+      email: "",
     },
   });
 
@@ -95,166 +97,293 @@ export const BookAppointmentForm = () => {
               Enter your details to book an appointment
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="John Doe"
-                      {...field}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="doctor"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Doctor</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a doctor" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {doctors.length > 0 ? (
-                            doctors.map((doctor) => {
-                              return (
-                                <SelectItem value={doctor.id!}>
-                                  {doctor.name} - {doctor.practice}
-                                </SelectItem>
-                              );
-                            })
-                          ) : (
-                            <span className="italic text-sm font-semibold">
-                              No doctors found
-                            </span>
-                          )}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="date_of_appointment"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Appointment Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}>
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick an Appointment date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
+          <CardContent className="flex flex-col gap-5">
+            <section>
+              <h2 className="font-bold">Personal Information</h2>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="John Doe"
+                        {...field}
+                        required
                       />
-                    </PopoverContent>
-                  </Popover>
-                  <FormDescription>
-                    The date of appointment is used to effectively schedule the
-                    doctors to attend to your medical needs..
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="abc@example.com"
+                        {...field}
+                        required
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="tel"
+                        placeholder="254712345678"
+                        {...field}
+                        required
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="dob"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Date of birth</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          captionLayout="dropdown-buttons"
+                          fromYear={1900}
+                          toYear={2024}
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      Your date of birth is used to calculate your age.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </section>
+            <section>
+              <h2 className="font-bold">Appointment Details</h2>
+              <FormField
+                control={form.control}
+                name="doctor"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Doctor</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a doctor" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {doctors.length > 0 ? (
+                              doctors.map((doctor) => {
+                                return (
+                                  <SelectItem value={doctor.id!}>
+                                    {doctor.name} - {doctor.practice}
+                                  </SelectItem>
+                                );
+                              })
+                            ) : (
+                              <span className="italic text-sm font-semibold">
+                                No doctors found
+                              </span>
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="time_of_appointment"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Appointment Time</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="time"
-                      placeholder="1 hour"
-                      {...field}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="date_of_appointment"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Appointment Date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick an Appointment date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      The date of appointment is used to effectively schedule
+                      the doctors to attend to your medical needs..
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="duration"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Appointment Duration</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="1 hour"
-                      {...field}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="reason_for_visit"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Reason for Visit</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Tell us a little bit about the reason for the appointment"
-                      className=" resize-y"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="time_of_appointment"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Appointment Time</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="time"
+                        placeholder="1 hour"
+                        {...field}
+                        required
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="duration"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Appointment Duration</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select duration of Appointment" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="30">30 Minutes</SelectItem>
+                            <SelectItem value="60">1 Hour</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="doctor"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type of Appointment</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select type of Appointment" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {TYPES_OF_APPOINTMENTS.map((type) => {
+                              return (
+                                <SelectItem value={type}>{type}</SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="reason_for_visit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Reason for Visit</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us a little bit about the reason for the appointment"
+                        className="resize-y"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </section>
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button
               className="w-full flex items-center gap-1"
               type="submit"
-              disabled={isSubmitting}>
+              disabled={isSubmitting}
+            >
               {isSubmitting && <ClipLoader color="white" size={20} />} Book
               Appointment
             </Button>

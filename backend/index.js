@@ -47,37 +47,30 @@ app.use(
   }),
 );
 
-const checkAccess = (req, res, next) => {
-  const action = req.query.action;
 
-  if (action === undefined) {
-    next();
-  } else {
-    res.status(403).json({
-      status: false,
-      message: "Forbidden",
-    });
+const authenticateAccessToken = async (accessToken) => {
+  const value = await supabase_client.from('api_keys').select('*').eq("key", accessToken)
+  return value
+}
+
+const translateApiRequestMethod = (method) => {
+  if(method === null || undefined){
+    return "Unfamiliar method type"
   }
-};
+  if(method === "GET"){
+    return "Read"
+  }else if(method === "POST"){
+    return "Create"
+  }else if(method === "PUT"){
+      return "Update"
+  }else if(method === "DELETE"){
+    return "Delete"
+  }else{
+    return "Unfamiliar method type"
+  }
+}
 
-app.use(async (req, res, next) => {
-  const { data, error } = await supabase_client.auth.getSession();
-  const { session } = data;
-  const headers = req.headers;
-  const token = headers["Authorization"];
-
-  //console.log(token)
-  res.set({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization",
-    "X-Frame-Options": "DENY",
-    "X-Content-Type-Options": "nosniff",
-  });
-  logger.info(
-    `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
-  );
-  logger.info(req);
+const saveLogToDB = (level, message, req, session) => {
   //save the log into the database
   /*await supabase_client
     .from('server_logs')
@@ -93,12 +86,76 @@ app.use(async (req, res, next) => {
         user_id: session?.user.id
       },
     ])*/
-  next();
+  
 
   /*res.status(401).send({
       status: false,
       message: 'Access Denied: No Token Provided!'
     })*/
+}
+app.use(async (req, res, next) => {
+  const { data, error } = await supabase_client.auth.getSession();
+  const { session } = data;
+  const headers = req.headers;
+  const token = headers["authorization"];
+
+
+  /*if(token){
+    logger.info("Validating the api request...")
+    const response = await authenticateAccessToken(token.replace("Bearer", "").trim());
+    const { data, error, status} = response;
+    if(error){
+      logger.error(error)
+      logger.error(
+        `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+      );
+      res.status(status).json(error)
+    }else if(data.length === 0){
+      res.status(403).json({
+        message: "Invalid access token."
+      })
+      logger.error("Invalid access token.")
+    }else{
+      const translatedRequestMethod = translateApiRequestMethod(req.method)
+      if(data[0].permissions.includes(translatedRequestMethod)){
+        res.set({
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
+          "Access-Control-Allow-Headers": "Content-Type,Authorization",
+          "X-Frame-Options": "DENY",
+          "X-Content-Type-Options": "nosniff",
+        });
+        logger.info(
+          `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+        );
+        next();
+        
+      }else{
+        res.status(403).json({
+          message: 'You lack sufficient permissions to access the requested resource.'
+        })
+        logger.error(
+          `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+        );
+        logger.error('You lack sufficient privileges to access the requested resource.')
+      }
+    }
+    
+  }else{
+    res.status(401).json({
+      message: 'No access token'
+    })
+    logger.error(
+      `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+    );
+    logger.error('No access token')
+  }*/
+
+
+  logger.info(
+    `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+  );
+  
 });
 
 //app.use(apiRateLimiter)
@@ -805,6 +862,20 @@ app.get("*", (req, res) => {
   });
 });
 app.post("*", (req, res) => {
+  res.status(403).json({
+    status: false,
+    message: "Not allowed",
+  });
+});
+
+app.put("*", (req, res) => {
+  res.status(403).json({
+    status: false,
+    message: "Not allowed",
+  });
+});
+
+app.delete("*", (req, res) => {
   res.status(403).json({
     status: false,
     message: "Not allowed",
