@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { PatientAccount } from "./pages/accounts/patient";
 import { DoctorAccount } from "./pages/accounts/doctor";
 import { AdminAccount } from "./pages/accounts/admin";
+import ProtectedAuthRoutes from "./providers/protected-routes";
 
 function App() {
   const { session } = useSession();
@@ -18,9 +19,11 @@ function App() {
   return (
     <Routes>
       <Route path="/*" element={<RootLayout />} />
-      <Route path="/patient/*" element={<PatientAccount />} />
-      <Route path="/doctor/*" element={<DoctorAccount />} />
-      <Route path="/admin/*" element={<AdminAccount />} />
+      <Route element={<ProtectedAuthRoutes />}>
+        <Route path="/patient/*" element={<PatientAccount />} />
+        <Route path="/doctor/*" element={<DoctorAccount />} />
+        <Route path="/admin/*" element={<AdminAccount />} />
+      </Route>
     </Routes>
   );
 }

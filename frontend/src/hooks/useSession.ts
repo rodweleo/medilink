@@ -5,10 +5,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 export const useSession = () => {
   const [session, setSession] = useState<Session>(
-    JSON.parse(sessionStorage.getItem("MEDILINK_SESSION")!)
+    JSON.parse(sessionStorage.getItem("MEDILINK_SESSION")!),
   );
   const [user, setUser] = useState(
-    JSON.parse(sessionStorage.getItem("CURRENT_USER_PROFILE")!)
+    JSON.parse(sessionStorage.getItem("CURRENT_USER_PROFILE")!),
   );
   const [error, setError] = useState<string[]>([]);
   const [isFetchingSession, setIsFetchingSession] = useState(true);
@@ -22,7 +22,7 @@ export const useSession = () => {
           setSession(response.session);
           sessionStorage.setItem(
             "MEDLINK_SESSION",
-            JSON.stringify(response.data.session)
+            JSON.stringify(response.data.session),
           );
           setUser(null);
         })
@@ -40,7 +40,7 @@ export const useSession = () => {
     });
     sessionStorage.setItem(
       "MEDLINK_SESSION",
-      JSON.stringify(response.data.session)
+      JSON.stringify(response.data.session),
     );
 
     return response.data;
@@ -51,6 +51,7 @@ export const useSession = () => {
       const response = await axios.post(`${API_URL}/logout`);
       console.log(response.data);
       sessionStorage.removeItem("MEDLINK_SESSION");
+      sessionStorage.removeItem("CURRENT_USER_PROFILE");
       return response.data;
     } catch (error) {
       return error;
@@ -69,7 +70,7 @@ export const useSession = () => {
   const signUp = async (userDetails: SignUpProps) => {
     const response = await axios.post(
       `${API_URL}/users/createUser`,
-      userDetails
+      userDetails,
     );
 
     return response.data;
