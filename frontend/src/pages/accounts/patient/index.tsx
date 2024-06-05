@@ -14,7 +14,6 @@ import { PiHeartbeat } from "react-icons/pi";
 import { BiMessageRoundedDots } from "react-icons/bi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdOutlineAssessment, MdOutlineMedication } from "react-icons/md";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,56 +33,57 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { PatientHealthQuestionnaire9 } from "./pages/patient-health-questionnaire-9";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const PatientAccount = () => {
   const { signOut, user } = useSession();
   const { toast } = useToast();
   const navigate = useNavigate();
   return (
-    <main className="h-full fixed w-full flex bg-slate-100 p-1 gap-1">
-      <nav className=" flex flex-col justify-between p-2 bg-white rounded-md w-fit h-screen overflow-y-auto">
-        <ul className="flex flex-col gap-2">
-          <li>
+    <main className="h-full fixed w-full flex max-md:flex-col-reverse bg-slate-100 p-1 gap-1">
+      <nav className="patient-nav-bar flex sm:flex-col justify-between p-2 bg-white rounded-md max-sm:w-full h-screen max-sm:h-fit overflow-y-auto">
+        <ul className="flex sm:flex-col gap-2 max-sm:w-full max-sm:justify-between">
+          <li title="Dashboard">
             <NavLink to="dashboard">
-              <PiHeartbeat /> My Health
+              <PiHeartbeat /> <span>My Health</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Appointments">
             <NavLink to="appointments">
-              <FaRegCalendarCheck /> Appointments
+              <FaRegCalendarCheck /> <span>Appointments</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Doctors">
             <NavLink to="doctors">
-              <FaUserDoctor /> Doctors
+              <FaUserDoctor /> <span>Doctors</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Healthcare Facilities">
             <NavLink to="healthcare-facilities">
               {" "}
-              <CiHospital1 /> Healthcare Facilities
+              <CiHospital1 /> <span>Healthcare Facilities</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Prescriptions" className="max-sm:hidden">
             <NavLink to="prescriptions">
-              <MdOutlineMedication /> Prescriptions
+              <MdOutlineMedication /> <span>Prescriptions</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Messages" className="max-sm:hidden">
             <NavLink to="messages">
-              <BiMessageRoundedDots /> Messages
+              <BiMessageRoundedDots /> <span>Messages</span>
             </NavLink>
           </li>
-          <li>
+          <li title="Meli AI Consultant" className="max-sm:hidden">
             <NavLink to="meli">
-              <BsRobot /> AI Consultant
+              <BsRobot /> <span>AI Consultant</span>
             </NavLink>
           </li>
-          <li>
+          <li className="max-sm:hidden">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="w-[200px] flex justify-between">
+                  <NavigationMenuTrigger className="flex justify-between">
                     <div className="flex items-center gap-3">
                       <MdOutlineAssessment /> Assessments
                     </div>
@@ -97,38 +97,48 @@ export const PatientAccount = () => {
               </NavigationMenuList>
             </NavigationMenu>
           </li>
+          <li>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild className="cursor-pointer">
+                <div className="flex gap-1 items-center">
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <span>{user.name}</span>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem disabled>Support</DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() =>
+                    signOut().then((response) => {
+                      navigate("/", {
+                        replace: true,
+                      });
+                      toast({
+                        description: response.message,
+                      });
+                    })
+                  }>
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </li>
         </ul>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="border-0"> {user.name}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem disabled>Support</DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() =>
-                signOut().then((response) => {
-                  navigate("/", {
-                    replace: true,
-                  });
-                  toast({
-                    description: response.message,
-                  });
-                })
-              }>
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </nav>
       <section className="bg-white w-full h-full overflow-y-auto p-2 rounded-md">
         <Routes>

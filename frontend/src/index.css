@@ -91,6 +91,10 @@
   font-weight: bold;
 }
 
+.patient-nav-bar {
+  transition: all;
+  animation: ease-in-out 0.25s;
+}
 .patient-nav-bar ul li a {
   display: flex;
   align-items: center;
@@ -100,7 +104,7 @@
   border-radius: 7.5px;
 }
 
-.patient-nav-bar ul li a:nth-child(0){
+.patient-nav-bar ul li a:nth-child(0) {
   font-size: 20px;
 }
 
@@ -149,4 +153,16 @@
   width: 100%;
   background-color: red;
   padding: 10px 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .patient-nav-bar {
+    width: fit-content;
+  }
+  .patient-nav-bar ul li a {
+    width: fit-content;
+  }
+  .patient-nav-bar ul li a span {
+    display: none;
+  }
 }

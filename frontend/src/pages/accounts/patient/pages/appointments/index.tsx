@@ -8,7 +8,7 @@ export const Appointments = () => {
   return (
     <main className="flex flex-col gap-5 w-full">
       <h1 className="font-bold">Appointments</h1>
-      <section className="flex gap-5">
+      <section className="flex flex-wrap gap-5">
         {appointments.map((appointment) => {
           return <AppointmentCard appointment={appointment} />;
         })}

@@ -5,10 +5,12 @@ export const Doctors = () => {
   const { doctors } = useDoctors();
   return (
     <main>
-      <h1>Doctors</h1>
-      {doctors.map((doctor) => {
-        return <DoctorCard doctor={doctor} />;
-      })}
+      <h1 className="font-bold">Doctors</h1>
+      <section className="flex flex-wrap">
+        {doctors.map((doctor) => {
+          return <DoctorCard doctor={doctor} />;
+        })}
+      </section>
     </main>
   );
 };

@@ -86,7 +86,7 @@ export const BookAppointmentForm = () => {
   };
 
   return (
-    <Card className="w-[600px] overflow-y-auto">
+    <Card className="max-w-[600px] overflow-y-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardHeader className="space-y sticky top-0 z-20 bg-white">
@@ -123,8 +123,7 @@ export const BookAppointmentForm = () => {
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                      defaultValue={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select a doctor" />
                       </SelectTrigger>
@@ -166,8 +165,7 @@ export const BookAppointmentForm = () => {
                           className={cn(
                             "w-full pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
-                          )}
-                        >
+                          )}>
                           {field.value ? (
                             format(field.value, "PPP")
                           ) : (
@@ -256,8 +254,7 @@ export const BookAppointmentForm = () => {
             <Button
               className="w-full flex items-center gap-1"
               type="submit"
-              disabled={isSubmitting}
-            >
+              disabled={isSubmitting}>
               {isSubmitting && <ClipLoader color="white" size={20} />} Book
               Appointment
             </Button>

@@ -78,11 +78,11 @@ export const ChatWithMeliForm = () => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Ask Meli</DialogTitle>
-        <DialogDescription>
-          Make any inquiries pertaining your health here. Click{" "}
-          <b className="italic underline">Ask</b> when you're done keying in
-          your query.
+        <DialogTitle className="text-left">Ask Meli</DialogTitle>
+        <DialogDescription className="text-left">
+          Make any inquiries pertaining your health here. <br />
+          Click <b className="italic underline">Ask</b> when you're done keying
+          in your query.
         </DialogDescription>
       </DialogHeader>
       <Card>
@@ -103,23 +103,23 @@ export const ChatWithMeliForm = () => {
             })}
         </CardContent>
       </Card>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex items-start gap-5">
-        <Textarea
-          placeholder="What can I help you with today ?"
-          {...register("prompt")}
-          required
-        />
 
-        <DialogFooter>
-          <Button
-            type="submit"
-            disabled={isFetchingResponse}
-            className="flex items-center gap-1">
-            {isFetchingResponse && <ClipLoader color="white" size={16} />}
-            Ask{isFetchingResponse && "ing"}
-          </Button>
+      <form onSubmit={handleSubmit(onSubmit)} className=" items-start gap-5">
+        <DialogFooter className="w-full">
+          <div className="flex flex-col gap-2">
+            <Textarea
+              placeholder="What can I help you with today ?"
+              {...register("prompt")}
+              required
+            />
+            <Button
+              type="submit"
+              disabled={isFetchingResponse}
+              className="flex items-center gap-1 w-full">
+              {isFetchingResponse && <ClipLoader color="white" size={16} />}
+              Ask{isFetchingResponse && "ing"}
+            </Button>
+          </div>
         </DialogFooter>
       </form>
     </>

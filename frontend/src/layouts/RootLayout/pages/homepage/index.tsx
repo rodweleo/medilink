@@ -8,11 +8,11 @@ export const Homepage = () => {
       <section className="h-screen flex items-center justify-around">
         <div className="flex flex-col gap-10">
           <div className="max-w-[500px]">
-            <h1 className="text-5xl md:text-6xl font-bold  text-center md:text-left">
+            <h1 className="text-5xl md:text-6xl font-bold md:text-left">
               ReImagining <span className="text-blue-500">Quality</span> Health
               Care Delivery
             </h1>
-            <p className="mt-2 font-semibold text-slate-600 text-center md:text-left">
+            <p className="mt-2 font-semibold text-slate-600 md:text-left">
               Transforming the patient experience by embracing innovative
               solutions, ensuring accessibility to care for all, and upholding
               an unwavering commitment to safety and excellence in healthcare
@@ -25,8 +25,7 @@ export const Homepage = () => {
                 replace: true,
               })
             }
-            className="w-fit self-center md:self-start"
-          >
+            className="w-fit">
             Book Appointment
           </Button>
         </div>
