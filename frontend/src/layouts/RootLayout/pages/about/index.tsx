@@ -116,7 +116,7 @@ export const AboutUsPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 py-20 items-center bg-gray-100 w-full">
-          <p className="text-5xl font-bold">Our Commitment</p>
+          <p className="text-5xl font-bold text-center">Our Commitment</p>
           <p className="mt-2 text-center font-semibold text-slate-600 mx-auto max-w-[700px]">
             We are committed to enhancing healthcare outcomes and patient
             satisfaction by addressing the challenges faced by the healthcare
