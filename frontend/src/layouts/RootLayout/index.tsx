@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/sheet";
 import { useWindowDimensions } from "@/hooks/useWindowDimension";
 import { Separator } from "@/components/ui/separator";
+import Unauthorized from "@/pages/errors/unauthorized/page";
 
 const MobileRootNav = () => {
   return (
@@ -139,6 +140,7 @@ export const RootLayout = () => {
           <Route path="pricing" element={<Pricing />} />
           <Route path="contact-us" element={<ContactUsPage />} />
           <Route path="assessments" element={<Assessments />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
           <Route
             path="assessments/depression-assessment"
             element={<MentalHealthAssessmentForm />}

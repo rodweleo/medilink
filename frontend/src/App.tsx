@@ -19,9 +19,13 @@ function App() {
   return (
     <Routes>
       <Route path="/*" element={<RootLayout />} />
-      <Route element={<ProtectedAuthRoutes />}>
+      <Route element={<ProtectedAuthRoutes allowedRoles={["patient"]} />}>
         <Route path="/patient/*" element={<PatientAccount />} />
+      </Route>
+      <Route element={<ProtectedAuthRoutes allowedRoles={["doctor"]} />}>
         <Route path="/doctor/*" element={<DoctorAccount />} />
+      </Route>
+      <Route element={<ProtectedAuthRoutes allowedRoles={["admin"]} />}>
         <Route path="/admin/*" element={<AdminAccount />} />
       </Route>
     </Routes>
