@@ -80,7 +80,7 @@ const groupedAssessments: AssessmentsGroupedByCategory = ASSESSMENTS.reduce(
 
     return group;
   },
-  {}
+  {},
 );
 
 export const Assessments = () => {
@@ -100,7 +100,10 @@ export const Assessments = () => {
                 {assessmentGroup[1].map((assessment: Assessment) => {
                   return (
                     <li key={assessment.id}>
-                      <Card className="w-[400px]" id={assessment.id.toString()}>
+                      <Card
+                        className="max-w-[400px]"
+                        id={assessment.id.toString()}
+                      >
                         <CardHeader>
                           <CardTitle>{assessment.title}</CardTitle>
                           <CardDescription>
@@ -111,7 +114,9 @@ export const Assessments = () => {
                           <Button
                             onClick={() =>
                               navigate(
-                                assessment.title.toLowerCase().replace(" ", "-")
+                                assessment.title
+                                  .toLowerCase()
+                                  .replace(" ", "-"),
                               )
                             }
                             disabled={
