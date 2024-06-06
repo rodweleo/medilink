@@ -196,29 +196,29 @@ app.post("/login", async (req, res) => {
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   if (email === undefined && password === undefined) {
-    logger.error(`Email address and password missing`);
     res.status(400).json({
       status: false,
       error: {
         message: "Email address and password missing",
       },
     });
+    logger.error(`Email address and password missing`);
   } else if (email === undefined) {
-    logger.error(`Email address is missing`);
     res.status(400).json({
       status: false,
       error: {
         message: "Email address is missing",
       },
     });
+    logger.error(`Email address is missing`);
   } else if (password === undefined) {
-    logger.error(`Password is missing`);
     res.status(400).json({
       status: false,
       error: {
         message: "Password is missing",
       },
     });
+    logger.error(`Password is missing`);
   }
 
   //CHECK IF THE EMAIL PROVIDED IS A VALID EMAIL
@@ -232,12 +232,12 @@ app.post("/login", async (req, res) => {
       });
 
       if (error) {
-        logger.error(error);
         if (error.message.includes("Email not confirmed")) {
           res.status(error.status).json({
             status: false,
             message: `Email: ${email} not confirmed. Check your email inbox for more information.`,
           });
+          logger.error(error);
         } else {
           res
             .status(error.status)
@@ -299,6 +299,7 @@ app.post("/login", async (req, res) => {
 
         if (response.error) {
           res.status(500).json(error);
+          logger.error(response.error);
         } else {
           res.status(200).json({
             status: true,
@@ -308,22 +309,22 @@ app.post("/login", async (req, res) => {
         }
       }
     } else {
-      logger.error("Invalid password");
       res.status(400).json({
         status: false,
         error: {
           message: "Invalid password",
         },
       });
+      logger.error("Invalid password");
     }
   } else {
-    logger.error(`${email} is not a valid email address`);
     res.status(400).json({
       status: false,
       error: {
         message: "Invalid email address",
       },
     });
+    logger.error(`${email} is not a valid email address`);
   }
 });
 
@@ -369,8 +370,8 @@ app.get("/doctors", async (req, res) => {
   let { data, error, status } = await supabase_client.from("doctors").select();
 
   if (error) {
-    logger.error(`Error: ${error}`);
     res.status(status).json(data);
+    logger.error(`Error: ${error}`);
   }
   res.status(status).json({
     doctors: data,
@@ -483,8 +484,8 @@ app.get("/appointments", async (req, res) => {
 
     //console.log(data);
     if (error) {
-      logger.error(error);
       res.status(500).json(data);
+      logger.error(error);
     } else {
       res.status(200).json({
         appointments: data,
@@ -496,7 +497,8 @@ app.get("/appointments", async (req, res) => {
       .select();
 
     if (error) {
-      res.status(500).json(data);
+      res.status(500).json(error);
+      logger.error(error);
     } else {
       res.status(200).json({
         appointments: data,
@@ -533,27 +535,27 @@ app.post("/users/createUser", async (req, res) => {
         },
       ]);
       if (error) {
-        console.log(error);
-        res.status(error.status).json({
-          message: error.error,
+        res.status(error.code).json({
+          message: error.message,
           ...error,
         });
+        logger.error(error);
       }
 
-      logger.info(`Successfully created user ${req.body}`);
       res.status(201).json({
         status: true,
         message: `Account created under the email ${req.body.email}`,
       });
+      logger.info(`Successfully created user ${value.data.user.email}`);
     })
     .catch((error) => {
-      logger.error(error);
       if (error.code.includes("user_already_exists")) {
         res.status(error.status).json({
           status: false,
           message: "An account with that email already exists.",
           error: error,
         });
+        logger.error(error);
       }
     });
 });
