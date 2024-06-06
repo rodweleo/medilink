@@ -86,7 +86,7 @@ const saveLogToDB = (level, message, req, session) => {
         user_id: session?.user.id
       },
     ])*/
-  
+
 
   /*res.status(401).send({
       status: false,
@@ -129,7 +129,7 @@ app.use(async (req, res, next) => {
           `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
         );
         next();
-        
+
       }else{
         res.status(403).json({
           message: 'You lack sufficient permissions to access the requested resource.'
@@ -140,7 +140,7 @@ app.use(async (req, res, next) => {
         logger.error('You lack sufficient privileges to access the requested resource.')
       }
     }
-    
+
   }else{
     res.status(401).json({
       message: 'No access token'
@@ -155,9 +155,7 @@ app.use(async (req, res, next) => {
   logger.info(
     `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
   );
-  
-});
-
+next()
 //app.use(apiRateLimiter)
 //app.use(checkAccess)
 
