@@ -47,28 +47,30 @@ app.use(
   }),
 );
 
-
 const authenticateAccessToken = async (accessToken) => {
-  const value = await supabase_client.from('api_keys').select('*').eq("key", accessToken)
-  return value
-}
+  const value = await supabase_client
+    .from("api_keys")
+    .select("*")
+    .eq("key", accessToken);
+  return value;
+};
 
 const translateApiRequestMethod = (method) => {
-  if(method === null || undefined){
-    return "Unfamiliar method type"
+  if (method === null || undefined) {
+    return "Unfamiliar method type";
   }
-  if(method === "GET"){
-    return "Read"
-  }else if(method === "POST"){
-    return "Create"
-  }else if(method === "PUT"){
-      return "Update"
-  }else if(method === "DELETE"){
-    return "Delete"
-  }else{
-    return "Unfamiliar method type"
+  if (method === "GET") {
+    return "Read";
+  } else if (method === "POST") {
+    return "Create";
+  } else if (method === "PUT") {
+    return "Update";
+  } else if (method === "DELETE") {
+    return "Delete";
+  } else {
+    return "Unfamiliar method type";
   }
-}
+};
 
 const saveLogToDB = (level, message, req, session) => {
   //save the log into the database
@@ -86,19 +88,16 @@ const saveLogToDB = (level, message, req, session) => {
         user_id: session?.user.id
       },
     ])*/
-
-
   /*res.status(401).send({
       status: false,
       message: 'Access Denied: No Token Provided!'
     })*/
-}
+};
 app.use(async (req, res, next) => {
   const { data, error } = await supabase_client.auth.getSession();
   const { session } = data;
   const headers = req.headers;
   const token = headers["authorization"];
-
 
   /*if(token){
     logger.info("Validating the api request...")
@@ -150,13 +149,22 @@ app.use(async (req, res, next) => {
     );
     logger.error('No access token')
   }*/
-
-
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+  });
   logger.info(
     `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
   );
-next()
-//app.use(apiRateLimiter)
+
+  next();
+});
+
+app.use(apiRateLimiter);
+
 //app.use(checkAccess)
 
 app.get("/", (req, res) => {
