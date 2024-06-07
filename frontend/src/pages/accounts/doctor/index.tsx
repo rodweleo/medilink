@@ -38,7 +38,8 @@ export const DoctorAccount = () => {
                   });
                 })
               }
-              className="w-full">
+              className="w-full"
+            >
               Log out
             </Button>
           </li>
@@ -50,7 +51,7 @@ export const DoctorAccount = () => {
           <Route path="appointments" element={<Appointments />} />
           <Route path="hospitals" element={<main>hospitals</main>} />
           <Route path="ambulances" element={<main>Ambulances</main>} />
-          <Route path="patients/:id" element={<PatientPage />} />
+          <Route path="patients/:id" element={<PatientPage />}></Route>
         </Routes>
       </section>
     </main>

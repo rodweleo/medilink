@@ -63,12 +63,17 @@ const MobileRootNav = () => {
             </li>
             <li>
               <SheetClose asChild>
+                <NavLink to="/pricing">Pricing</NavLink>
+              </SheetClose>
+            </li>
+            <li>
+              <SheetClose asChild>
                 <NavLink to="/support-groups">Support Groups</NavLink>
               </SheetClose>
             </li>
             <li>
               <SheetClose asChild>
-                <NavLink to="/pricing">Pricing</NavLink>
+                <NavLink to="/events">Events</NavLink>
               </SheetClose>
             </li>
             <li>
@@ -113,6 +118,12 @@ const WebRootNav = () => {
         </li>
         <li>
           <NavLink to="/pricing">Pricing</NavLink>
+        </li>
+        <li>
+          <NavLink to="/support-groups">Support Groups</NavLink>
+        </li>
+        <li>
+          <NavLink to="/events">Events</NavLink>
         </li>
         <li>
           <NavLink to="/contact-us">Contact Us</NavLink>

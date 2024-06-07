@@ -170,7 +170,8 @@ export const MyHealth = () => {
                 <h1 className="font-bold">Upcoming Appointments</h1>
                 <Button
                   onClick={() => navigate("/patient/appointments")}
-                  className="p-0 bg-white text-blue-500 font-bold hover:bg-white">
+                  className="p-0 bg-white text-blue-500 font-bold hover:bg-white"
+                >
                   View All
                 </Button>
               </div>
@@ -185,7 +186,7 @@ export const MyHealth = () => {
           </CardContent>
         </Card>
       </section>
-      <Card className="w-fit hidden">
+      <Card className="w-fit">
         <CardHeader>
           <CardTitle>
             <h1 className="font-bold">Latest Health News</h1>
@@ -203,7 +204,7 @@ export const MyHealth = () => {
                       short_description: string;
                     }) => {
                       return (
-                        <Card className="w-[500px]">
+                        <Card className="max-w-[500px]">
                           <div className="flex">
                             <img
                               src={news_piece.top_image}

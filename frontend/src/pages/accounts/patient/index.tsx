@@ -108,7 +108,7 @@ export const PatientAccount = () => {
                     />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span>{user.name}</span>
+                  <span className="max-sm:hidden">{user.name}</span>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -132,7 +132,8 @@ export const PatientAccount = () => {
                         description: response.message,
                       });
                     })
-                  }>
+                  }
+                >
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>

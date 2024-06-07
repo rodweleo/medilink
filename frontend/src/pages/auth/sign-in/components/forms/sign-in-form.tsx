@@ -50,15 +50,15 @@ export const SignInForm = () => {
       if (res.status) {
         setIsSubmitting(false);
         if (res.profile.role === "patient") {
-          navigate("/patient", {
+          navigate("/patient/dashboard", {
             replace: true,
           });
         } else if (res.profile.role === "doctor") {
-          navigate("/doctor", {
+          navigate("/doctor/dashboard", {
             replace: true,
           });
         } else if (res.profile.role === "admin") {
-          navigate("/admin", {
+          navigate("/admin/dashboard", {
             replace: true,
           });
         }

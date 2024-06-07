@@ -40,24 +40,39 @@ export const Appointments = () => {
             </TableHeader>
             <TableBody>
                 {appointments.map((appointment) => {
-                    return <TableRow>
-                    <TableCell>{appointment.id}</TableCell>
-                    <TableCell>{appointment.patient_id}</TableCell>
-                    <TableCell>{appointment.notes}</TableCell>
-                    <TableCell>{appointment.date_of_appointment}</TableCell>
-                    <TableCell>{appointment.duration}</TableCell>
-                    <TableCell>{appointment.isCompleted}</TableCell>
-                    <TableCell>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger><Button><BiDotsVertical/></Button></DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem onClick={() => navigate(`/patients/${appointment.patient_id}`)}>View Patient Profile</DropdownMenuItem>
-                            <DropdownMenuItem>View Patient Medical Records</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                        
-                    </TableCell>
-                </TableRow>
+                    return (
+                      <TableRow>
+                        <TableCell>{appointment.id}</TableCell>
+                        <TableCell>{appointment.patient_id}</TableCell>
+                        <TableCell>{appointment.notes}</TableCell>
+                        <TableCell>{appointment.date_of_appointment}</TableCell>
+                        <TableCell>{appointment.duration}</TableCell>
+                        <TableCell>{appointment.isCompleted}</TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger>
+                              <Button>
+                                <BiDotsVertical />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  navigate(
+                                    `/doctor/patients/${appointment.patient_id}`
+                                  )
+                                }
+                              >
+                                View Patient Profile
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                View Patient Medical Records
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    );
                 })}
             </TableBody>
         </Table>

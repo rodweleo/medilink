@@ -9,10 +9,21 @@ import axios from "axios";
 import rateLimit from "express-rate-limit";
 import { logger } from "./middleware/logger.js";
 import validator from "validator";
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_SERVICE_HOST,
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_SERVICE_USERNAME,
+    pass: process.env.EMAIL_SERVICE_PASSWORD,
+  },
+});
 
 const supabase_client = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY,
+  process.env.SUPABASE_KEY
 );
 
 const apiRateLimiter = rateLimit({
@@ -44,7 +55,7 @@ app.use(
     },
     optionsSuccessStatus: 200,
     credentials: true,
-  }),
+  })
 );
 
 const authenticateAccessToken = async (accessToken) => {
@@ -157,7 +168,7 @@ app.use(async (req, res, next) => {
     "X-Content-Type-Options": "nosniff",
   });
   logger.info(
-    `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`,
+    `${req.method} ${req.originalUrl} ${res.statusCode} ${req.ip} ${req.headers["user-agent"]}`
   );
 
   next();
@@ -401,7 +412,7 @@ app.get("/distance", async (req, res) => {
         destinations.latitude + "," + destinations.longitude
       }&origins=${
         origins.latitude + "," + origins.longitude
-      }&units=imperial&key=${process.env.GOOGLE_API_KEY}`,
+      }&units=imperial&key=${process.env.GOOGLE_API_KEY}`
     );
     res.status(200).json({
       distance: response.data.rows[0].elements[0].distance,
@@ -710,6 +721,46 @@ app.get("/medicalRecords", async (req, res) => {
         patients: data,
       });
     }
+  }
+});
+
+app.post("/medicalRecords/requestAccess", async (req, res) => {
+  if (!req.body.patientEmail) {
+    res.status(400).json({
+      status: false,
+
+      message: "No email address provided.",
+    });
+  }
+
+  try {
+    const response = await transporter.sendMail({
+      from: "verify@manivas.com",
+      to: req.body.patientEmail,
+      subject: "Medical Record Access Request",
+      html: `<html>
+
+      
+        <body>
+          <p>${req.body.reason}</p>
+          <div>
+            <button style=" padding: 10px 20px; border-radius: 5px; outline: none;">Accept Request</button>
+            <button style=" padding: 10px 20px; border-radius: 5px; outline: none;">Deny Request</button>
+          </div>
+        </body>
+      </html>`,
+    });
+
+    if (response.response.includes("OK")) {
+      res.status(201).json({
+        status: true,
+        message: "Request for access has been sent successfully.",
+      });
+      logger.info("Request has been sent successfully.");
+    }
+  } catch (e) {
+    logger.error(error);
+    res.send(e);
   }
 });
 
