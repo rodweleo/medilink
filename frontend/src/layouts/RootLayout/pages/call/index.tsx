@@ -46,7 +46,7 @@ export const Call = () => {
 
     return <main className="overflow-y-scroll min-h-screen w-full">
         <article className="flex flex-wrap gap-5">
-            <section className="bg-gray-200 p-5 rounded-xl space-y-4 w-full">
+            <section className="bg-gray-200 p-5 rounded-xl space-y-4 w-fit">
                 <div className="flex gap-2 items-center">
                     <IoIosArrowRoundBack  className="text-2xl cursor-pointer hover:scale-[1.25] transition-all duration-300" onClick={() => navigate(-1)}/>
                     <ul>
@@ -59,7 +59,7 @@ export const Call = () => {
                         <li><Button variant="outline" className="rounded-full w-20 flex items-center gap-1"><IoPeopleOutline /> <span>1</span></Button></li>
                         <li><Button variant="outline" className="rounded-full bg-blue-500 hover:bg-blue-600 hover:text-white transition-all duration-300 text-white"><IoIosAdd className="text-xl"/> <span>Add People</span></Button></li>
                     </ul>
-                    <video ref={videoContainerRef} autoPlay={true} className="rounded-3xl relative">
+                    <video ref={videoContainerRef} autoPlay={true} className="rounded-3xl relative w-full">
                     </video>
                     <ul className="flex justify-center items-center gap-5">
                         <li><button title="Rotate camera" type="button"><IoCameraReverseOutline className="text-3xl"/></button></li>

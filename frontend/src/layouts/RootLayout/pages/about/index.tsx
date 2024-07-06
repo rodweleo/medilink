@@ -35,7 +35,7 @@ const SERVICE_OFFERS: ServiceOffered[] = [
 export const AboutUsPage = () => {
   return (
     <main className="min-h-screen">
-      <section className="h-screen flex items-center flex-col">
+      <section className="flex items-center flex-col">
         <div className="flex flex-col gap-4 justify-center items-center bg-gray-100 w-full py-20">
           <p className="text-5xl font-bold text-center">About Us</p>
           <p className="mt-2  text-xl font-semibold text-slate-600 text-center">
