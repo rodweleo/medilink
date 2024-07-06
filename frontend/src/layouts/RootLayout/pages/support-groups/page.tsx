@@ -43,7 +43,7 @@ const SUPPORT_GROUPS: SupportGroupProps[] = [
 export const SupportGroups = () => {
 
   const { toast } = useToast()
-  const joinSupportGroup = (group: SupportGroupProps) => {
+  const joinSupportGroup = () => {
 
     toast({
       variant: "destructive",
@@ -80,7 +80,7 @@ export const SupportGroups = () => {
               <Button variant="outline" className="w-full">
                 Details
               </Button>
-              <Button variant="default" disabled={!group.name.includes("Mental Health Support Groups")} className="w-full" onClick={() => joinSupportGroup(group)}>
+              <Button variant="default" disabled={!group.name.includes("Mental Health Support Groups")} className="w-full" onClick={() => joinSupportGroup()}>
                 Join Group
               </Button>
             </CardFooter>
