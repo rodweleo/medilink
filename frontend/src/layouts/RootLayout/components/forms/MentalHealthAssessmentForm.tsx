@@ -21,6 +21,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const PHQ9_QUESTIONS = [
   "Little interest or pleasure in doing things",
@@ -74,20 +75,50 @@ const formSchema = z.object(
 );
 
 export const MentalHealthAssessmentForm = () => {
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
   const [result, setResult] = useState<number>(0);
+  const [aiSuggestion, setAISuggestion] = useState("")
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = Object.values(values)
       .map((value) => Number(value))
       .reduce((sum, value) => {
         return sum + value;
       }, 0);
     setResult(Number(result));
+
+    if(result <= 4){
+      console.log("No depression")
+    }else if(result > 4 && result <= 9){
+      const prompt: string = `
+        I have been feeling mild depressed lately. 
+        These feelings have been going on within the last two weeks. 
+        Can you provide some coping strategies.`
+      
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+        setAISuggestion(text)
+
+    }else if(result > 9 && result <= 14){
+      console.log(`
+        I have been feeling moderately depressed lately. 
+        These feelings have been going on within the last two weeks. 
+        Can you provide some coping strategies.`)
+    }else if(result > 19 && result <= 27){
+      console.log(`
+        I have been feeling severely depressed lately. 
+        These feelings have been going on within the last two weeks. 
+        Can you provide some coping strategies.`)
+    }
   }
+  
 
   return (
     <main className="flex flex-col gap-4">
@@ -111,7 +142,7 @@ export const MentalHealthAssessmentForm = () => {
         </>
       </article>
       <section className="flex flex-col gap-5 w-fit">
-        <Card className="w-[700px]">
+        <Card className="max-w-[700px]">
           <CardHeader>
             <CardTitle>Patient Health Questionnaire</CardTitle>
             <CardDescription>
@@ -165,17 +196,26 @@ export const MentalHealthAssessmentForm = () => {
               </form>
             </Form>
           </CardContent>
-          <CardFooter className="flex flex-col items-start">
-            <h2 className="font-bold text-xl">
-              Result: <span>{result} / 27</span>
-            </h2>
-            <p className="font-semibold">
-              Please ensure all quesitons above are answered.
-            </p>
+          <CardFooter className="flex flex-col items-start space-y-4">
+            <div>
+              <h2 className="font-bold text-xl">
+                Result: <span>{result} / 27</span>
+              </h2>
+              <p className="font-semibold">
+                Please ensure all questions above are answered.
+              </p>
+            </div>
+            {aiSuggestion && <section className="bg-black p-2.5 rounded-md space-y-2 w-full" >
+              <h2 className="text-2xl font-bold text-white">AI Suggestion</h2>
+              <p className="text-slate-100">{aiSuggestion}</p>
+            </section>
+            
+            }
+            
           </CardFooter>
         </Card>
 
-        <Card className="w-full">
+        <Card className="max-w-[400px]">
           <CardHeader>
             <CardTitle>Depression severity scale:</CardTitle>
           </CardHeader>

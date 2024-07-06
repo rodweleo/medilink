@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background: white
+}
+
+::-webkit-scrollbar-thumb {
+  --tw-text-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-text-opacity));
+  border-radius: 5px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -73,6 +87,25 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.nav-link{
+  padding: 5px 20px;
+  transition: ease-in-out 0.25s;
+}
+
+.nav-link:hover{
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+  font-weight: bold;
+  border-bottom: 2px solid rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.nav-link.active{
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+  font-weight: bold;
+  border-bottom: 2px solid rgb(59 130 246 / var(--tw-text-opacity));
 }
 
 .root-nav-bar ul li a {

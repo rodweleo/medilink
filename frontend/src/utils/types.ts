@@ -111,3 +111,15 @@ export type ServiceOffered = {
   title: string;
   description: string;
 };
+
+export type EventProps = {
+  id: string;
+  name: string;
+  location: {
+    place: string;
+    county: string;
+    country: string;
+  }
+  likes: number;
+  dateOfEvent: Date
+}
