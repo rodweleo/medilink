@@ -6,37 +6,51 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
+import { SupportGroupProps } from "@/utils/types";
 
-const SUPPORT_GROUPS = [
+const SUPPORT_GROUPS: SupportGroupProps[] = [
   {
-    title: "Mental Health Support Groups",
+    name: "Mental Health Support Groups",
     description: `Mental health support groups can offer peer support, coping
         strategies, and a sense of community. 
         MediLink provides anonymity and convenience, encouraging more people
         to seek help.`,
   },
   {
-    title: "Substance Abuse and Addiction Recovery Groups",
+    name: "Substance Abuse and Addiction Recovery Groups",
     description:
       "These groups help individuals in recovery by offering a supportive environment to discuss challenges and successes. The regular meetings and accountability are crucial components of recovery programs.",
   },
   {
-    title: "Parental Support Groups",
+    name: "Parental Support Groups",
     description:
       "Parenting can be challenging, and support groups offer advice, shared experiences, and emotional support. They can be particularly helpful for parents navigating unique challenges.",
   },
   {
-    title: "Grief and Loss Support Groups",
+    name: "Grief and Loss Support Groups",
     description:
       "These groups help individuals process grief and loss, providing a supportive community where members can share their feelings and experiences.",
   },
   {
-    title: "Caregiver Support Groups",
+    name: "Caregiver Support Groups",
     description:
       "Caregivers often experience high levels of stress and burnout. Support groups provide emotional support, practical advice, and resources for managing caregiving responsibilities.",
   },
 ];
+
+
 export const SupportGroups = () => {
+
+  const { toast } = useToast()
+  const joinSupportGroup = (group: SupportGroupProps) => {
+
+    toast({
+      variant: "destructive",
+      title: `Uh oh! Something went wrong.`,
+      description: 'This feature is currently offline. The system administrator is working on restoring it. Thank you for your patience.'
+    })
+  }
   return (
     <main className="flex flex-col gap-5">
       <h1 className="font-bold text-xl">Support Groups</h1>
@@ -59,14 +73,14 @@ export const SupportGroups = () => {
           <Card className="max-w-[400px] cursor-pointer shadow-lg hover:bg-slate-100 transition-all duration-300 hover:scale-[1.025]">
             {" "}
             <CardHeader>
-              <CardTitle>{group.title}</CardTitle>
+              <CardTitle>{group.name}</CardTitle>
             </CardHeader>
             <CardContent>{group.description}</CardContent>
             <CardFooter className="flex items-center justify-center gap-5">
               <Button variant="outline" className="w-full">
                 Details
               </Button>
-              <Button variant="default" className="w-full">
+              <Button variant="default" disabled={!group.name.includes("Mental Health Support Groups")} className="w-full" onClick={() => joinSupportGroup(group)}>
                 Join Group
               </Button>
             </CardFooter>

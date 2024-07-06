@@ -123,3 +123,8 @@ export type EventProps = {
   likes: number;
   dateOfEvent: Date
 }
+
+export type SupportGroupProps = {
+  name: string;
+  description: string;
+}
