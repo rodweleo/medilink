@@ -46,7 +46,7 @@ const MobileRootNav = () => {
         <SheetHeader>
           <SheetTitle className="text-left">MediLink</SheetTitle>
           <SheetDescription className="text-left">
-            Reimagining healthcare services
+            Comprehensive Care For Your <span>Mental Well-Being</span>
           </SheetDescription>
         </SheetHeader>
         <div className="flex flex-col gap-5">

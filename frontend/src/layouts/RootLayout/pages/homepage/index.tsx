@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { BENEFITS } from "@/utils/data";
 
 
 export const Homepage = () => {
@@ -15,10 +16,9 @@ export const Homepage = () => {
       <article>
         <section className="min-h-screen flex items-center justify-around">
           <div className="flex flex-col gap-10">
-            <div className="max-w-[500px]">
-              <h1 className="text-5xl md:text-6xl font-bold md:text-left">
-                ReImagining <span className="text-blue-600">Quality</span> Health
-                Care Delivery
+            <div className="max-w-[650px]">
+              <h1 className="sm:text-7xl text-5xl font-bold">
+                Comprehensive Care For <span className="text-blue-600">Your Mental Well-Being</span>
               </h1>
               <p className="mt-2 font-semibold text-slate-600 md:text-left">
                 Transforming the patient experience by embracing innovative
@@ -39,39 +39,32 @@ export const Homepage = () => {
               <li><Button variant="link" className="flex gap-1 hover:gap-2 transition-all duration-200" onClick={() => prepareCall()}><span>Hoop on a call</span> <IoIosArrowForward /></Button></li>
             </ul>
           </div>
-          <img
-            src="https://www.istudiotech.in/wp-content/uploads/2022/03/Healthcare-Powered-by-Automation.png"
-            alt="Re-imagining health care through technology."
-            className="hidden lg:flex"
-          />
+          <div className="">
+            <div className="fixed bg-white left-0 filter blur-md"/>
+            <img src="/assets/images/hero-bg.jpg" width="1024px" alt="Doctor & patient holding hands."/>
+          </div>
         </section> 
         <section className="min-h-screen flex flex-col items-center space-y-5">
-              <h1 className="font-bold text-3xl flex flex-col items-center gap-1">Our Key Features <hr className="w-28 bg-blue-500 h-1"/></h1>
-              <div className="flex flex-wrap gap-5">
-                <Card className="max-w-[300px]">
+              <div className="text-center">
+                <h3 className="font-bold">BENEFITS</h3>
+                <h1 className="sm:text-5xl font-bold max-w-xl">What Are The Potential <span className="text-blue-500">Benefits</span> Of Psychology?</h1>
+              </div>
+              <div className="grid sm:grid-cols-3 grid-cols-1 gap-5">
+                {
+                  BENEFITS.map((benefit, index:number) => (
+                    <Card className="max-w-[400px]" key={index}>
                   <CardHeader>
-                    <CardTitle ><img src="/assets/images/community awareness.png" width="50px" alt="Community Awareness"/><h1>Community Awareness Programs</h1></CardTitle>
+                    <CardTitle ><img src="/assets/images/community awareness.png" width="50px" alt="Community Awareness"/><h1>{benefit.title}</h1></CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p>
                     Join our Community Awareness Programs to engage and empower local communities through education on health, safety, environmental sustainability, and social justice, fostering informed decisions and meaningful actions.</p>
                   </CardContent>
-                  <CardFooter>
-                    <Button variant="link" className="p-0 flex items-center gap-1 hover:gap-2 transition-all duration-300 hover:text-blue-500"><span>Learn More</span> <IoIosArrowForward /></Button>
-                  </CardFooter>
                 </Card>
+                  ))
+                }
 
-                <Card className="max-w-[300px] h-fit">
-                  <CardHeader>
-                    <CardTitle><img src="/assets/images/health-care.png" width="50px" alt="Health recommendation"/> Health care Recommendation</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Experience a smarter, more personalized approach to your health with our cutting-edge recommendations.</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="link" className="p-0 flex items-center gap-1 hover:gap-2 transition-all duration-300 hover:text-blue-500"><span>Learn More</span> <IoIosArrowForward /></Button>
-                  </CardFooter>
-                </Card>
+                
               </div>
         </section>  
       </article> 
