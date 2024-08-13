@@ -111,12 +111,9 @@ const MobileRootNav = () => {
 const WebRootNav = () => {
   return (
     <>
-      <ul className="flex gap-10">
+      <ul className="flex gap-5">
         <li>
           <NavLink to="/" className="nav-link">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/about-us" className="nav-link">About Us</NavLink>
         </li>
         <li>
           <NavLink to="/assessments" className="nav-link">Assessments</NavLink>
@@ -136,10 +133,10 @@ const WebRootNav = () => {
       </ul>
       <ul className="flex gap-5">
         <li>
-          <NavLink to="/sign-in" className="nav-link">Sign In</NavLink>
+          <Button className="bg-blue-500 hover:bg-blue-600"><a href="/sign-in">Login</a></Button>
         </li>
         <li>
-          <NavLink to="/sign-up" className="nav-link">Sign Up</NavLink>
+          <Button variant="outline"><a href="/sign-up">Create Account</a></Button>
         </li>
       </ul>
     </>
@@ -149,14 +146,41 @@ export const RootLayout = () => {
   const { width } = useWindowDimensions();
   return (
     <main className="min-h-screen w-full">
-      <nav className="flex p-5 w-full items-center bg-white/90 justify-between sticky top-0 h-20 z-50 backdrop-blur-md">
-        <NavLink to="/">
-          <h1 className="font-bold text-blue-500">MediLink</h1>
-        </NavLink>
-        {width > 1120 ? <WebRootNav /> : <MobileRootNav />}
-      </nav>
+      <header className="sticky top-0 shadow-blue-200 shadow-sm">
+        <section className="bg-blue-500 w-full flex items-center justify-between py-2 px-20">
+            <ul className="flex gap-2 text-white">
+              <li>
+                <button title="Instagram" type="button">
+                  <FaInstagram />
+                </button>
+              </li>
+              <li>
+                <button title="Twitter (X)" type="button">
+                  <FaXTwitter />
+                </button>
+              </li>
+              <li>
+                <button title="Whatsapp" type="button">
+                  <FaWhatsapp />
+                </button>
+              </li>
+            </ul>
+            <p className="text-white">24/7 HotLine: +2547-359-234-586</p>
+            <ul className="flex gap-5 text-white">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Refer</a></li>
+            </ul>
+        </section>
+        <nav className="flex px-20 w-full items-center bg-white/90 justify-between h-14 backdrop-blur-md">
+          <NavLink to="/">
+            <h1 className="font-bold text-blue-500">MediLink</h1>
+          </NavLink>
+          {width > 1120 ? <WebRootNav /> : <MobileRootNav />}
+        </nav>
+      </header>
 
-      <section className="h-full p-5">
+      <section className="h-full">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="about-us" element={<AboutUsPage />} />
@@ -191,27 +215,85 @@ export const RootLayout = () => {
         </DialogContent>
       </Dialog>
 
-      <footer className="bg-blue-100 p-5 space-y-4">
-        <section className="flex justify-between flex-wrap gap-5">
-          <section>
-            <h1 className="text-blue-500 font-bold">MediLink</h1>
-            <p className="text-sm text-slate-600">Reimagining healthcare delivery services.</p>
-          </section>
-          <div className="space-y-1">
-            <h1 className="text-blue-500 font-bold text-sm">Our Services</h1>
-            <ul className="text-slate-500 text-sm list-disc ml-5 space-y-1">
-              <li>E-Health Platform</li>
-              <li>Remote Patient Monitoring</li>
+      <footer className="bg-blue-500 space-y-4">
+        <section className="p-10 flex justify-between flex-wrap gap-5">
+          <div className="space-y-2.5">
+            <div>
+              <h1 className="text-white font-bold">MediLink</h1>
+              <p className="text-sm text-slate-200">
+                Reimagining healthcare delivery services.
+              </p>
+            </div>
+            <ul className="flex gap-4 text-lg text-white">
+              <li>
+                <button title="Instagram" type="button">
+                  <FaInstagram />
+                </button>
+              </li>
+              <li>
+                <button title="Twitter (X)" type="button">
+                  <FaXTwitter />
+                </button>
+              </li>
+              <li>
+                <button title="Whatsapp" type="button">
+                  <FaWhatsapp />
+                </button>
+              </li>
             </ul>
           </div>
-          <ul className="flex gap-4 text-lg">
-            <li><button title="Instagram" type="button"><FaInstagram /></button></li>
-            <li><button title="Twitter (X)" type="button"><FaXTwitter /></button></li>
-            <li><button title="Whatsapp" type="button" className="text-green-600"><FaWhatsapp /></button></li>
-          </ul>
+          <div className="text-white space-y-2.5">
+            <h2 className="font-semibold">Quick Links</h2>
+            <ul className="text-sm text-slate-200 space-y-2.5">
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+              <li>
+                <a href="/careers">Careers</a>
+              </li>
+              <li>
+                <a href="/appointment">Appointment</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="text-white space-y-2.5">
+            <h2 className="font-semibold">Our Services</h2>
+            <ul className="text-sm text-slate-200 space-y-2.5">
+              <li>
+                <a href="#">Psychology</a>
+              </li>
+              <li>
+                <a href="#">Nutrition & Dietaries</a>
+              </li>
+              <li>
+                <a href="#">Speech Psychology</a>
+              </li>
+              <li>
+                <a href="#">Drivers Safe Lab</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="text-white space-y-2.5">
+            <h2 className="font-semibold">Our Contact</h2>
+            <ul className="text-sm text-slate-200 space-y-2.5">
+              <li>
+                <a href="#">+1-884563278</a>
+              </li>
+              <li>
+                <a href="#">Open 24 / 7</a>
+              </li>
+            </ul>
+          </div>
         </section>
-        <Separator className="w-full bg-slate-300"/>
-        <p className="text-center text-sm text-slate-600">&copy; Copyright {new Date().getFullYear()}. All rights reserved. </p>
+        <p className="flex justify-between p-2.5 bg-white text-center text-sm text-slate-600">
+          &copy; Copyright {new Date().getFullYear()} MediLink.{" "}
+          <span>All rights reserved.</span>{" "}
+        </p>
       </footer>
     </main>
   );

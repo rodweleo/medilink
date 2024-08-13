@@ -86,7 +86,7 @@ export const ChatWithMeliForm = () => {
         </DialogDescription>
       </DialogHeader>
       <Card>
-        <CardContent className="flex flex-col gap-5 h-[400px] overflow-y-auto">
+        <CardContent className="flex flex-col gap-5 min-h-[150px] overflow-y-auto">
           {chatsWithMeli &&
             chatsWithMeli.map((chat) => {
               return (
@@ -106,9 +106,9 @@ export const ChatWithMeliForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className=" items-start gap-5">
         <DialogFooter className="w-full">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             <Textarea
-              placeholder="What can I help you with today ?"
+              placeholder="Ask something..."
               {...register("prompt")}
               required
             />

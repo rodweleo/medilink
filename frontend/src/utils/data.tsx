@@ -30,3 +30,21 @@ export const BENEFITS = [
         description: ""
     }
 ]
+
+export const SERVICES = [
+    {
+        icon: "",
+        title: "Mobile Speech Therapy",
+        description: ""
+    },
+    {
+        icon: "",
+        title: "NDIS Speech Therapy",
+        description: ""
+    },
+    {
+        icon: "",
+        title: "Adult Speech Therapy",
+        description: ""
+    },
+]
