@@ -16,6 +16,11 @@
   border-radius: 5px;
 }
 
+#map{
+  width: 50%;
+  height: 400px
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -1,5 +1,5 @@
 import { SignUp } from "@/pages/auth/sign-up";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Route, Routes } from "react-router-dom";
 import { Homepage } from "./pages/homepage";
 import { BookAppointment } from "./pages/book-appointment";
 import { Pricing } from "./pages/pricing";
@@ -33,7 +33,13 @@ import { Call } from "./pages/call";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
+import React from "react"
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { ListItem } from "@/components/list-item";
+import BenefitsOfTherapy from "./pages/benefits-of-therapy";
 
+const HowMedilinkWorks = React.lazy(() => import("./pages/how-medilink-works"))
 const MobileRootNav = () => {
   return (
     <Sheet>
@@ -111,26 +117,62 @@ const MobileRootNav = () => {
 const WebRootNav = () => {
   return (
     <>
-      <ul className="flex gap-5">
-        <li>
-          <NavLink to="/" className="nav-link">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/assessments" className="nav-link">Assessments</NavLink>
-        </li>
-        <li>
-          <NavLink to="/pricing" className="nav-link">Pricing</NavLink>
-        </li>
-        <li>
-          <NavLink to="/support-groups" className="nav-link">Support Groups</NavLink>
-        </li>
-        <li>
-          <NavLink to="/events" className="nav-link">Events</NavLink>
-        </li>
-        <li>
-          <NavLink to="/contact-us" className="nav-link">Contact Us</NavLink>
-        </li>
-      </ul>
+      <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <a href="/">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Home
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+        
+        <NavigationMenuItem>
+          <a href="/how-medilink-works">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              How MediLink Works
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <ListItem href="/assessments" title="Assessments">
+                Quizzes to aid in faster condition detection
+              </ListItem>
+              <ListItem href="/support-groups" title="Support Groups">
+                Join community of like-minded individuals.
+              </ListItem>
+              <ListItem href="/benefits-of-therapy" title="Benefits">
+                The goodside of having therapy.
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <a href="/pricing">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Pricing
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <a href="/events">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Events
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <a href="/contact-us">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Contact Us
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
       <ul className="flex gap-5">
         <li>
           <Button className="bg-blue-500 hover:bg-blue-600"><a href="/sign-in">Login</a></Button>
@@ -146,7 +188,7 @@ export const RootLayout = () => {
   const { width } = useWindowDimensions();
   return (
     <main className="min-h-screen w-full">
-      <header className="sticky top-0 shadow-blue-200 shadow-sm">
+      <header className="sticky top-0 shadow-blue-200 shadow-sm z-50">
         <section className="bg-blue-500 w-full flex items-center justify-between py-2 px-20">
             <ul className="flex gap-2 text-white">
               <li>
@@ -183,12 +225,16 @@ export const RootLayout = () => {
       <section className="h-full">
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/how-medilink-works" element={<React.Suspense fallback={<p>Loading</p>}>
+            <HowMedilinkWorks />
+          </React.Suspense>} />
           <Route path="about-us" element={<AboutUsPage />} />
           <Route path="pricing" element={<Pricing />} />
-          <Route path="contact-us" element={<ContactUsPage />} />
-          <Route path="assessments" element={<Assessments />} />
-          <Route path="events" element={<Events />} />
-          <Route path="support-groups" element={<SupportGroups />} />
+          <Route path="/contact-us" element={<ContactUsPage />} />
+          <Route path="/assessments" element={<Assessments />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/benefits-of-therapy" element={<BenefitsOfTherapy />} />
+          <Route path="/support-groups" element={<SupportGroups />} />
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route
             path="assessments/depression-assessment"
@@ -291,8 +337,11 @@ export const RootLayout = () => {
           </div>
         </section>
         <p className="flex justify-between p-2.5 bg-white text-center text-sm text-slate-600">
-          &copy; Copyright {new Date().getFullYear()} MediLink.{" "}
-          <span>All rights reserved.</span>{" "}
+          <span>&copy; Copyright {new Date().getFullYear()} MediLink.{" "} All rights reserved.</span>{" "}
+          <ul className="flex gap-10">
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
         </p>
       </footer>
     </main>
