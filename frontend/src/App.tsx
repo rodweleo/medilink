@@ -1,4 +1,4 @@
-import { Route, Routes, redirect } from "react-router-dom";
+  import { Route, Routes, redirect } from "react-router-dom";
 import "./App.css";
 import { RootLayout } from "./layouts/RootLayout";
 import { useSession } from "./hooks/useSession";
@@ -8,14 +8,40 @@ import { DoctorAccount } from "./pages/accounts/doctor";
 import { AdminAccount } from "./pages/accounts/admin";
 import ProtectedAuthRoutes from "./providers/protected-routes";
 import { NotFound } from "./pages/errors/not-found/page";
+import { useToast } from "./components/ui/use-toast";
+import { BatteryLow } from "lucide-react";
 
 function App() {
   const { session } = useSession();
+  const { toast } = useToast()
   useEffect(() => {
     if (!session) {
       redirect("/");
     }
+
+
   }, [session]);
+
+  function isMobile() {
+    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent);
+  }
+  useEffect(() => {
+    navigator.getBattery().then((battery) => {
+      if(battery.level < 15){
+        toast({
+          variant: "destructive",
+          title: (
+            <div className="flex items-center gap-1">
+              <BatteryLow/>
+              Battery Low ({battery.level}%)       
+            </div>
+          ),
+          description: `Kindly plug in your ${isMobile() ? "mobile phone" : "desktop"} to a charging station to avoid disconnection.`
+        })
+      }
+    })
+  }, [])
 
   return (
     <Routes>

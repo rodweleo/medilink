@@ -57,7 +57,6 @@ export const RootLayout = () => {
           <Route path="call" element={<Call />} />
         </Routes>
       </section>
-
       <Dialog>
         <DialogTrigger asChild>
           <Button className="flex items-center fixed bottom-0 right-0 m-5">
