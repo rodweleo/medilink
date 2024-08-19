@@ -1,3 +1,7 @@
+import { GrMoney } from "react-icons/gr"
+import { IoSearch } from "react-icons/io5"
+import { GrGrow } from "react-icons/gr";
+
 export const BENEFITS = [
     {
         icon: "",
@@ -101,13 +105,36 @@ export const ISSUES = [
 
 export const TESTIMONIALS = [
     {
-        customer_name: "John Kinuthia",
-        occupancy: "Political Analyst",
-        body: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi corporis aperiam fuga, ut quis, est tempore vitae nesciunt minus officiis accusantium dolores explicabo optio quam voluptatem quasi ipsa laborum obcaecati?",
+      customer_name: "Sarah Mwangi",
+      occupancy: "Marketing Manager",
+      body: "MediLink has been a game-changer for me. The therapists are incredibly professional and the platform makes it easy to find support that fits my busy schedule. I appreciate the personalized approach and the quality of care I receive."
     },
     {
-        customer_name: "Sarah Makaila",
-        occupancy: "Business Analyst",
-        body: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi corporis aperiam fuga, ut quis, est tempore vitae nesciunt minus officiis accusantium dolores explicabo optio quam voluptatem quasi ipsa laborum obcaecati?",
+      customer_name: "David Otieno",
+      occupancy: "Software Developer",
+      body: "Finding the right mental health support was challenging until I discovered MediLink. The service is straightforward, and the professionals are highly skilled. I feel understood and supported every step of the way."
+    },
+    {
+      customer_name: "Aisha Njeri",
+      occupancy: "School Teacher",
+      body: "MediLink offers top-notch care with a user-friendly interface. The mental health professionals are attentive and genuinely concerned about my well-being. I'm grateful for the accessible and high-quality support I receive."
+    }
+  ];
+
+export const MEDILINK_BENEFITS = [
+    {
+        icon:  <GrMoney size={40} />,
+        title: "Affordable Sessions",
+        description: "Affordable therapy sessions designed to support your mental health journey, offering compassionate care and professional guidance at a price that fits your budget."
+    },
+    {
+        icon:  <IoSearch size={40} />,
+        title: "Simple Search Process",
+        description: "Experience a simpler search process for affordable therapy sessions, making it easy to find the right support that fits your needs and budget."
+    },
+    {
+        icon:  <GrGrow size={40} />,
+        title: "High Quality Care",
+        description: "Access high-quality care with experienced professionals dedicated to providing exceptional support and personalized treatment. Your well-being is our top priority."
     }
 ]

@@ -3,26 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EXPERTS, ISSUES, SERVICES, TESTIMONIALS } from "@/utils/data";
+import { EXPERTS, ISSUES, MEDILINK_BENEFITS, SERVICES, TESTIMONIALS } from "@/utils/data";
 import { BriefcaseBusiness } from "lucide-react";
-import { FaLinkedinIn } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge"
-import { FaInstagram } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
-import { MdArrowForwardIos } from "react-icons/md";
-import { GrMoney } from "react-icons/gr";
-import { IoSearch } from "react-icons/io5";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { AnimatePresence, motion } from "framer-motion";
+import ServiceCard from "@/components/service-card";
+import IssueCard from "@/components/issue-card";
+import AnimatedCounter from "@/components/animated-counter";
+import BenefitCard from "@/components/benefit-card";
+import AnimatedList from "@/components/animated-list";
+import TestimonialCard from "@/components/testimonial-card";
+import ExpertCard from "@/components/expert-card";
 
 export const Homepage = () => {
   const navigate = useNavigate();
@@ -30,24 +25,37 @@ export const Homepage = () => {
   const prepareCall = async () => {
     navigate("/call");
   };
+  //<span className="text-yellow-600">stronger </span>
+  //<span className="text-yellow-600">emotional </span>
+
+  const text = " Elevating emotional wellness and stronger bonds for all.".split(" ")
 
   return (
     <main className="min-h-screen">
-      <section id="#" className="min-h-screen flex items-center justify-around">
-        <div className="flex flex-col gap-10">
-          <div className="max-w-[700px]">
-            <h1 className="sm:text-7xl text-5xl font-bold">
-              Elevating <span className="text-blue-600">emotional </span>
-              wellness and <span className="text-blue-600">strong </span> bonds
-              for all
-            </h1>
-            <p className="mt-2 font-semibold text-slate-600 md:text-left">
-              Discover the power of personalized therapy with MediLink, your
-              only online personalized therapy aligned with your holistic,
-              empathetic and Godly beliefs & other things to do.
-            </p>
-          </div>
-          <ul className="flex flex-wrap items-center gap-5 ">
+      <section id="#" className="p-2.5 min-h-screen w-full flex flex-col justify-center space-y-5 items-center bg-[url('/assets/images/hero-bg.jpg')] bg-no-repeat bg-fixed bg-cover filter backdrop-contrast-125">
+        <div className="absolute inset-0 bg-black opacity-50 -z-50"></div>
+        <h1 className="sm:text-7xl text-6xl max-w-6xl font-bold text-center text-white">
+          {text.map((el, i) => (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.25,
+                delay: i / 10
+              }}
+              key={i}
+            >
+              {el}{" "}
+            </motion.span>
+          ))}
+        </h1>
+        <div className="text-center max-w-5xl space-y-10">
+          <p className="text-slate-200 text-xl sm:text-2xl font-normal">
+            Discover the power of personalized therapy with MediLink, your
+            only online personalized therapy aligned with your holistic,
+            empathetic and Godly beliefs & other things to do.
+          </p>
+          <ul className="flex flex-wrap items-center justify-center gap-5 ">
             <li>
               <Button
                 onClick={() =>
@@ -55,7 +63,7 @@ export const Homepage = () => {
                     replace: true,
                   })
                 }
-                className="w-fit"
+                className="w-fit bg-white text-slate-800 hover:bg-slate-200"
               >
                 Book Appointment
               </Button>
@@ -63,21 +71,13 @@ export const Homepage = () => {
             <li>
               <Button
                 variant="link"
-                className="flex gap-1 hover:gap-2 transition-all duration-200"
+                className="flex gap-1 hover:gap-2 transition-all duration-200 text-white"
                 onClick={() => prepareCall()}
               >
                 <span>Hoop on a call</span> <IoIosArrowForward />
               </Button>
             </li>
           </ul>
-        </div>
-        <div className="">
-          <div className="fixed bg-white left-0 filter blur-md" />
-          <img
-            src="/assets/images/hero-bg.jpg"
-            width="586px"
-            alt="Doctor & patient holding hands."
-          />
         </div>
       </section>
 
@@ -91,100 +91,84 @@ export const Homepage = () => {
         </div>
         <div className="flex flex-wrap gap-10 justify-center items-center">
           {SERVICES.map((service, index: number) => (
-            <div className="sm:w-[400px] w-[200px] rounded-md" key={index}>
-              <img src={service.image_url} alt={service.title} width="100%" />
-              <a
-                href={service.slug}
-                className="bg-black backdrop-blur-md p-2.5 flex items-center justify-between"
-              >
-                <div>
-                  <h1 className="font-bold sm:text-xl text-white">
-                    {service.title}
-                  </h1>
-                  <p className="text-slate-200">{service.description}</p>
-                </div>
-                <MdArrowForwardIos className="text-white" />
-              </a>
-            </div>
+            <ServiceCard service={service} index={index} />
           ))}
         </div>
       </section>
       <section
         id="why-medilink"
-        className=" flex justify-center items-center space-y-5 gap-10 py-20"
+        className="p-2.5 flex justify-center items-center space-y-5 gap-10 py-20"
       >
         <div className="space-y-5 max-w-[500px]">
+
           <h1 className="font-bold sm:text-5xl text-3xl">
-            We care for you, we write for You
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false }}
+            >
+              {("We care for you, we write for You").split(" ").map((el, i) => (
+
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+
+                  transition={{
+                    duration: 0.25,
+                    delay: i / 10
+                  }}
+                  key={i}
+                >
+                  {el}{" "}
+                </motion.span>
+
+
+              ))}
+            </motion.div>
+
           </h1>
           <p className="text-slate-500">
             MedLink is an ever growing community working towards changing the
             way individuals think & act about problems related to Mental Health
             managed by the Current Generation
           </p>
-          <ul className="space-y-2.5">
-            <li>
-              <div className="bg-slate-200 p-5 border-2 border-slate-800 rounded-md">
-                <div className="flex gap-2.5">
-                  <GrMoney size={35} />
-                  <div>
-                    <h2 className="font-bold text-2xl">Affordable Sessions</h2>
-                    <p className="text-slate-500">
-                      MediLink clients who use their insurance save an average
-                      of 77% on the cost of therapy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="bg-slate-200 p-5 border-2 border-slate-800 rounded-md">
-                <div className="flex gap-2.5">
-                  <IoSearch size={35} />
-                  <div>
-                    <h2 className="font-bold text-2xl">
-                      Simple Search Process
-                    </h2>
-                    <p className="text-slate-500">
-                      MediLink clients who use their insurance save an average
-                      of 77% on the cost of therapy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="bg-slate-200 p-5 border-2 border-slate-800 rounded-md">
-                <div className="flex gap-2.5">
-                  <GrMoney size={35} />
-                  <div>
-                    <h2 className="font-bold text-2xl">High Quality Care</h2>
-                    <p className="text-slate-500">
-                      MediLink clients who use their insurance save an average
-                      of 77% on the cost of therapy.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <AnimatePresence>
+
+            <AnimatedList className="space-y-2.5">
+              {
+                MEDILINK_BENEFITS.map((benefit, index: number) => (
+                  <motion.li key={index} variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}>
+                    <BenefitCard benefit={benefit} index={index} />
+                  </motion.li>
+
+                ))
+              }
+            </AnimatedList>
+          </AnimatePresence>
           <Button onClick={() => navigate("/book-appointment")}>
             Book Appointment
           </Button>
         </div>
-        <div>
+        <div className="relative hidden xl:block">
           <img
             src="https://www.baptisthealth.com/-/media/images/migrated/blog-images/teaser-images/gettyimages-1015399630-1280x854.jpg?rev=91b0cae27bff4c6787ba72ea7667f4c9"
             alt="A therapist taking notes as a man speaks."
             width="868px"
-            className="rounded-md hidden sm:block"
+            className="rounded-md hidden md:block"
           />
+          <p className="hidden xl:flex absolute items-center gap-2.5 -bottom-9 right-1/3 z-20 bg-white border border-blue-200 shadow-md shadow-blue-200 px-8 py-4 rounded-lg font-bold text-xl">
+            <GiCheckMark size={40} className="text-green-500 text-xl bg-green-100 p-2.5 rounded-full" />
+            KMPDC Accredited
+          </p>
         </div>
       </section>
 
       <section
-        id="why-medilink"
-        className="min-h-screen bg-slate-100 flex flex-col items-center space-y-5 p-5"
+        id="issues"
+        className="bg-slate-100 min-h-screen flex flex-col items-center space-y-5"
       >
         <div className="bg-slate-800 h-fit w-full p-10 flex flex-col items-center space-y-5">
           <h1 className="text-white sm:text-4xl text-xl font-bold max-w-xl text-center">
@@ -192,32 +176,12 @@ export const Homepage = () => {
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center w-fit gap-10">
             {ISSUES.map((issue, index: number) => (
-              <div
-                className="bg-white h-fit max-w-[600px] rounded-md p-5 flex flex-wrap gap-5"
-                key={index}
-              >
-                <img
-                  src={issue.image_url}
-                  className="rounded-md max-xl:w-full"
-                  
-                  loading="lazy"
-                  alt={issue.name}
-                />
-                <div className="flex flex-col justify-between max-w-[200px]">
-                  <div>
-                    <h1 className="font-bold text-xl">{issue.name}</h1>
-                    <p>{issue.description}</p>
-                  </div>
-                  <a href="#" className="font-bold">
-                    Learn More
-                  </a>
-                </div>
-              </div>
+              <IssueCard issue={issue} index={index} />
             ))}
           </div>
         </div>
 
-        <div className="space-y-5 py-10">
+        <div className="space-y-5 py-10 px-2.5">
           <header className="text-center space-y-2.5">
             <h1 className="font-bold text-2xl sm:text-4xl">
               Create Natural Life after Treatment
@@ -228,7 +192,7 @@ export const Homepage = () => {
               clinical excellence.
             </p>
           </header>
-          <article className="grid sm:grid-cols-2 grid-cols-1 place-items-center">
+          <article className="grid sm:grid-cols-2 grid-cols-1 place-items-center gap-5">
             <section className="bg-white rounded-xl max-w-xl p-5 space-y-2.5">
               <header className="font-bold text-xl sm:text-2xl">
                 Primary Life
@@ -307,18 +271,21 @@ export const Homepage = () => {
                 </li>
               </ul>
             </section>
-            <img
-              src="/assets/images/Feeling Goodjfif.jfif"
-              alt="Feeling Good"
-              width="500px"
-              className="h-full object-fit rounded-xl"
-            />
+            <div className="relative">
+              <img
+                src="/assets/images/Feeling Goodjfif.jfif"
+                alt="Feeling Good"
+                width="500px"
+                className="h-full object-fit rounded-xl"
+              />
+
+            </div>
           </article>
         </div>
       </section>
 
       <section
-        id="why-medilink"
+        id="traction"
         className="flex flex-col justify-center items-center space-y-5 py-20"
       >
         <h1 className="font-bold sm:text-3xl">What we've done so Far</h1>
@@ -327,7 +294,10 @@ export const Homepage = () => {
             <CardHeader>
               <CardTitle>
                 <BriefcaseBusiness />
-                20+
+                <div className="flex">
+                  <AnimatedCounter start={1} end={5} duration={0.5} />
+                  +
+                </div>
               </CardTitle>
               <CardDescription>Years of Experience</CardDescription>
             </CardHeader>
@@ -336,7 +306,10 @@ export const Homepage = () => {
             <CardHeader>
               <CardTitle>
                 <BriefcaseBusiness />
-                100K+
+                <div className="flex">
+                  <AnimatedCounter start={1} end={200} duration={0.75} />
+                  +
+                </div>
               </CardTitle>
               <CardDescription>Lives Improved</CardDescription>
             </CardHeader>
@@ -345,7 +318,10 @@ export const Homepage = () => {
             <CardHeader>
               <CardTitle>
                 <BriefcaseBusiness />
-                500+
+                <div className="flex">
+                  <AnimatedCounter start={1} end={50} duration={1} />
+                  +
+                </div>
               </CardTitle>
               <CardDescription>Jobs Created</CardDescription>
             </CardHeader>
@@ -361,83 +337,39 @@ export const Homepage = () => {
             Meet our Specialists
           </h1>
         </header>
-        <article className="flex gap-10">
+        <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 place-items-center">
           {EXPERTS.map((expert, index: number) => (
-            <div
-              className="border rounded-md p-3 space-y-2.5 shadow-md max-w-[350px] flex flex-col items-center justify-between hover:scale-[1.0075] duration-300 transition-transform"
-              key={index}
-            >
-              <img
-                src={expert.image_url}
-                alt={expert.name}
-                className="rounded-md "
-              />
-              <div className="space-y-5 items-start w-full">
-                <div className="flex justify-between">
-                  <h2 className="font-bold text-xl">{expert.name}</h2>
-                  <Badge className="bg-blue-500 hover:bg-blue-600">
-                    {expert.specialty}
-                  </Badge>
-                </div>
-                <ul className="flex gap-5 text-xl">
-                  <li>
-                    <FaLinkedinIn />
-                  </li>
-                  <li>
-                    <FaInstagram />
-                  </li>
-                  <li>
-                    <FaFacebook />
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ExpertCard expert={expert} index={index} />
           ))}
-        </article>
+        </div>
       </section>
 
       <section
         id="testimonials"
-        className="space-y-5 py-20 grid place-items-center"
+        className="space-y-5 py-20 grid place-items-center w-full"
       >
         <header>
-          <h1 className="font-bold sm:text-4xl text-2xl ">
-            Hear is what our Customers Say
+          <h1 className="font-bold sm:text-4xl text-2xl">
+            Hear from Our Esteemed Customers
           </h1>
         </header>
-        <article className="grid sm:grid-cols-2 gap-10 grid-cols-1 place-items-center">
-          {
-            TESTIMONIALS.map((testimonial, index:number) => (
-              <div className="h-fit bg-slate-100 max-w-[400px] border rounded-xl" key={testimonial.customer_name}>
-            <p className="p-5 h-[200px]">
-              "{testimonial.body}"
-            </p>
-            <div className="bg-slate-800 rounded-b-xl p-5 flex items-center gap-2.5">
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <ul>
-                <li><h2 className="text-white font-bold text-xl">{testimonial.customer_name}</h2></li>
-                <li><p className="text-slate-200 font-medium text-md ">{testimonial.occupancy}</p></li>
-              </ul>
-            </div>
+        <section className="w-full grid place-items-center overflow-x-auto p-5">
+          <div className="flex gap-10 w-max items-center justify-center">
+            {TESTIMONIALS.map((testimonial, index: number) => (
+              <TestimonialCard testimonial={testimonial} index={index}/>
+            ))}
           </div>
-            ))
-          }
-        </article>
+        </section>
       </section>
+
 
       <section className="p-10 relative bg-[url('https://www.shutterstock.com/image-photo/blue-helix-human-dna-structure-600nw-1669326868.jpg')] bg-no-repeat bg-fixed bg-cover filter backdrop-contrast-125 flex flex-col justify-center items-center">
         <div className="absolute inset-0 bg-black opacity-50 -z-50"></div>
-        <div className="text-center max-w-[800px] space-y-10">
-          <h1 className="text-white text-xl sm:text-5xl font-bold">
+        <div className="text-center max-w-5xl space-y-10">
+          <h1 className="text-white text-xl sm:text-6xl font-bold">
             Ready to Begin Your Therapy Journey
           </h1>
-          <p className="text-slate-200">
+          <p className="text-slate-200 sm:text-2xl text-xl">
             Ready for a transformative health journey ? Personalized plans,
             expert guidance and dedicated support await your commitment.
           </p>

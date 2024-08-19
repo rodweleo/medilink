@@ -42,8 +42,8 @@ const MapComponent = () => {
           ]
         });
     
-        return () => map.setTarget(null)
-      }, [])
+        return () => map.setTarget(undefined)
+      }, [place])
 
     return <div id="map"></div>;
 }
