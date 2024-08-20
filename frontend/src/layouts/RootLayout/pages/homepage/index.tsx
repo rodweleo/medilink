@@ -19,7 +19,7 @@ import AnimatedList from "@/components/animated-list";
 import TestimonialCard from "@/components/testimonial-card";
 import ExpertCard from "@/components/expert-card";
 
-export const Homepage = () => {
+const Homepage = () => {
   const navigate = useNavigate();
 
   const prepareCall = async () => {
@@ -28,11 +28,11 @@ export const Homepage = () => {
   //<span className="text-yellow-600">stronger </span>
   //<span className="text-yellow-600">emotional </span>
 
-  const text = " Elevating emotional wellness and stronger bonds for all.".split(" ")
+  const text = "Elevating emotional wellness and stronger bonds for all.".split(" ")
 
   return (
     <main className="min-h-screen">
-      <section id="#" className="p-2.5 min-h-screen w-full flex flex-col justify-center space-y-5 items-center bg-[url('/assets/images/hero-bg.jpg')] bg-no-repeat bg-fixed bg-cover filter backdrop-contrast-125">
+      <section id="#" className="p-2.5 min-h-screen w-full flex flex-col justify-center space-y-5 items-center bg-[url('/assets/images/hero-bg.jpg')] bg-no-repeat bg-center bg-cover bg-fixed filter backdrop-contrast-125">
         <div className="absolute inset-0 bg-black opacity-50 -z-50"></div>
         <h1 className="sm:text-7xl text-6xl max-w-6xl font-bold text-center text-white">
           {text.map((el, i) => (
@@ -381,3 +381,6 @@ export const Homepage = () => {
     </main>
   );
 };
+
+
+export default Homepage

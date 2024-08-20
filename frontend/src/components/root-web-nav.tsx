@@ -1,30 +1,23 @@
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent } from "./ui/navigation-menu";
 import { Button } from "./ui/button";
 import { ListItem } from "./list-item";
 import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
+import { NavLink } from "react-router-dom";
 
 export default function RootWebNav() {
     return (
         <>
-            <NavigationMenu>
-                <NavigationMenuList>
+            <NavigationMenu >
+                <NavigationMenuList className="flex items-center gap-10 text-md">
                     <NavigationMenuItem>
-                        <a href="/">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Home
-                            </NavigationMenuLink>
-                        </a>
+                        <NavLink to="/">Home</NavLink>
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                        <a href="/how-medilink-works">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                How MediLink Works
-                            </NavigationMenuLink>
-                        </a>
+                        <NavLink to="/how-medilink-works">How Medilink Works</NavLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                        <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>Resources</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                                 <ListItem href="/assessments" title="Assessments">
@@ -40,34 +33,22 @@ export default function RootWebNav() {
                         </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <a href="/pricing">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Pricing
-                            </NavigationMenuLink>
-                        </a>
+                        <NavLink to="/pricing">Pricing</NavLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <a href="/events">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Events
-                            </NavigationMenuLink>
-                        </a>
+                        <NavLink to="/events">Events</NavLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <a href="/contact-us">
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Contact Us
-                            </NavigationMenuLink>
-                        </a>
+                        <NavLink to="/contact-us">Contact Us</NavLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
             <ul className="flex gap-5">
                 <li>
-                    <Button className="bg-slate-800 hover:bg-slate-500"><a href="/sign-in">Login</a></Button>
+                    <Button className="bg-slate-800 hover:bg-slate-500"><NavLink to="/sign-in">Login</NavLink></Button>
                 </li>
                 <li>
-                    <Button variant="outline"><a href="/sign-up">Create Account</a></Button>
+                    <Button variant="outline"><NavLink to="/sign-up">Create Account</NavLink></Button>
                 </li>
             </ul>
         </>

@@ -1,6 +1,7 @@
 import { GrMoney } from "react-icons/gr"
 import { IoSearch } from "react-icons/io5"
 import { GrGrow } from "react-icons/gr";
+import { MdOutlineCalendarMonth } from "react-icons/md";
 
 export const BENEFITS = [
     {
@@ -136,5 +137,24 @@ export const MEDILINK_BENEFITS = [
         icon:  <GrGrow size={40} />,
         title: "High Quality Care",
         description: "Access high-quality care with experienced professionals dedicated to providing exceptional support and personalized treatment. Your well-being is our top priority."
+    }
+]
+
+
+export const BookingProcessItems = [
+    {
+        icon: <IoSearch size={90} className="h-fit bg-slate-800/10 p-2.5 rounded-full" />,
+        title: "Search Therapist",
+        description: "Use Medilink's comprehensive search feature to explore a variety of qualified therapists, each with detailed profiles that include their specialties, experience, and approach."
+    },
+    {
+        icon: <MdOutlineCalendarMonth size={90} className="h-fit bg-slate-800/10 p-2.5 rounded-full" />,
+        title: "Schedule Appointment",
+        description: "Medilink’s intuitive scheduling system allows you to select available slots directly from the therapist’s calendar, ensuring a convenient and seamless booking experience."
+    },
+    {
+        icon: <GrGrow size={90} className="h-fit bg-slate-800/10 p-2.5 rounded-full" />,
+        title: "Start Therapy",
+        description: "Whether in-person or online, Medilink ensures that your first step into therapy is smooth, offering you the support and guidance needed to start your path to wellness."
     }
 ]

@@ -12,7 +12,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { FaVideoSlash } from "react-icons/fa";
 import { FaMicrophoneSlash } from "react-icons/fa";
 
-export const Call = () => {
+const Call = () => {
     const navigate = useNavigate()
     const videoContainerRef = useRef<HTMLVideoElement | null>(null)
     const handleSuccess = (videoStream: MediaStream) => {
@@ -98,3 +98,5 @@ export const Call = () => {
         </article>
     </main>
 }
+
+export default Call

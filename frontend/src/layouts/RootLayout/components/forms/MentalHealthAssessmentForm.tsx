@@ -74,7 +74,7 @@ const formSchema = z.object(
   )
 );
 
-export const MentalHealthAssessmentForm = () => {
+const MentalHealthAssessmentForm = () => {
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
   const [result, setResult] = useState<number>(0);
@@ -121,9 +121,9 @@ export const MentalHealthAssessmentForm = () => {
   
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className="w-full px-5 py-10 flex flex-col gap-4">
       <article className="flex flex-col gap-2">
-        <h1 className="font-bold">Patient Health Questionnaire 9</h1>
+        <h1 className="font-bold sm:text-4xl text-3xl">Patient Health Questionnaire 9</h1>
         <p>
           This is a self-administered patient questionnaire for common mental
           disorders validated for use in primary care.
@@ -235,3 +235,5 @@ export const MentalHealthAssessmentForm = () => {
     </main>
   );
 };
+
+export default MentalHealthAssessmentForm

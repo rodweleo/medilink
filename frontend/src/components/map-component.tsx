@@ -45,7 +45,7 @@ const MapComponent = () => {
         return () => map.setTarget(undefined)
       }, [place])
 
-    return <div id="map"></div>;
+    return <div id="map" className='h-[400px] w-full sm:w-2/4 rounded-2xl'></div>;
 }
 
 export default MapComponent;

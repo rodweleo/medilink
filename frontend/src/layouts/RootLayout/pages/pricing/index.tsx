@@ -1,6 +1,6 @@
 import { PricingPlans } from "../../components/Pricing Plans";
 
-export const Pricing = () => {
+const Pricing = () => {
   return (
     <main className="flex flex-col gap-5 w-full items-center">
       <div className="text-center">
@@ -14,3 +14,5 @@ export const Pricing = () => {
     </main>
   );
 };
+
+export default Pricing

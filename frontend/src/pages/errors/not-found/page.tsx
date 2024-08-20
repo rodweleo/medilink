@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const NotFound = () => {
+const NotFound = () => {
   const navigate = useNavigate();
   const location = useLocation();
   return (
@@ -10,6 +10,7 @@ export const NotFound = () => {
         <img
           src="/assets/images/Doctor Questioning.jpg"
           className="w-[400px]"
+          alt="A therapist listening to a patient patiently."
         />
         <>
           <h1 className="font-bold text-5xl">404 Error</h1>
@@ -36,3 +37,5 @@ export const NotFound = () => {
     </main>
   );
 };
+
+export default NotFound;

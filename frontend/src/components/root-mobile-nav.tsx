@@ -1,15 +1,11 @@
 import { CgMenuLeftAlt } from "react-icons/cg";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "./ui/navigation-menu";
 import { ListItem } from "./list-item";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
 import { useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 export default function RootMobileNav() {
   const [isOpen, setOpen] = useState(false);
@@ -28,56 +24,54 @@ export default function RootMobileNav() {
             Comprehensive Care For Your <span>Mental Well-Being</span>
           </SheetDescription>
         </SheetHeader>
-        <div className="flex flex-col gap-5">
-          <NavigationMenu>
-            <NavigationMenuList className="flex flex-col items-start space-y-5">
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/">
+        <div className="flex flex-col gap-5 w-full overflow-y-auto">
+          <NavigationMenu className="w-full">
+            <NavigationMenuList className="flex flex-col items-start justify-start space-y-5 w-full">
+              <NavigationMenuItem className="ml-1">
+                <NavLink to="/">
                   Home
-                </NavigationMenuLink>
+                </NavLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink href="/how-medilink-works">
-                  How MediLink Works
-                </NavigationMenuLink>
+                <NavLink to="/how-medilink-works">
+                    How MediLink Works
+                </NavLink>
               </NavigationMenuItem>
-              <Collapsible open={isOpen} className="w-full ">
-                <CollapsibleTrigger onClick={() => setOpen(!isOpen)} className="w-full ml-4 font-semibold text-[14px] flex items-center justify-between">Resources <MdOutlineKeyboardArrowDown className={`${isOpen && "rotate-180"} transition-all duration-300 ease-in-out`} /></CollapsibleTrigger>
-                <CollapsibleContent>
-                  <ul className="grid gap-3 p-6 w-full md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <ListItem href="/assessments" title="Assessments">
-                      Quizzes to aid in faster condition detection
-                    </ListItem>
-                    <ListItem href="/support-groups" title="Support Groups">
-                      Join community of like-minded individuals.
-                    </ListItem>
-                    <ListItem href="/benefits-of-therapy" title="Benefits">
-                      The goodside of having therapy.
-                    </ListItem>
-                  </ul>
-                </CollapsibleContent>
-              </Collapsible>
+              <NavigationMenuItem className="space-y-2.5">
+                  <button onClick={() => setOpen(!isOpen)} className="w-full font-semibold text-[14px] flex items-center justify-between">Resources <MdOutlineKeyboardArrowDown className={`${isOpen && "rotate-180"} transition-all duration-300 ease-in-out`} /></button>
+                  <ul className={`bg-slate-200 rounded-xl gap-3 p-6 w-full ${isOpen ? "h-fit grid" : "hidden h-0 overflow-hidden"} transition-all duration-300 ease-in-out`}>
+                      <ListItem href="/assessments" title="Assessments">
+                        Quizzes to aid in faster condition detection
+                      </ListItem>
+                      <ListItem href="/support-groups" title="Support Groups">
+                        Join community of like-minded individuals.
+                      </ListItem>
+                      <ListItem href="/benefits-of-therapy" title="Benefits">
+                        The goodside of having therapy.
+                      </ListItem>
+                    </ul>
+              </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/pricing">
+                <NavLink to="/pricing">
                   Pricing
-                </NavigationMenuLink>
+                </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="events">
+                <NavLink to="events">
                   Events
-                </NavigationMenuLink>
+                </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/contact-us">
+                <NavLink to="/contact-us">
                   Contact Us
-                </NavigationMenuLink>
+                </NavLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           <ul className="space-y-5">
             <li>
-              <Button className="w-full bg-slate-800 hover:bg-slate-500"><a href="/sign-in">Login</a></Button>
+              <Button className="w-full bg-slate-800 hover:bg-slate-500"><NavLink to="/sign-in">Login</NavLink></Button>
             </li>
             <li>
               <Button variant="outline" className="w-full"><a href="/sign-up">Create Account</a></Button>

@@ -9,7 +9,7 @@ export default function ContactInfoContainer({
   children,
 }: ContactInfoContainerProps) {
   return (
-    <div className="flex gap-2 mt-4">
+    <div className="flex gap-2 items-center">
       <div>{children}</div>
       <p className="text-sm">{caption}</p>
     </div>

@@ -53,7 +53,7 @@ export default function RootHeader() {
             </section>
             <nav className="flex px-20 w-full items-center bg-white/90 justify-between h-14 backdrop-blur-md">
                 <NavLink to="/">
-                    <h1 className="font-bold text-slate-800">MediLink</h1>
+                    <h1 className="font-bold text-slate-800 sm:text-xl text-lg drop-shadow-xl">medilink</h1>
                 </NavLink>
                 {width > 1120 ? <RootWebNav /> : <RootMobileNav />}
             </nav>

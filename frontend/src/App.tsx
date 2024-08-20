@@ -7,13 +7,13 @@ import { PatientAccount } from "./pages/accounts/patient";
 import { DoctorAccount } from "./pages/accounts/doctor";
 import { AdminAccount } from "./pages/accounts/admin";
 import ProtectedAuthRoutes from "./providers/protected-routes";
-import { NotFound } from "./pages/errors/not-found/page";
-import { useToast } from "./components/ui/use-toast";
-import { BatteryLow } from "lucide-react";
+import NotFound from "./pages/errors/not-found/page";
+//import { useToast } from "./components/ui/use-toast";
+//import { BatteryLow } from "lucide-react";
 
 function App() {
   const { session } = useSession();
-  const { toast } = useToast()
+  //const { toast } = useToast()
   useEffect(() => {
     if (!session) {
       redirect("/");
@@ -22,26 +22,34 @@ function App() {
 
   }, [session]);
 
+  /*
   function isMobile() {
     const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
     return regex.test(navigator.userAgent);
   }
+  
   useEffect(() => {
-    navigator.getBattery().then((battery) => {
-      if(battery.level < 15){
-        toast({
-          variant: "destructive",
-          title: (
-            <div className="flex items-center gap-1">
-              <BatteryLow/>
-              Battery Low ({battery.level}%)       
-            </div>
-          ),
-          description: `Kindly plug in your ${isMobile() ? "mobile phone" : "desktop"} to a charging station to avoid disconnection.`
-        })
+    const getBatteryStatus = async () => {
+      if("getBattery" in navigator){
+        const battery = await (navigator as unknown).getBattery();
+
+        if((battery.level * 100) < 25){
+          toast({
+            variant: "destructive",
+            title: <>
+              <div className="flex items-center gap-1">
+                <BatteryLow/>
+                Battery Low ({(battery.level * 100)}%)       
+              </div>
+            </>,
+            description: `Kindly plug in your ${isMobile() ? "mobile phone" : "desktop"} to a charging station to avoid disconnection.`
+          })
+        }
       }
-    })
-  }, [])
+    }
+
+    getBatteryStatus()
+  }, [])*/
 
   return (
     <Routes>

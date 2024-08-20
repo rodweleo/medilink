@@ -32,7 +32,7 @@ const SERVICE_OFFERS: ServiceOffered[] = [
       "Ensuring users in rural areas can access essential healthcare services even with limited or no internet connectivity.",
   },
 ];
-export const AboutUsPage = () => {
+const AboutUsPage = () => {
   return (
     <main className="min-h-screen">
       <section className="flex items-center flex-col">
@@ -152,3 +152,6 @@ function OfferCard({
     </Card>
   );
 }
+
+
+export default AboutUsPage

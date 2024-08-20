@@ -1,9 +1,11 @@
 import { SignInForm } from "./components/forms/sign-in-form";
 
-export const SignIn = () => {
+const SignIn = () => {
   return (
-    <main className="p-5 flex items-center justify-center h-full">
+    <main className="p-5 flex items-center justify-center h-screen">
       <SignInForm />
     </main>
   );
 };
+
+export default SignIn
